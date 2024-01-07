@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 
 import API from "../../API.js";
-import Item from "../Item/Item.jsx";
+import {Item} from "../index.js";
 
 function Items() {
     const [items, setItems] = useState([]);
