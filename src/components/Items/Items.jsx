@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import API from "../../API.js";
 import {Item} from "../index.js";
 
+import "./Items.css";
+
 function Items() {
     const [items, setItems] = useState([]);
 
@@ -11,15 +13,15 @@ function Items() {
     }, []);
 
     return (
-        <>
+        <ul className="item-list">
             {items.map((item) => {
                 return (
-                    <div key={`item-${item.id}`}>
+                    <li key={`item-${item.id}`} className="item-list__item">
                         <Item item={item}/>
-                    </div>
+                    </li>
                 )
             })}
-        </>
+        </ul>
     );
 }
 

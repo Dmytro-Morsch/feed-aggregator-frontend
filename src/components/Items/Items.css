@@ -1,0 +1,15 @@
+.item-list {
+    display: flex;
+    flex-direction: column;
+    max-width: 750px;
+    gap: 2rem;
+
+    .item-list__item {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--light);
+        border-radius: 10px;
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+}
