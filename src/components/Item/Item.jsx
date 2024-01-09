@@ -2,9 +2,10 @@ import "./Item.css";
 
 function Item({item}) {
     const dateTimeConvert = () => {
-        let isoDate = new Date(item.pubDate).toISOString();
+        let itemDate = new Date(item.pubDate);
+        let isoDate = itemDate.toISOString();
         let date = isoDate.substring(0, 10);
-        let time = isoDate.substring(11, 16);
+        let time = itemDate.getHours() + ":" + isoDate.substring(14, 16);
         return date + '\n' + time;
     };
 

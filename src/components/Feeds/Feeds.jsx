@@ -1,12 +1,15 @@
+import "./Feeds.css";
+
 function Feeds({feeds, onFeedSelected}) {
 
     return (
-        <ul>
-            <li><a href="#" onClick={() => onFeedSelected(null)}>All</a></li>
+        <ul className="feed-list">
+            <li className="feed-list__item"><a href="#" className="feed" onClick={() => onFeedSelected(null)}>All</a>
+            </li>
             {feeds.map(feed => {
                 return (
-                    <li key={feed.id}>
-                        <a href="#" onClick={() => onFeedSelected(feed.id)}>{feed.title}</a>
+                    <li className="feed-list__item" key={feed.id}>
+                        <a href="#" className="feed" onClick={() => onFeedSelected(feed.id)}>{feed.title}</a>
                     </li>
                 )
             })}
