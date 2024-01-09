@@ -9,10 +9,10 @@ const API = {
         return await response.json();
     },
 
-    postFeedLink: async (xmlLink) => {
+    postFeedLink: async (feedLink) => {
         await fetch('/api/feed-link', {
             method: 'POST',
-            body: xmlLink
+            body: feedLink
         });
     },
 
@@ -20,6 +20,10 @@ const API = {
         const response = await fetch('/api/feeds');
         return await response.json();
     },
+
+    updateFeeds: async () => {
+        await fetch('/api/feeds/update');
+    }
 }
 
 export default API;

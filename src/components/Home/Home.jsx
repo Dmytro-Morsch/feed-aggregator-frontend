@@ -1,7 +1,10 @@
 import {useEffect, useState} from "react";
 
 import API from "../../API.js";
+import useInterval from "../../useInterval.js";
 import {Feeds, Items} from "../index.js";
+
+import "./Home.css";
 
 function Home() {
     const [link, setLink] = useState('');
@@ -17,6 +20,16 @@ function Home() {
         }
     };
 
+    useInterval(() => {
+        API.updateFeeds();
+        console.log(selectedFeed)
+        if (selectedFeed) {
+            API.getFeedItems(selectedFeed).then(r => setItems(r));
+        } else {
+            API.getAllItems().then(r => setItems(r));
+        }
+    }, 3 * 100_000)
+
     useEffect(() => {
         API.getFeeds().then(r => setFeeds(r));
     }, []);
@@ -30,16 +43,21 @@ function Home() {
     }, [selectedFeed]);
 
     return (
-        <>
-            <h1>Home Page</h1>
-            <div>
-                <input onChange={e => setLink(e.target.value)} placeholder="Paste feed"/>
-                <button type="button" className="button submit" onClick={onSubmit}>Submit</button>
+        <div className="container">
+            <div className="navigator">
+                <div className="form-feed">
+                    <input className="input feed" onChange={e => setLink(e.target.value)}
+                           placeholder="Paste feed"/>
+                    <button type="button" className="button submit" onClick={onSubmit}>Add</button>
+                </div>
+
                 <Feeds feeds={feeds} onFeedSelected={setSelectedFeed}/>
             </div>
 
-            <Items items={items}/>
-        </>
+            <div className="content">
+                <Items items={items}/>
+            </div>
+        </div>
     )
 }
 
