@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    gap: 2rem;
+    margin-right: 2rem;
+    overflow: hidden;
+    height: 100vh;
+
+    .navigator {
+        width: 400px;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 1rem;
+        background-color: #F7F7F7;
+
+        .form-feed {
+            display: flex;
+            flex-direction: row;
+
+            .input.feed {
+                width: 300px;
+                border-radius: 5px;
+                padding: 0.9rem 0.8rem;
+                margin-right: 1rem;
+                font-size: 1.5rem;
+            }
+
+            .button.submit {
+                border: none;
+                font-size: 1.5rem;
+                color: var(--light);
+                background-color: var(--primary);
+                cursor: pointer;
+                border-radius: 5px;
+                padding: 1rem 2rem;
+            }
+
+            .button.submit:hover {
+                background-color: var(--dark);
+            }
+        }
+    }
+
+    .content {
+        margin: 0 auto;
+        width: 70%;
+    }
+}
