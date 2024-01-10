@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 
 import API from "../../API.js";
-import useInterval from "../../useInterval.js";
 import {Feeds, Items} from "../index.js";
 
 import "./Home.css";
@@ -20,15 +19,13 @@ function Home() {
         }
     };
 
-    useInterval(() => {
-        API.updateFeeds();
-        console.log(selectedFeed)
+    const handleRefresh = () => {
         if (selectedFeed) {
             API.getFeedItems(selectedFeed).then(r => setItems(r));
         } else {
             API.getAllItems().then(r => setItems(r));
         }
-    }, 3 * 100_000)
+    };
 
     useEffect(() => {
         API.getFeeds().then(r => setFeeds(r));
@@ -55,6 +52,9 @@ function Home() {
             </div>
 
             <div className="content">
+                <div className="toolbar">
+                    <button onClick={handleRefresh}>Refresh</button>
+                </div>
                 <Items items={items}/>
             </div>
         </div>

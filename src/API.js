@@ -19,10 +19,6 @@ const API = {
     getFeeds: async () => {
         const response = await fetch('/api/feeds');
         return await response.json();
-    },
-
-    updateFeeds: async () => {
-        await fetch('/api/feeds/update');
     }
 }
 
