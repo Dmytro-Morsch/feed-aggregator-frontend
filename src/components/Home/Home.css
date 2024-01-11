@@ -43,5 +43,19 @@
     .content {
         margin: 0 auto;
         width: 70%;
+
+        .toolbar {
+            .item-title {
+                font-size: 3.5rem;
+                font-weight: 700;
+                color: var(--primary);
+            }
+
+            .hr {
+                border: 2px solid var(--fourth);
+                border-radius: 5px;
+                margin: 1rem 0;
+            }
+        }
     }
 }

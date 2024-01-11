@@ -9,7 +9,7 @@ function Feeds({feeds, onFeedSelected}) {
             {feeds.map(feed => {
                 return (
                     <li className="feed-list__item" key={feed.id}>
-                        <a href="#" className="feed" onClick={() => onFeedSelected(feed.id)}>{feed.title}</a>
+                        <a href="#" className="feed" onClick={() => onFeedSelected(feed)}>{feed.title}</a>
                     </li>
                 )
             })}

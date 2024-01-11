@@ -10,6 +10,7 @@ function Home() {
     const [feeds, setFeeds] = useState([]);
     const [selectedFeed, setSelectedFeed] = useState(null);
     const [items, setItems] = useState([]);
+    const [isDescOrder, setIsDescOrder] = useState(false);
 
     const onSubmit = () => {
         if (link === '' || link === null) {
@@ -21,9 +22,9 @@ function Home() {
 
     const handleRefresh = () => {
         if (selectedFeed) {
-            API.getFeedItems(selectedFeed).then(r => setItems(r));
+            API.getFeedItems(selectedFeed.id, isDescOrder).then(r => setItems(r));
         } else {
-            API.getAllItems().then(r => setItems(r));
+            API.getAllItems(isDescOrder).then(r => setItems(r));
         }
     };
 
@@ -33,11 +34,11 @@ function Home() {
 
     useEffect(() => {
         if (selectedFeed) {
-            API.getFeedItems(selectedFeed).then(r => setItems(r));
+            API.getFeedItems(selectedFeed.id, isDescOrder).then(r => setItems(r));
         } else {
-            API.getAllItems().then(r => setItems(r));
+            API.getAllItems(isDescOrder).then(r => setItems(r));
         }
-    }, [selectedFeed]);
+    }, [selectedFeed, isDescOrder]);
 
     return (
         <div className="container">
@@ -53,7 +54,12 @@ function Home() {
 
             <div className="content">
                 <div className="toolbar">
-                    <button onClick={handleRefresh}>Refresh</button>
+                    <h1 className="item-title">{selectedFeed ? selectedFeed.title : 'All items'}</h1>
+                    <hr className="hr"/>
+                    <button className="button refresh" onClick={handleRefresh}>Refresh</button>
+                    <button className="button sort" onClick={() => setIsDescOrder(!isDescOrder)}>
+                        Sort
+                    </button>
                 </div>
                 <Items items={items}/>
             </div>

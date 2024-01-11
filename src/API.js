@@ -1,11 +1,16 @@
 const API = {
-    getFeedItems: async (feedId) => {
-        const response = await fetch(`/api/items?feedId=${feedId}`);
+    getFeedItems: async (feedId, isDescOrder) => {
+        const response = await fetch('/api/items?' + new URLSearchParams({
+            feedId: feedId,
+            isDescOrder: isDescOrder
+        }));
         return await response.json();
     },
 
-    getAllItems: async () => {
-        const response = await fetch('/api/items');
+    getAllItems: async (isDescOrder) => {
+        const response = await fetch('/api/items?' + new URLSearchParams({
+            isDescOrder: isDescOrder
+        }));
         return await response.json();
     },
 
