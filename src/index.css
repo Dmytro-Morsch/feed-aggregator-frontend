@@ -27,3 +27,14 @@ a {
 a:hover {
     opacity: 0.5;
 }
+
+.btn {
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    background-color: transparent;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+}

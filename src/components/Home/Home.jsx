@@ -46,7 +46,7 @@ function Home() {
                 <div className="form-feed">
                     <input className="input feed" onChange={e => setLink(e.target.value)}
                            placeholder="Paste feed"/>
-                    <button type="button" className="button submit" onClick={onSubmit}>Add</button>
+                    <button type="button" className="btn btn-feed" onClick={onSubmit}>Add</button>
                 </div>
 
                 <Feeds feeds={feeds} onFeedSelected={setSelectedFeed}/>
@@ -55,11 +55,21 @@ function Home() {
             <div className="content">
                 <div className="toolbar">
                     <h1 className="item-title">{selectedFeed ? selectedFeed.title : 'All items'}</h1>
+                    {selectedFeed &&
+                        <div>
+                            <span>Feed: <a href={selectedFeed.link}>{selectedFeed.link}</a></span>
+                        </div>
+                    }
                     <hr className="hr"/>
-                    <button className="button refresh" onClick={handleRefresh}>Refresh</button>
-                    <button className="button sort" onClick={() => setIsDescOrder(!isDescOrder)}>
-                        Sort
-                    </button>
+
+                    <div className="floating">
+                        <button className="btn btn-refresh" onClick={handleRefresh}>
+                            <i className="fa">&#xf021;</i>Refresh
+                        </button>
+                        <button className="btn btn-sort" onClick={() => setIsDescOrder(!isDescOrder)}>
+                            {isDescOrder ? <i className="fa">&#xf062;</i> : <i className="fa">&#xf063;</i>}
+                        </button>
+                    </div>
                 </div>
                 <Items items={items}/>
             </div>

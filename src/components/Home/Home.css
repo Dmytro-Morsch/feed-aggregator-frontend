@@ -24,17 +24,16 @@
                 font-size: 1.5rem;
             }
 
-            .button.submit {
+            .btn-feed {
                 border: none;
                 font-size: 1.5rem;
                 color: var(--light);
                 background-color: var(--primary);
-                cursor: pointer;
                 border-radius: 5px;
                 padding: 1rem 2rem;
             }
 
-            .button.submit:hover {
+            .btn-feed:hover {
                 background-color: var(--dark);
             }
         }
@@ -55,6 +54,35 @@
                 border: 2px solid var(--fourth);
                 border-radius: 5px;
                 margin: 1rem 0;
+            }
+
+            .floating {
+                .btn-refresh:hover,
+                .btn-sort:hover {
+                    background-color: #E6E6E6;
+                }
+
+                .btn-refresh {
+                    font-size: 1.2rem;
+                    padding: 0.5rem 1rem;
+                    line-height: 1.5;
+                    border-radius: 3px;
+
+                    .fa {
+                        margin-right: 0.5rem;
+                        font-size: 16px;
+                    }
+                }
+
+                .btn-sort {
+                    padding: 0.45rem 1rem;
+                    line-height: 1.5;
+                    border-radius: 3px;
+
+                    .fa {
+                        font-size: 16px;
+                    }
+                }
             }
         }
     }
