@@ -35,11 +35,7 @@ function Items() {
     };
 
     const handleRefresh = () => {
-        if (feed) {
-            API.getFeedItems(feed.id, isDescOrder).then(r => setItems(r));
-        } else {
-            API.getAllItems(isDescOrder).then(r => setItems(r));
-        }
+        API.updateFeed(feed.id, isDescOrder).then(r => setItems(r));
     };
 
     useEffect(() => {
@@ -55,9 +51,9 @@ function Items() {
         <>
             <div className="floating">
                 <div className="pull-left">
-                    <button className="btn btn-refresh" onClick={handleRefresh}>
+                    {feed && <button className="btn btn-refresh" onClick={handleRefresh}>
                         <MdOutlineRefresh className="icon i-refresh"/>Refresh
-                    </button>
+                    </button>}
                 </div>
 
                 <div className="pull-right">
