@@ -33,6 +33,34 @@ const API = {
             method: 'POST'
         });
         return await response.json();
+    },
+
+    getUser: async () => {
+        const response = await fetch('/api/user');
+        return await response.json();
+    },
+
+    markItemAsRead: async (markAsRead, itemId) => {
+        await fetch(`/api/items/${itemId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                markAsRead
+            })
+        });
+    },
+
+    markAllAsRead: async (itemIds) => {
+        const response = await fetch('/api/items/mark-as-read', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(itemIds)
+        });
+        return await response.json();
     }
 }
 

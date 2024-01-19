@@ -19,11 +19,15 @@
     }
 
     .pull-left {
-        .btn-refresh {
-            gap: 4px;
-            font-size: 1.2rem;
-            padding: 0.6rem 1rem;
+        display: flex;
+        gap: 1rem;
 
+        .btn-check,
+        .btn-refresh {
+            font-size: 1.2rem;
+            padding: 0.5rem 1rem;
+            gap: 4px;
+            line-height: 1.5;
         }
     }
 
@@ -48,7 +52,7 @@
     max-width: 100%;
     overflow-y: auto;
     position: relative;
-    height: 100vh;
+    height: 82vh;
     gap: 2rem;
 
     .item-list__item {

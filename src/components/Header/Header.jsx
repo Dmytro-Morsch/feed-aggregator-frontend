@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {Link} from "react-router-dom";
 import {MdArrowDropDown} from "react-icons/md";
 
@@ -6,9 +5,10 @@ import logo from '../../assets/logo.svg';
 import useComponentVisible from "../../useCompontentVisible.js";
 
 import "./Header.css";
+import {useUser} from "../../context/User.context.jsx";
 
 function Header() {
-    const [user] = useState('Dima');
+    const {user} = useUser();
 
     const {
         ref: refPopup,
@@ -33,7 +33,8 @@ function Header() {
 
                 {user &&
                     <div className="dropdown">
-                        <button ref={refPopup} className="btn btn-user" onClick={() => setPopup(!isPopup)}>{user}
+                        <button ref={refPopup} className="btn btn-user"
+                                onClick={() => setPopup(!isPopup)}>{user.username}
                             <MdArrowDropDown/></button>
 
                         {isPopup && <ul id="dropdown-user" className="menu-settings">

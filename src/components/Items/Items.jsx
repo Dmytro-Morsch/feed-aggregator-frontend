@@ -1,5 +1,12 @@
 import {useEffect, useRef, useState} from "react";
-import {MdArrowDownward, MdArrowUpward, MdKeyboardArrowDown, MdKeyboardArrowUp, MdOutlineRefresh} from "react-icons/md";
+import {
+    MdArrowDownward,
+    MdArrowUpward,
+    MdCheck,
+    MdKeyboardArrowDown,
+    MdKeyboardArrowUp,
+    MdOutlineRefresh
+} from "react-icons/md";
 
 import API from "../../API.js";
 import {Item} from "../index.js";
@@ -38,6 +45,14 @@ function Items() {
         API.updateFeed(feed.id, isDescOrder).then(r => setItems(r));
     };
 
+    const handleAllRead = () => {
+        const itemIds = items.filter(item => !item.markAsRead).map(item => item.id);
+        API.markAllAsRead(itemIds).then(() => {
+            items.forEach(item => item.markAsRead = true);
+            setItems(items)
+        });
+    };
+
     useEffect(() => {
         if (feed) {
             API.getFeedItems(feed.id, isDescOrder).then(r => setItems(r));
@@ -54,6 +69,9 @@ function Items() {
                     {feed && <button className="btn btn-refresh" onClick={handleRefresh}>
                         <MdOutlineRefresh className="icon i-refresh"/>Refresh
                     </button>}
+                    <button className="btn btn-check" onClick={handleAllRead}>
+                        <MdCheck/>Mark all as read
+                    </button>
                 </div>
 
                 <div className="pull-right">
