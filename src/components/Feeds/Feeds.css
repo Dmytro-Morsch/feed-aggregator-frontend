@@ -6,8 +6,16 @@
 
     .feed-list__item {
         .feed {
-            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.4rem;
             font-weight: 500;
+            color: black;
+
+            .icon {
+                font-size: 1.6rem;
+            }
         }
     }
 }
