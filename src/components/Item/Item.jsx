@@ -1,19 +1,8 @@
-import {useState} from "react";
 import {MdCheck} from "react-icons/md";
 
 import dateTimeConvert from "../../utils/dateTimeConvert.js";
 
 import "./Item.css";
-
-function Item({item}) {
-    const [isRead, setIsRead] = useState(item.markAsRead);
-
-    const handleRead = () => {
-        API.markItemAsRead(!isRead, item.id).then(() => {
-            setIsRead(!isRead);
-            item.markAsRead = !isRead;
-        });
-    };
 
 function Item({item, onMarkRead}) {
     return (
@@ -25,8 +14,8 @@ function Item({item, onMarkRead}) {
             {item.description && <div className="description" dangerouslySetInnerHTML={{__html: item.description}}/>}
 
             <div className="control-panel">
-                <button className="btn btn-check" onClick={handleRead}>
-                    <MdCheck/> {isRead ? 'Mark as unread' : 'Mark as read'}
+                <button className="btn btn-check" onClick={() => onMarkRead(item.id, !item.markAsRead)}>
+                    <MdCheck/> {item.markAsRead ? 'Mark as unread' : 'Mark as read'}
                 </button>
             </div>
         </>

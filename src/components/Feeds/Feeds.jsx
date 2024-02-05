@@ -10,8 +10,9 @@ function Feeds({feeds}) {
     return (
         <ul className="feed-list">
             <li className="feed-list__item">
-                <a href="#" className="feed" onClick={() => setFeed(null)}><MdFormatListBulleted className="icon"/> All
-                    items</a>
+                <a href="#" className="feed" onClick={() => setFeed(null)}>
+                    <MdFormatListBulleted className="icon"/> All items
+                </a>
             </li>
             {feeds.map(feed => {
                 return (

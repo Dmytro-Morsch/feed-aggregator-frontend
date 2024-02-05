@@ -43,6 +43,11 @@
         .btn-sort {
             padding: 0.45rem 1rem;
         }
+
+        .btn-show_post {
+            font-size: 1.2rem;
+            padding: 0 1rem;
+        }
     }
 }
 

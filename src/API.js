@@ -14,6 +14,23 @@ const API = {
         return await response.json();
     },
 
+    getAllUnreadItems: async (isDescOrder, isUnreadPosts) => {
+        const response = await fetch('/api/items?' + new URLSearchParams({
+            isDescOrder,
+            isUnreadPosts
+        }));
+        return await response.json();
+    },
+
+    getFeedUnreadItems: async (feedId, isDescOrder, isUnreadPosts) => {
+        const response = await fetch('/api/items?' + new URLSearchParams({
+            feedId,
+            isDescOrder,
+            isUnreadPosts
+        }));
+        return await response.json();
+    },
+
     postFeedLink: async (feedLink) => {
         await fetch('/api/feed-link', {
             method: 'POST',
@@ -53,14 +70,13 @@ const API = {
     },
 
     markAllAsRead: async (itemIds) => {
-        const response = await fetch('/api/items/mark-as-read', {
+        await fetch('/api/items/mark-as-read', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(itemIds)
         });
-        return await response.json();
     }
 }
 

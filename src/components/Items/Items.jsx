@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {
     MdArrowDownward,
     MdArrowUpward,
@@ -18,6 +18,7 @@ function Items() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [items, setItems] = useState([]);
     const [isDescOrder, setIsDescOrder] = useState(false);
+    const [unreadPosts, setUnreadPosts] = useState(true);
 
     const {feed} = useFeed();
     const ref = useRef(null);
@@ -48,9 +49,31 @@ function Items() {
     const handleAllRead = () => {
         const itemIds = items.filter(item => !item.markAsRead).map(item => item.id);
         API.markAllAsRead(itemIds).then(() => {
-            items.forEach(item => item.markAsRead = true);
-            setItems(items)
+            setItems((prevState) => prevState.map(value => ({...value, markAsRead: true})));
         });
+    };
+
+    const handleMarkAsRead = useCallback((itemId, marker) => {
+        API.markItemAsRead(marker, itemId).then(() => {
+            setItems((prevState) => prevState.map(value => {
+                if (value.id === itemId) return {...value, markAsRead: marker}
+                return value;
+            }));
+        });
+    }, []);
+
+    const handleShowPost = () => {
+        if (feed) {
+            API.getFeedUnreadItems(feed.id, isDescOrder, unreadPosts).then(r => {
+                setUnreadPosts(!unreadPosts);
+                setItems(r);
+            });
+        } else {
+            API.getAllUnreadItems(isDescOrder, unreadPosts).then(r => {
+                setUnreadPosts(!unreadPosts);
+                setItems(r);
+            });
+        }
     };
 
     useEffect(() => {
@@ -59,8 +82,8 @@ function Items() {
         } else {
             API.getAllItems(isDescOrder).then(r => setItems(r));
         }
+        setUnreadPosts(true);
     }, [feed, isDescOrder]);
-
 
     return (
         <>
@@ -83,6 +106,9 @@ function Items() {
                         {isDescOrder ? <MdArrowDownward className="icon i-arrow_down"/> :
                             <MdArrowUpward className="icon i-arrow_up"/>}
                     </button>
+                    <button className="btn btn-show_post" onClick={handleShowPost}>
+                        {!unreadPosts ? 'Show all posts' : 'Show unread only'}
+                    </button>
                 </div>
             </div>
 
@@ -91,7 +117,7 @@ function Items() {
                     {items.map((item, index) => {
                         return (
                             <li key={`item-${item.id}`} data-id={index} className="item-list__item">
-                                <Item item={item}/>
+                                <Item item={item} onMarkRead={handleMarkAsRead}/>
                             </li>
                         )
                     })}
