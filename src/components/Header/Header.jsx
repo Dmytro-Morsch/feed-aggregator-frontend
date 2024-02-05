@@ -1,11 +1,12 @@
 import {Link} from "react-router-dom";
 import {MdArrowDropDown} from "react-icons/md";
 
+import useComponentVisible from "../../hooks/useCompontentVisible.js";
+import {useUser} from "../../context/User.context.jsx";
+
 import logo from '../../assets/logo.svg';
-import useComponentVisible from "../../useCompontentVisible.js";
 
 import "./Header.css";
-import {useUser} from "../../context/User.context.jsx";
 
 function Header() {
     const {user} = useUser();
