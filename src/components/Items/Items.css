@@ -82,3 +82,9 @@
 .item-list::-webkit-scrollbar-thumb:hover {
     background: #6B6B6BFF;
 }
+
+.notif-not_found {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-top: 3rem;
+}

@@ -112,7 +112,7 @@ function Items() {
                 </div>
             </div>
 
-            {items &&
+            {items.length > 0 ?
                 <ul ref={ref} className="item-list">
                     {items.map((item, index) => {
                         return (
@@ -122,6 +122,7 @@ function Items() {
                         )
                     })}
                 </ul>
+                : <div className="notif-not_found">There are no posts to view at this time</div>
             }
         </>
     );
