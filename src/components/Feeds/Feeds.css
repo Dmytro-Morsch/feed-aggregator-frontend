@@ -23,6 +23,14 @@
             .icon {
                 font-size: 1.6rem;
             }
+
+            .icon.i-rss {
+                color: var(--secondary);
+            }
+
+            .source-icon {
+                width: 16px;
+            }
         }
     }
 }
