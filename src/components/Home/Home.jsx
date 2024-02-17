@@ -40,8 +40,9 @@ function Home() {
                 <div className="toolbar">
                     <h1 className="item-title">{feed ? feed.title : 'All items'}</h1>
                     {feed &&
-                        <div>
-                            <span>Feed: <a href={feed.link}>{feed.link}</a></span>
+                        <div className="sources">
+                            <span className="source site">Site: <a href={feed.siteLink}>{feed.siteLink}</a></span>
+                            <span className="source feed">Feed: <a href={feed.feedLink}>{feed.feedLink}</a></span>
                         </div>
                     }
                     <hr className="hr"/>
