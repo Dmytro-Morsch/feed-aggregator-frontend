@@ -17,7 +17,9 @@ function Feeds({feeds}) {
             {feeds.map(feed => {
                 return (
                     <li className="feed-list__item" key={feed.id}>
-                        <a href="#" className="feed" onClick={() => setFeed(feed)}>{feed.title}</a>
+                        <a href="#" className="feed" title={feed.title} onClick={() => setFeed(feed)}>
+                            <span className="title">{feed.title}</span>
+                        </a>
                     </li>
                 )
             })}
