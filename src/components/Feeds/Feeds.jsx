@@ -1,4 +1,4 @@
-import {MdFormatListBulleted, MdRssFeed} from "react-icons/md";
+import {MdFormatListBulleted} from "react-icons/md";
 
 import {useFeed} from "../../context/Feed.context.jsx";
 
@@ -18,10 +18,7 @@ function Feeds({feeds}) {
                 return (
                     <li className="feed-list__item" key={feed.id}>
                         <a href="#" className="feed" title={feed.title} onClick={() => setFeed(feed)}>
-                            {feed.iconUrl ?
-                                <img className="source-icon" src={`/api/feeds/${feed.id}/icon`} alt=""/> :
-                                <MdRssFeed className="icon i-rss"/>
-                            }
+                            <img className="source-icon" src={`/api/feeds/${feed.id}/icon`} alt=""/>
                             <span className="title">{feed.title}</span>
                         </a>
                     </li>
