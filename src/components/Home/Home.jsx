@@ -16,7 +16,10 @@ function Home() {
         if (link === '' || link === null) {
             console.log("Invalid link");
         } else {
-            API.postFeedLink(link);
+            API.postFeedLink(link).then(r => {
+                setFeeds(prevState => [...prevState, r]);
+                setLink('');
+            });
         }
     };
 
@@ -28,8 +31,8 @@ function Home() {
         <div className="container">
             <div className="navigator">
                 <div className="form-feed">
-                    <input className="input feed" onChange={e => setLink(e.target.value)}
-                           placeholder="Paste feed"/>
+                    <input className="input feed" placeholder="Paste feed" value={link}
+                           onChange={e => setLink(e.target.value)}/>
                     <button type="button" className="btn btn-feed" onClick={onSubmit}>Add</button>
                 </div>
 

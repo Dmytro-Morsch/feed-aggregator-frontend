@@ -32,10 +32,11 @@ const API = {
     },
 
     postFeedLink: async (feedLink) => {
-        await fetch('/api/feed-link', {
+        const response = await fetch('/api/feed-link', {
             method: 'POST',
             body: feedLink
         });
+        return await response.json();
     },
 
     getFeeds: async () => {
