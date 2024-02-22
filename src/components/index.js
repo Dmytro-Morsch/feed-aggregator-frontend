@@ -4,6 +4,8 @@ import Item from "./Item/Item.jsx";
 import Items from "./Items/Items.jsx";
 import Feeds from "./Feeds/Feeds.jsx";
 import Header from "./Header/Header.jsx";
+import ManageFeeds from "./ManageFeeds/ManageFeeds.jsx";
+import RenamePopup from "./RenamePopup/RenamePopup.jsx";
 
 export {
     MainLayout,
@@ -11,5 +13,7 @@ export {
     Item,
     Items,
     Feeds,
-    Header
+    Header,
+    ManageFeeds,
+    RenamePopup
 };

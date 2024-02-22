@@ -7,7 +7,7 @@ const API = {
         return await response.json();
     },
 
-    getAllItems: async (isDescOrder) => {
+    getAllUserItems: async (isDescOrder) => {
         const response = await fetch('/api/items?' + new URLSearchParams({
             isDescOrder
         }));
@@ -77,6 +77,27 @@ const API = {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(itemIds)
+        });
+    },
+
+    getUserFeeds: async () => {
+        const response = await fetch('/api/user/subscriptions');
+        return await response.json();
+    },
+
+    unsubscribeFromFeed: async (feedId) => {
+        await fetch(`/api/feeds/${feedId}/unsubscribe`, {
+            method: 'DELETE'
+        });
+    },
+
+    renameFeed: async (userFeed) => {
+        await fetch('/api/feed/rename', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userFeed)
         });
     }
 }

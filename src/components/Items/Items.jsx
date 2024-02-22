@@ -80,7 +80,7 @@ function Items() {
         if (feed) {
             API.getFeedItems(feed.id, isDescOrder).then(r => setItems(r));
         } else {
-            API.getAllItems(isDescOrder).then(r => setItems(r));
+            API.getAllUserItems(isDescOrder).then(r => setItems(r));
         }
         setUnreadPosts(true);
     }, [feed, isDescOrder]);

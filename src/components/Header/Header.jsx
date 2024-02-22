@@ -40,11 +40,14 @@ function Header() {
 
                         {isPopup && <ul id="dropdown-user" className="menu-settings">
                             <li className="link">
-                                <a href="#">Manage account</a>
+                                <a href="#">Manage Account</a>
+                            </li>
+                            <li className="link">
+                                <Link to="/manage/subscriptions">Manage Subscriptions</Link>
                             </li>
                             <hr className="hr"/>
                             <li className="link">
-                                <a href="#">Sign out</a>
+                                <a href="#">Sign Out</a>
                             </li>
                         </ul>}
                     </div>
