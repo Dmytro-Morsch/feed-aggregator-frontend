@@ -1,8 +1,11 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
-import {Home, MainLayout, ManageFeeds} from "./components";
 import {FeedProvider} from "./context/Feed.context.jsx";
 import {UserProvider} from "./context/User.context.jsx";
+
+import MainLayout from "./components/MainLayout/MainLayout.jsx";
+import Home from "./components/Home/Home.jsx";
+import ManageFeeds from "./components/ManageFeeds/ManageFeeds.jsx";
 
 function App() {
 

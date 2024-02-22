@@ -1,0 +1,33 @@
+.navigator {
+    width: 300px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    background-color: #F7F7F7;
+    height: 93vh;
+
+    .form-feed {
+        display: flex;
+        flex-direction: row;
+
+        .input.feed {
+            border-radius: 5px;
+            padding: 0.8rem;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .btn-feed {
+            border: none;
+            font-size: 1.5rem;
+            color: var(--light);
+            background-color: var(--primary);
+            border-radius: 5px;
+            padding: 1rem 2rem;
+        }
+
+        .btn-feed:hover {
+            background-color: var(--dark);
+        }
+    }
+}
