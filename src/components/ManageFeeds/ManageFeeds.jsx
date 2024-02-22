@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 
 import API from "../../API.js";
 import useComponentVisible from "../../hooks/useCompontentVisible.js";
-import {RenamePopup} from "../index.js";
+import RenamePopup from "../RenamePopup/RenamePopup.jsx";
 
 function ManageFeeds() {
     const [userFeeds, setUserFeeds] = useState([]);

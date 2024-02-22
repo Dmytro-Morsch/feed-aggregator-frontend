@@ -9,10 +9,10 @@ import {
 } from "react-icons/md";
 
 import API from "../../API.js";
-import {Item} from "../index.js";
 import {useFeed} from "../../context/Feed.context.jsx";
 
 import "./Items.css";
+import Item from "../Item/Item.jsx";
 
 function Items() {
     const [currentIndex, setCurrentIndex] = useState(0);

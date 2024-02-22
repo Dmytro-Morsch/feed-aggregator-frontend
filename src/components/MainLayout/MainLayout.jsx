@@ -1,8 +1,9 @@
 import {useEffect} from "react";
 import {Outlet} from "react-router-dom";
-import {Header} from "../index.js";
 
 import {useUser} from "../../context/User.context.jsx";
+
+import Header from "../Header/Header.jsx";
 import AsideBar from "../AsideBar/AsideBar.jsx";
 
 import './MainLayout.css';

@@ -1,5 +1,5 @@
-import {Items} from "../index.js";
 import {useFeed} from "../../context/Feed.context.jsx";
+import Items from "../Items/Items.jsx";
 
 import "./Home.css";
 
