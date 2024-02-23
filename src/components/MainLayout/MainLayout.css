@@ -1,3 +1,9 @@
 .container {
     display: flex;
+    gap: 3rem;
+    margin-right: 3rem;
+}
+
+.outlet {
+    width: 95%;
 }

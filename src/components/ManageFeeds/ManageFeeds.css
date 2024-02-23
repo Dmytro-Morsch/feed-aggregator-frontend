@@ -1,0 +1,62 @@
+.manage-feeds {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .h1 {
+        font-size: 3rem;
+        font-weight: 700;
+    }
+
+    .subtitle {
+        margin-top: 1.5rem;
+        font-size: 1.4rem;
+    }
+
+    .user-feed-list {
+        display: grid;
+        width: 100%;
+        border: 1px solid gray;
+
+        grid-template-areas:
+                'feed-name feed-unsub feed-rename'
+                'feed-list__link feed-list__unsub feed-list__rename';
+
+        .header {
+            display: flex;
+            flex-direction: row;
+            font-size: 1.6rem;
+            font-weight: 700;
+            padding: 1rem;
+            border: 1px solid gray;
+
+        }
+
+        .body {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid gray;
+
+            .site-link {
+                font-size: 1.4rem;
+            }
+
+            .btn {
+                padding: 1rem 2rem;
+                border-radius: 4px;
+            }
+
+            .btn:hover {
+                background-color: #E6E6E6;
+            }
+        }
+
+        .feed-link {
+            font-size: 1.5rem;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+}
