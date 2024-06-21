@@ -3,6 +3,7 @@ import {MdFormatListBulleted} from "react-icons/md";
 import {useFeed} from "../../context/Feed.context.jsx";
 
 import "./Feeds.css";
+import "./Loader.css";
 
 function Feeds({feeds}) {
     const {setFeed} = useFeed();
@@ -18,7 +19,11 @@ function Feeds({feeds}) {
                 return (
                     <li className="feed-list__item" key={feed.id}>
                         <a href="#" className="feed" title={feed.title} onClick={() => setFeed(feed)}>
-                            <img className="source-icon" src={`/api/feeds/${feed.id}/icon`} alt=""/>
+                            {feed.loaded ?
+                                <img className="source-icon" src={`/api/feeds/${feed.id}/icon`} alt=""/>
+                                :
+                                <div className="loader"></div>
+                            }
                             <span className="title">{feed.title}</span>
                         </a>
                     </li>
