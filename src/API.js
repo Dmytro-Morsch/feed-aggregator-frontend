@@ -58,21 +58,19 @@ const API = {
         return await response.json();
     },
 
-    markItemAsRead: async (read, itemId) => {
+    markItemRead: async (read, itemId) => {
         await fetch(`/api/items/${itemId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                read
-            })
+            body: JSON.stringify(read)
         });
     },
 
-    markAllAsRead: async (itemIds) => {
-        await fetch('/api/items/mark-as-read', {
-            method: 'POST',
+    markAllRead: async (itemIds) => {
+        await fetch('/api/items/all/read', {
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },

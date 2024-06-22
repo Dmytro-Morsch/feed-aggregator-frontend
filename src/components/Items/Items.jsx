@@ -48,13 +48,13 @@ function Items() {
 
     const handleAllRead = () => {
         const itemIds = items.filter(item => !item.read).map(item => item.id);
-        API.markAllAsRead(itemIds).then(() => {
+        API.markAllRead(itemIds).then(() => {
             setItems((prevState) => prevState.map(value => ({...value, read: true})));
         });
     };
 
     const handleMarkAsRead = useCallback((itemId, marker) => {
-        API.markItemAsRead(marker, itemId).then(() => {
+        API.markItemRead(marker, itemId).then(() => {
             setItems((prevState) => prevState.map(value => {
                 if (value.id === itemId) return {...value, read: marker}
                 return value;
