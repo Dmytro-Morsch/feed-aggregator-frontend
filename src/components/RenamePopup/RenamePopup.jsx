@@ -4,7 +4,7 @@ import {MdClose} from "react-icons/md";
 import './RenamePopup.css';
 
 function RenamePopup({myref, feed, onRenameTitle, onClosePopup}) {
-    const [title, setTitle] = useState(feed.feedTitle);
+    const [title, setTitle] = useState(feed.title);
 
     return (
         <div ref={myref} className="rename-popup">
@@ -22,7 +22,7 @@ function RenamePopup({myref, feed, onRenameTitle, onClosePopup}) {
             <div className="popup-footer">
                 <button className="btn btn-cancel" onClick={onClosePopup}>Cancel</button>
                 <button className="btn btn-rename" onClick={() => {
-                    onRenameTitle(feed.userId, feed.feedId, title);
+                    onRenameTitle(feed.id, title);
                     onClosePopup();
                 }}>Rename
                 </button>

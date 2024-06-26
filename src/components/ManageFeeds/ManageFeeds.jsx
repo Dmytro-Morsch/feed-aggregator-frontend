@@ -8,6 +8,7 @@ import "./ManageFeeds.css";
 
 function ManageFeeds() {
     const [userFeeds, setUserFeeds] = useState([]);
+    const [currentFeed, setCurrentFeed] = useState({});
 
     const {
         ref: refRenamePopup,
@@ -21,23 +22,17 @@ function ManageFeeds() {
         });
     };
 
-    const handleRename = (userId, feedId, feedTitle) => {
-        const userFeed = {
-            userId,
-            feedId,
-            feedTitle
-        };
-        console.log(userFeed)
-        API.renameFeed(userFeed).then(() => {
+    const handleRename = (feedId, title) => {
+        API.renameFeed(feedId, title).then(() => {
             setUserFeeds(prevState => prevState.map(value => {
-                if (value.feedId === feedId) return {...value, feedTitle: feedTitle}
+                if (value.feedId === feedId) return {...value, title}
                 return value;
             }))
         })
     }
 
     useEffect(() => {
-        API.getUserFeeds().then(r => setUserFeeds(r))
+        API.getFeeds().then(r => setUserFeeds(r))
     }, []);
 
     return (
@@ -51,6 +46,11 @@ function ManageFeeds() {
                 </div>
             </div>
 
+            {isRenamePopup &&
+                <RenamePopup myref={refRenamePopup} feed={currentFeed} onRenameTitle={handleRename}
+                             onClosePopup={() => setRenamePopup(false)}/>
+            }
+
             <ul className="user-feed-list">
                 <li className="header feed-name">
                     Feed name
@@ -59,22 +59,21 @@ function ManageFeeds() {
                 <li className="header feed-rename"></li>
                 {userFeeds.map(feed => {
                     return (
-                        <React.Fragment key={feed.feedId}>
-                            {isRenamePopup &&
-                                <RenamePopup myref={refRenamePopup} feed={feed} onRenameTitle={handleRename}
-                                             onClosePopup={() => setRenamePopup(false)}/>
-                            }
+                        <React.Fragment key={feed.id}>
                             <li className="body feed-list__link">
-                                <div><a href="#" className="site-link">{feed.feedTitle}</a></div>
+                                <div><a href="#" className="site-link">{feed.title}</a></div>
                             </li>
                             <li className="body feed-list__unsub">
-                                <button className="btn btn-unsub" onClick={() => handleUnsubscribe(feed.feedId)}>
+                                <button className="btn btn-unsub" onClick={() => handleUnsubscribe(feed.id)}>
                                     Unsubscribe
                                 </button>
                             </li>
                             <li className="body feed-list__rename">
                                 <button ref={refRenamePopup} className="btn btn-rename"
-                                        onClick={() => setRenamePopup(!isRenamePopup)}>Rename
+                                        onClick={() => {
+                                            setCurrentFeed(feed);
+                                            setRenamePopup(!isRenamePopup)
+                                        }}>Rename
                                 </button>
                             </li>
                         </React.Fragment>

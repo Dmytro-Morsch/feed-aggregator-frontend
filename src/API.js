@@ -32,15 +32,10 @@ const API = {
     },
 
     postFeedLink: async (feedLink) => {
-        const response = await fetch('/api/feed-link', {
+        const response = await fetch('/api/feeds/subscribe', {
             method: 'POST',
             body: feedLink
         });
-        return await response.json();
-    },
-
-    getFeeds: async () => {
-        const response = await fetch('/api/feeds');
         return await response.json();
     },
 
@@ -78,8 +73,8 @@ const API = {
         });
     },
 
-    getUserFeeds: async () => {
-        const response = await fetch('/api/user/subscriptions');
+    getFeeds: async () => {
+        const response = await fetch('/api/feeds');
         return await response.json();
     },
 
@@ -89,13 +84,13 @@ const API = {
         });
     },
 
-    renameFeed: async (userFeed) => {
-        await fetch('/api/feed/rename', {
-            method: 'PUT',
+    renameFeed: async (feedId, title) => {
+        await fetch(`/api/feeds/${feedId}/rename`, {
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(userFeed)
+            body: JSON.stringify(title)
         });
     }
 }
