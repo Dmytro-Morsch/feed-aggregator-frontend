@@ -17,8 +17,8 @@ import Item from "../Item/Item.jsx";
 function Items() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [items, setItems] = useState([]);
-    const [isDescOrder, setIsDescOrder] = useState(false);
-    const [unreadPosts, setUnreadPosts] = useState(true);
+    const [descOrder, setDescOrder] = useState(false);
+    const [unreadOnly, setUnreadOnly] = useState(false);
 
     const {feed} = useFeed();
     const ref = useRef(null);
@@ -43,7 +43,7 @@ function Items() {
     };
 
     const handleRefresh = () => {
-        API.updateFeed(feed.id, isDescOrder).then(r => setItems(r));
+        API.updateFeed(feed.id, descOrder).then(r => setItems(r));
     };
 
     const handleAllRead = () => {
@@ -64,13 +64,13 @@ function Items() {
 
     const handleShowPost = () => {
         if (feed) {
-            API.getFeedUnreadItems(feed.id, isDescOrder, unreadPosts).then(r => {
-                setUnreadPosts(!unreadPosts);
+            API.getFeedUnreadItems(feed.id, descOrder, unreadOnly).then(r => {
+                setUnreadOnly(!unreadOnly);
                 setItems(r);
             });
         } else {
-            API.getAllUnreadItems(isDescOrder, unreadPosts).then(r => {
-                setUnreadPosts(!unreadPosts);
+            API.getAllUnreadItems(descOrder, unreadOnly).then(r => {
+                setUnreadOnly(!unreadOnly);
                 setItems(r);
             });
         }
@@ -78,12 +78,12 @@ function Items() {
 
     useEffect(() => {
         if (feed) {
-            API.getFeedItems(feed.id, isDescOrder).then(r => setItems(r));
+            API.getFeedItems(feed.id, descOrder).then(r => setItems(r));
         } else {
-            API.getAllUserItems(isDescOrder).then(r => setItems(r));
+            API.getAllUserItems(descOrder).then(r => setItems(r));
         }
-        setUnreadPosts(true);
-    }, [feed, isDescOrder]);
+        setUnreadOnly(true);
+    }, [feed, descOrder]);
 
     return (
         <>
@@ -102,12 +102,12 @@ function Items() {
                         className="icon i-prev_arrow"/></button>
                     <button className="btn btn-next_post" onClick={handleNextItem}><MdKeyboardArrowDown
                         className="icon i-next_arrow"/></button>
-                    <button className="btn btn-sort" onClick={() => setIsDescOrder(!isDescOrder)}>
-                        {isDescOrder ? <MdArrowDownward className="icon i-arrow_down"/> :
+                    <button className="btn btn-sort" onClick={() => setDescOrder(!descOrder)}>
+                        {descOrder ? <MdArrowDownward className="icon i-arrow_down"/> :
                             <MdArrowUpward className="icon i-arrow_up"/>}
                     </button>
                     <button className="btn btn-show_post" onClick={handleShowPost}>
-                        {!unreadPosts ? 'Show all posts' : 'Show unread only'}
+                        {!unreadOnly ? 'Show all posts' : 'Show unread only'}
                     </button>
                 </div>
             </div>

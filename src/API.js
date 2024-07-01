@@ -1,32 +1,32 @@
 const API = {
-    getFeedItems: async (feedId, isDescOrder) => {
+    getFeedItems: async (feedId, descOrder) => {
         const response = await fetch('/api/items?' + new URLSearchParams({
             feedId,
-            isDescOrder
+            descOrder
         }));
         return await response.json();
     },
 
-    getAllUserItems: async (isDescOrder) => {
+    getAllUserItems: async (descOrder) => {
         const response = await fetch('/api/items?' + new URLSearchParams({
-            isDescOrder
+            descOrder
         }));
         return await response.json();
     },
 
-    getAllUnreadItems: async (isDescOrder, isUnreadPosts) => {
+    getAllUnreadItems: async (descOrder, unreadOnly) => {
         const response = await fetch('/api/items?' + new URLSearchParams({
-            isDescOrder,
-            isUnreadPosts
+            descOrder,
+            unreadOnly
         }));
         return await response.json();
     },
 
-    getFeedUnreadItems: async (feedId, isDescOrder, isUnreadPosts) => {
+    getFeedUnreadItems: async (feedId, descOrder, unreadOnly) => {
         const response = await fetch('/api/items?' + new URLSearchParams({
             feedId,
-            isDescOrder,
-            isUnreadPosts
+            descOrder,
+            unreadOnly
         }));
         return await response.json();
     },
@@ -39,9 +39,9 @@ const API = {
         return await response.json();
     },
 
-    updateFeed: async (feedId, isDescOrder) => {
+    updateFeed: async (feedId, descOrder) => {
         const response = await fetch(`/api/feeds/${feedId}/update?` + new URLSearchParams({
-            isDescOrder
+            descOrder
         }), {
             method: 'POST'
         });
