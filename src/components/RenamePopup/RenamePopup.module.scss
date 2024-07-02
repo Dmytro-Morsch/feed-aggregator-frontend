@@ -51,25 +51,25 @@
         text-align: right;
         padding: 1rem 1.5rem;
 
-        .btn {
+        .btn-cancel,
+        .btn-rename {
             border-radius: 4px;
             padding: 0.6rem 1.2rem;
             font-size: 1.3rem;
         }
 
-        .btn.btn-cancel:hover {
+        .btn-cancel:hover {
             background-color: #E6E6E6;
         }
 
-        .btn.btn-rename {
+        .btn-rename {
             background-color: var(--secondary);
             color: white;
             margin-left: 0.6rem;
         }
 
-        .btn.btn-rename:hover {
+        .btn-rename:hover {
             background-color: #00878c;
         }
-
     }
 }

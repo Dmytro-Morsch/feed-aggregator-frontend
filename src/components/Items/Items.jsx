@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from 'react';
 import {
     MdArrowDownward,
     MdArrowUpward,
@@ -6,13 +6,15 @@ import {
     MdKeyboardArrowDown,
     MdKeyboardArrowUp,
     MdOutlineRefresh
-} from "react-icons/md";
+} from 'react-icons/md';
 
-import API from "../../API.js";
-import {useFeed} from "../../context/Feed.context.jsx";
+import {useFeed} from '../../context/Feed.context.jsx';
 
-import "./Items.css";
-import Item from "../Item/Item.jsx";
+import API from '../../API.js';
+import Item from '../Item/Item.jsx';
+import Button from '../Button/Button.jsx';
+
+import styles from './Items.module.scss';
 
 function Items() {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -87,42 +89,49 @@ function Items() {
 
     return (
         <>
-            <div className="floating">
-                <div className="pull-left">
-                    {feed && <button className="btn btn-refresh" onClick={handleRefresh}>
-                        <MdOutlineRefresh className="icon i-refresh"/>Refresh
-                    </button>}
-                    <button className="btn btn-check" onClick={handleAllRead}>
+            <div className={styles["floating"]}>
+                <div className={styles["pull-left"]}>
+                    {feed &&
+                        <Button className={styles["btn-refresh"]} onClick={handleRefresh}>
+                            <MdOutlineRefresh className={`${styles["icon"]} ${styles["i-refresh"]}`}/>Refresh
+                        </Button>
+                    }
+                    <Button className={styles["btn-check"]} onClick={handleAllRead}>
                         <MdCheck/>Mark all as read
-                    </button>
+                    </Button>
                 </div>
 
-                <div className="pull-right">
-                    <button className="btn btn-prev_post" onClick={handlePrevItem}><MdKeyboardArrowUp
-                        className="icon i-prev_arrow"/></button>
-                    <button className="btn btn-next_post" onClick={handleNextItem}><MdKeyboardArrowDown
-                        className="icon i-next_arrow"/></button>
-                    <button className="btn btn-sort" onClick={() => setDescOrder(!descOrder)}>
-                        {descOrder ? <MdArrowDownward className="icon i-arrow_down"/> :
-                            <MdArrowUpward className="icon i-arrow_up"/>}
-                    </button>
-                    <button className="btn btn-show_post" onClick={handleShowPost}>
+                <div className={styles["pull-right"]}>
+                    <Button className={styles["btn-prev_post"]} onClick={handlePrevItem}>
+                        <MdKeyboardArrowUp className={`${styles["icon"]} ${styles["i-prev_arrow"]}`}/>
+                    </Button>
+                    <Button className={styles["btn-next_post"]} onClick={handleNextItem}>
+                        <MdKeyboardArrowDown className={`${styles["icon"]} ${styles["i-next_arrow"]}`}/>
+                    </Button>
+                    <Button className={styles["btn-sort"]} onClick={() => setDescOrder(!descOrder)}>
+                        {descOrder ?
+                            <MdArrowDownward className={`${styles["icon"]} ${styles["i-arrow_down"]}`}/>
+                            :
+                            <MdArrowUpward className={`${styles["icon"]} ${styles["i-arrow_up"]}`}/>
+                        }
+                    </Button>
+                    <Button className={styles["btn-show_post"]} onClick={handleShowPost}>
                         {!unreadOnly ? 'Show all posts' : 'Show unread only'}
-                    </button>
+                    </Button>
                 </div>
             </div>
 
             {items.length > 0 ?
-                <ul ref={ref} className="item-list">
+                <ul ref={ref} className={styles["item-list"]}>
                     {items.map((item, index) => {
                         return (
-                            <li key={`item-${item.id}`} data-id={index} className="item-list__item">
+                            <li key={`item-${item.id}`} data-id={index} className={styles["item-list__item"]}>
                                 <Item item={item} onMarkRead={handleMarkAsRead}/>
                             </li>
                         )
                     })}
                 </ul>
-                : <div className="notif-not_found">There are no posts to view at this time</div>
+                : <div className={styles["notif-not_found"]}>There are no posts to view at this time</div>
             }
         </>
     );

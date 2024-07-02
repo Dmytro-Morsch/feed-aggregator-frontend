@@ -1,12 +1,13 @@
-import {Link} from "react-router-dom";
-import {MdArrowDropDown} from "react-icons/md";
+import {Link} from 'react-router-dom';
+import {MdArrowDropDown} from 'react-icons/md';
 
-import useComponentVisible from "../../hooks/useCompontentVisible.js";
-import {useUser} from "../../context/User.context.jsx";
+import useComponentVisible from '../../hooks/useCompontentVisible.js';
+import {useUser} from '../../context/User.context.jsx';
+import Button from '../Button/Button.jsx';
 
 import logo from '../../assets/logo.svg';
 
-import "./Header.css";
+import styles from './Header.module.scss';
 
 function Header() {
     const {user} = useUser();
@@ -18,40 +19,40 @@ function Header() {
     } = useComponentVisible(false);
 
     return (
-        <nav className="navbar">
-            <div className="navbar-brand">
-                <a href="/" className="logo">
+        <nav className={styles["navbar"]}>
+            <div className={styles["navbar-brand"]}>
+                <a href="/" className={styles["logo"]}>
                     <img src={logo} alt="logo"/>
                     Collection of news
                 </a>
             </div>
 
-            <div className="navbar-end">
-                {!user && <div className="auth">
-                    <Link to="/signup" className="signup">Sign up</Link>
-                    <Link to="/login" className="signin">Sign in</Link>
+            <div className={styles["navbar-end"]}>
+                {!user && <div className={styles["auth"]}>
+                    <Link to="/signup" className={styles["signup"]}>Sign up</Link>
+                    <Link to="/login" className={styles["signin"]}>Sign in</Link>
                 </div>}
 
                 {user &&
-                    <div className="dropdown">
-                        <button ref={refPopup} className="btn btn-user"
+                    <div className={styles["dropdown"]}>
+                        <Button myref={refPopup} className={styles["btn-user"]}
                                 onClick={() => setPopup(!isPopup)}>{user.username}
-                            <MdArrowDropDown/></button>
+                            <MdArrowDropDown/>
+                        </Button>
 
-                        {isPopup && <ul id="dropdown-user" className="menu-settings">
-                            <li className="link">
+                        {isPopup && <ul id="dropdown-user" className={styles["menu-settings"]}>
+                            <li className={styles["link"]}>
                                 <a href="#">Manage Account</a>
                             </li>
-                            <li className="link">
+                            <li className={styles["link"]}>
                                 <Link to="/manage/subscriptions">Manage Subscriptions</Link>
                             </li>
-                            <hr className="hr"/>
-                            <li className="link">
+                            <hr className={styles["hr"]}/>
+                            <li className={styles["link"]}>
                                 <a href="#">Sign Out</a>
                             </li>
                         </ul>}
                     </div>
-
                 }
             </div>
         </nav>

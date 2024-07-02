@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState} from 'react';
 
-import API from "../../API.js";
-import useComponentVisible from "../../hooks/useCompontentVisible.js";
-import RenamePopup from "../RenamePopup/RenamePopup.jsx";
+import API from '../../API.js';
+import useComponentVisible from '../../hooks/useCompontentVisible.js';
+import RenamePopup from '../../components/RenamePopup/RenamePopup.jsx';
+import Button from '../../components/Button/Button.jsx';
 
-import "./ManageFeeds.css";
+import styles from './ManageFeeds.module.scss';
 
 function ManageFeeds() {
     const [userFeeds, setUserFeeds] = useState([]);
@@ -36,10 +37,11 @@ function ManageFeeds() {
     }, []);
 
     return (
-        <div className="manage-feeds">
+        <div className={styles["manage-feeds"]}>
             <div>
-                <h1 className="h1">Manage Subscriptions</h1>
-                <div className="subtitle">Below is a list of your current feeds. From this page, you can unsubscribe
+                <h1 className={styles["h1"]}>Manage Subscriptions</h1>
+                <div className={styles["subtitle"]}>Below is a list of your current feeds. From this page, you can
+                    unsubscribe
                     from existing feeds
                     as well as organize feeds into folders. You can manage the sort order and visibility settings of
                     your feeds and folders in settings. You can also view your subscription backups here.
@@ -51,30 +53,31 @@ function ManageFeeds() {
                              onClosePopup={() => setRenamePopup(false)}/>
             }
 
-            <ul className="user-feed-list">
-                <li className="header feed-name">
+            <ul className={styles["user-feed-list"]}>
+                <li className={`${styles["header"]} ${styles["feed-name"]}`}>
                     Feed name
                 </li>
-                <li className="header feed-unsub"></li>
-                <li className="header feed-rename"></li>
+                <li className={`${styles["header"]} ${styles["feed-unsub"]}`}></li>
+                <li className={`${styles["header"]} ${styles["feed-rename"]}`}></li>
                 {userFeeds.map(feed => {
                     return (
                         <React.Fragment key={feed.id}>
-                            <li className="body feed-list__link">
-                                <div><a href="#" className="site-link">{feed.title}</a></div>
+                            <li className={`${styles["body"]} ${styles["feed-list__link"]}`}>
+                                <div><a href="#" className={styles["site-link"]}>{feed.title}</a></div>
                             </li>
-                            <li className="body feed-list__unsub">
-                                <button className="btn btn-unsub" onClick={() => handleUnsubscribe(feed.id)}>
+                            <li className={`${styles["body"]} ${styles["feed-list__unsub"]}`}>
+                                <Button className={styles["btn-unsub"]}
+                                        onClick={() => handleUnsubscribe(feed.id)}>
                                     Unsubscribe
-                                </button>
+                                </Button>
                             </li>
-                            <li className="body feed-list__rename">
-                                <button ref={refRenamePopup} className="btn btn-rename"
+                            <li className={`${styles["body"]} ${styles["feed-list__rename"]}`}>
+                                <Button myref={refRenamePopup} className={styles["btn-rename"]}
                                         onClick={() => {
                                             setCurrentFeed(feed);
                                             setRenamePopup(!isRenamePopup)
                                         }}>Rename
-                                </button>
+                                </Button>
                             </li>
                         </React.Fragment>
                     )

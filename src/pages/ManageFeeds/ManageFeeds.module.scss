@@ -42,12 +42,14 @@
                 font-size: 1.4rem;
             }
 
-            .btn {
+            .btn-unsub,
+            .btn-rename {
                 padding: 1rem 2rem;
                 border-radius: 4px;
             }
 
-            .btn:hover {
+            .btn-unsub:hover,
+            .btn-rename:hover {
                 background-color: #E6E6E6;
             }
         }

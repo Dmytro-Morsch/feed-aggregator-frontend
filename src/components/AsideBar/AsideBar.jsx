@@ -1,11 +1,12 @@
-import {useEffect, useState} from "react";
-import {NavLink} from "react-router-dom";
+import {useEffect, useState} from 'react';
+import {NavLink} from 'react-router-dom';
+import {MdFormatListBulleted, MdKeyboardArrowDown, MdKeyboardArrowRight} from 'react-icons/md';
 
-import {useFeed} from "../../context/Feed.context.jsx";
-import Feeds from "../Feeds/Feeds.jsx";
-import API from "../../API.js";
+import {useFeed} from '../../context/Feed.context.jsx';
 
-import {MdFormatListBulleted, MdKeyboardArrowDown, MdKeyboardArrowRight} from "react-icons/md";
+import Feeds from '../Feeds/Feeds.jsx';
+import Button from '../Button/Button.jsx';
+import API from '../../API.js';
 
 import styles from './AsideBar.module.scss';
 
@@ -36,9 +37,7 @@ function AsideBar() {
             <div className={styles['form-feed']}>
                 <input className={`${styles['input']} ${styles['feed']}`} placeholder="Paste feed" value={link}
                        onChange={e => setLink(e.target.value)}/>
-                <button type="button" className={`${styles['btn']} ${styles['btn-feed']}`} onClick={onSubmit}>
-                    Add
-                </button>
+                <Button type="button" className={styles['btn-feed']} onClick={onSubmit}>Add</Button>
             </div>
 
             <ul className={styles['sidebar-nav']}>

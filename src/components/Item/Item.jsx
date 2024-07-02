@@ -1,22 +1,24 @@
-import {MdCheck} from "react-icons/md";
+import {MdCheck} from 'react-icons/md';
 
-import dateTimeConvert from "../../utils/dateTimeConvert.js";
+import dateTimeConvert from '../../utils/dateTimeConvert.js';
+import Button from '../Button/Button.jsx';
 
-import "./Item.css";
+import styles from './Item.module.scss';
 
 function Item({item, onMarkRead}) {
     return (
         <>
-            <div className="item-header">
-                <a href={item.link} className="title">{item.title}</a>
-                <span className="pubdate">{dateTimeConvert(item.pubDate)}</span>
+            <div className={styles["item-header"]}>
+                <a href={item.link} className={styles["title"]}>{item.title}</a>
+                <span className={styles["pubdate"]}>{dateTimeConvert(item.pubDate)}</span>
             </div>
-            {item.description && <div className="description" dangerouslySetInnerHTML={{__html: item.description}}/>}
+            {item.description &&
+                <div className={styles["description"]} dangerouslySetInnerHTML={{__html: item.description}}/>}
 
-            <div className="control-panel">
-                <button className="btn btn-check" onClick={() => onMarkRead(item.id, !item.read)}>
+            <div className={styles["control-panel"]}>
+                <Button className={styles["btn-check"]} onClick={() => onMarkRead(item.id, !item.read)}>
                     <MdCheck/> {item.read ? 'Mark as unread' : 'Mark as read'}
-                </button>
+                </Button>
             </div>
         </>
     );
