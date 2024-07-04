@@ -31,7 +31,7 @@ const API = {
         return await response.json();
     },
 
-    postFeedLink: async (feedLink) => {
+    subscribeToFeed: async (feedLink) => {
         const response = await fetch('/api/feeds/subscribe', {
             method: 'POST',
             body: feedLink
@@ -75,6 +75,11 @@ const API = {
 
     getFeeds: async () => {
         const response = await fetch('/api/feeds');
+        return await response.json();
+    },
+
+    getFeed: async (feedId) => {
+        const response = await fetch(`/api/feeds/${feedId}`);
         return await response.json();
     },
 

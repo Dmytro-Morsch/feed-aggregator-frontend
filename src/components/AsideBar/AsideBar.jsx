@@ -21,11 +21,27 @@ function AsideBar() {
         if (link === '' || link === null) {
             console.log("Invalid link");
         } else {
-            API.postFeedLink(link).then(r => {
-                setFeeds(prevState => [...prevState, r]);
-                setLink('');
-            });
+            API.subscribeToFeed(link)
+                .then(r => {
+                    setFeeds(prevState => [...prevState, r]);
+                    setLink('');
+                    updateFeed(r.id, r.title);
+                });
         }
+    };
+
+    const updateFeed = (feedId, title) => {
+        const intervalId = setInterval(() => {
+            API.getFeed(feedId)
+                .then(updatedFeed => {
+                    setFeeds(prevFeeds => prevFeeds.map(feed =>
+                        feed.id === feedId ? updatedFeed : feed
+                    ));
+                    if (updatedFeed.title !== title) {
+                        clearInterval(intervalId);
+                    }
+                })
+        }, 5000);
     };
 
     useEffect(() => {
