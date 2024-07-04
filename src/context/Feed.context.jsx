@@ -6,12 +6,15 @@ export const FeedContext = createContext({
 });
 
 export function FeedProvider({children}) {
+    const [userFeeds, setUserFeeds] = useState([]);
     const [feed, setFeed] = useState(null);
 
     const value = useMemo(() => ({
         feed,
         setFeed,
-    }), [feed, setFeed])
+        userFeeds,
+        setUserFeeds
+    }), [feed, setFeed, userFeeds, setUserFeeds])
     return <FeedContext.Provider value={value}>{children}</FeedContext.Provider>
 }
 

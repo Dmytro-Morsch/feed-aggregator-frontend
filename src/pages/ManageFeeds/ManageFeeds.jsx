@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
+import {useFeed} from '../../context/Feed.context.jsx';
+
 import API from '../../API.js';
 import useComponentVisible from '../../hooks/useCompontentVisible.js';
 import RenamePopup from '../../components/RenamePopup/RenamePopup.jsx';
@@ -8,8 +10,9 @@ import Button from '../../components/Button/Button.jsx';
 import styles from './ManageFeeds.module.scss';
 
 function ManageFeeds() {
-    const [userFeeds, setUserFeeds] = useState([]);
     const [currentFeed, setCurrentFeed] = useState({});
+
+    const {userFeeds, setUserFeeds} = useFeed();
 
     const {
         ref: refRenamePopup,
@@ -19,7 +22,7 @@ function ManageFeeds() {
 
     const handleUnsubscribe = (feedId) => {
         API.unsubscribeFromFeed(feedId).then(() => {
-            setUserFeeds(prevState => prevState.filter(value => value.feedId !== feedId));
+            setUserFeeds(prevState => prevState.filter(value => value.id !== feedId));
         });
     };
 

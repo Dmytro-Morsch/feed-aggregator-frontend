@@ -12,10 +12,9 @@ import styles from './AsideBar.module.scss';
 
 function AsideBar() {
     const [link, setLink] = useState('');
-    const [feeds, setFeeds] = useState([]);
     const [isOpenSub, setIsOpenSub] = useState(true);
 
-    const {setFeed} = useFeed();
+    const {setFeed, userFeeds, setUserFeeds} = useFeed();
 
     const onSubmit = () => {
         if (link === '' || link === null) {
@@ -23,21 +22,21 @@ function AsideBar() {
         } else {
             API.subscribeToFeed(link)
                 .then(r => {
-                    setFeeds(prevState => [...prevState, r]);
+                    setUserFeeds(prevState => [...prevState, r]);
                     setLink('');
-                    updateFeed(r.id, r.title);
+                    updateFeed(r.id);
                 });
         }
     };
 
-    const updateFeed = (feedId, title) => {
+    const updateFeed = (feedId) => {
         const intervalId = setInterval(() => {
             API.getFeed(feedId)
                 .then(updatedFeed => {
-                    setFeeds(prevFeeds => prevFeeds.map(feed =>
+                    setUserFeeds(prevFeeds => prevFeeds.map(feed =>
                         feed.id === feedId ? updatedFeed : feed
                     ));
-                    if (updatedFeed.title !== title) {
+                    if (updatedFeed.loaded) {
                         clearInterval(intervalId);
                     }
                 })
@@ -45,7 +44,7 @@ function AsideBar() {
     };
 
     useEffect(() => {
-        API.getFeeds().then(r => setFeeds(r));
+        API.getFeeds().then(r => setUserFeeds(r));
     }, []);
 
     return (
@@ -64,7 +63,7 @@ function AsideBar() {
                 </li>
             </ul>
 
-            {feeds.length !== 0 &&
+            {userFeeds.length !== 0 &&
                 <div className={styles['drop-down']}>
                     <div className={styles['title']} onClick={() => setIsOpenSub(!isOpenSub)}>
                         {isOpenSub ? <MdKeyboardArrowDown className={styles['icon']}/>
@@ -74,7 +73,7 @@ function AsideBar() {
                         Subscriptions
                     </div>
                     {isOpenSub &&
-                        <Feeds feeds={feeds}/>
+                        <Feeds/>
                     }
                 </div>
             }
