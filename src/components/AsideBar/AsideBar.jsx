@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
-import {MdFormatListBulleted, MdKeyboardArrowDown, MdKeyboardArrowRight} from 'react-icons/md';
+import {MdFormatListBulleted, MdHome, MdKeyboardArrowDown, MdKeyboardArrowRight} from 'react-icons/md';
 
 import {useFeed} from '../../context/Feed.context.jsx';
 
@@ -57,7 +57,12 @@ function AsideBar() {
 
             <ul className={styles['sidebar-nav']}>
                 <li className={styles['nav']}>
-                    <NavLink to="/" className={styles['all-items']} onClick={() => setFeed(null)}>
+                    <NavLink to="/" className={styles['home']}>
+                        <MdHome className={styles['icon']}/> Home
+                    </NavLink>
+                </li>
+                <li className={styles['nav']}>
+                    <NavLink to="/posts/all" className={styles['all-items']} onClick={() => setFeed(null)}>
                         <MdFormatListBulleted className={styles['icon']}/> All items
                     </NavLink>
                 </li>

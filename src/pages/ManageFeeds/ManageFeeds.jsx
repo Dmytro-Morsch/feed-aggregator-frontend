@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {NavLink} from 'react-router-dom';
 
 import {useFeed} from '../../context/Feed.context.jsx';
 
@@ -12,7 +13,7 @@ import styles from './ManageFeeds.module.scss';
 function ManageFeeds() {
     const [currentFeed, setCurrentFeed] = useState({});
 
-    const {userFeeds, setUserFeeds} = useFeed();
+    const {userFeeds, setUserFeeds, setFeed} = useFeed();
 
     const {
         ref: refRenamePopup,
@@ -29,11 +30,11 @@ function ManageFeeds() {
     const handleRename = (feedId, title) => {
         API.renameFeed(feedId, title).then(() => {
             setUserFeeds(prevState => prevState.map(value => {
-                if (value.feedId === feedId) return {...value, title}
+                if (value.id === feedId) return {...value, title}
                 return value;
             }))
         })
-    }
+    };
 
     useEffect(() => {
         API.getFeeds().then(r => setUserFeeds(r))
@@ -57,20 +58,22 @@ function ManageFeeds() {
             }
 
             <ul className={styles["user-feed-list"]}>
-                <li className={`${styles["header"]} ${styles["feed-name"]}`}>
-                    Feed name
-                </li>
+                <li className={`${styles["header"]} ${styles["feed-name"]}`}>Feed name</li>
                 <li className={`${styles["header"]} ${styles["feed-unsub"]}`}></li>
                 <li className={`${styles["header"]} ${styles["feed-rename"]}`}></li>
                 {userFeeds.map(feed => {
                     return (
                         <React.Fragment key={feed.id}>
                             <li className={`${styles["body"]} ${styles["feed-list__link"]}`}>
-                                <div><a href="#" className={styles["site-link"]}>{feed.title}</a></div>
+                                <div>
+                                    <NavLink to={`/feeds/${feed.id}`} className={styles["site-link"]}
+                                             onClick={() => setFeed(feed)}>
+                                        {feed.title}
+                                    </NavLink>
+                                </div>
                             </li>
                             <li className={`${styles["body"]} ${styles["feed-list__unsub"]}`}>
-                                <Button className={styles["btn-unsub"]}
-                                        onClick={() => handleUnsubscribe(feed.id)}>
+                                <Button className={styles["btn-unsub"]} onClick={() => handleUnsubscribe(feed.id)}>
                                     Unsubscribe
                                 </Button>
                             </li>

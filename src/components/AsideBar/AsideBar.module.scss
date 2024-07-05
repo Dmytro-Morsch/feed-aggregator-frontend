@@ -38,7 +38,8 @@
     margin: 1rem;
 
     .nav {
-      .all-items {
+      .all-items,
+      .home {
         display: flex;
         align-items: center;
         gap: 0.5rem;
