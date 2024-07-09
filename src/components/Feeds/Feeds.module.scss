@@ -31,6 +31,15 @@
             .source-icon {
                 width: 16px;
             }
+
+            .count-unread-posts {
+                border-radius: 50%;
+                padding: 2px 4px;
+                font-size: 0.9rem;
+                color: white;
+                line-height: 14px;
+                background-color: var(--secondary);
+            }
         }
     }
 }

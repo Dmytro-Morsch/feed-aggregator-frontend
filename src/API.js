@@ -97,6 +97,11 @@ const API = {
             },
             body: JSON.stringify(title)
         });
+    },
+
+    getUnreadItemsCount: async (feedId) => {
+        const response = await fetch(`/api/feeds/${feedId}/items-count`);
+        return await response.json();
     }
 }
 
