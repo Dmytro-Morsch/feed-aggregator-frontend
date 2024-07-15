@@ -28,7 +28,12 @@
 }
 
 .control-panel {
-    .btn-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .btn-check,
+    .btn-star {
         display: flex;
         align-items: center;
         padding: 0.5rem 1rem;
@@ -38,7 +43,16 @@
         border-radius: 3px;
     }
 
-    .btn-check:hover {
+    .btn-check:hover,
+    .btn-star:hover {
         background-color: #E6E6E6;
+    }
+
+    .icon {
+        font-size: 1.6rem;
+
+        &.stared {
+            color: gold;
+        }
     }
 }

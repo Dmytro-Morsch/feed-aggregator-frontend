@@ -18,6 +18,7 @@ function App() {
                         <Route element={<MainLayout/>}>
                             <Route path="/" element={<Home/>}/>
                             <Route path="/posts/all" element={<CellContent/>}/>
+                            <Route path="/starred" element={<CellContent/>}/>
                             <Route path="/feeds/:id" element={<CellContent/>}/>
                             <Route path="/manage/subscriptions" element={<ManageFeeds/>}/>
                         </Route>

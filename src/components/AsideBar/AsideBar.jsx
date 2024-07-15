@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
-import {MdFormatListBulleted, MdHome, MdKeyboardArrowDown, MdKeyboardArrowRight} from 'react-icons/md';
+import {MdFormatListBulleted, MdHome, MdKeyboardArrowDown, MdKeyboardArrowRight, MdStar} from 'react-icons/md';
 
 import {useFeed} from '../../context/Feed.context.jsx';
 
@@ -14,7 +14,7 @@ function AsideBar() {
     const [link, setLink] = useState('');
     const [isOpenSub, setIsOpenSub] = useState(true);
 
-    const {setFeed, userFeeds, setUserFeeds} = useFeed();
+    const {setFeed, userFeeds, setUserFeeds, setStarFeed} = useFeed();
 
     const onSubmit = () => {
         if (link === '' || link === null) {
@@ -43,6 +43,16 @@ function AsideBar() {
         }, 5000);
     };
 
+    const handleToAllFeeds = () => {
+        setFeed(null);
+        setStarFeed(false);
+    };
+
+    const handleToStarred = () => {
+        setFeed(null);
+        setStarFeed(true);
+    };
+
     useEffect(() => {
         API.getFeeds().then(r => setUserFeeds(r));
     }, []);
@@ -57,13 +67,18 @@ function AsideBar() {
 
             <ul className={styles['sidebar-nav']}>
                 <li className={styles['nav']}>
-                    <NavLink to="/" className={styles['home']}>
+                    <NavLink to="/" className={styles['nav-link']} onClick={() => setStarFeed(false)}>
                         <MdHome className={styles['icon']}/> Home
                     </NavLink>
                 </li>
                 <li className={styles['nav']}>
-                    <NavLink to="/posts/all" className={styles['all-items']} onClick={() => setFeed(null)}>
+                    <NavLink to="/posts/all" className={styles['nav-link']} onClick={() => handleToAllFeeds()}>
                         <MdFormatListBulleted className={styles['icon']}/> All items
+                    </NavLink>
+                </li>
+                <li className={styles['nav']}>
+                    <NavLink to="/starred" className={styles['nav-link']} onClick={() => handleToStarred()}>
+                        <MdStar className={styles['icon']}/> Starred
                     </NavLink>
                 </li>
             </ul>

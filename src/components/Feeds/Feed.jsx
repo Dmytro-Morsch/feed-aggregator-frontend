@@ -9,7 +9,12 @@ import loaderStyles from './Loader.module.scss';
 
 function Feed({feed}) {
     const [num, setNum] = useState(0);
-    const {setFeed} = useFeed();
+    const {setFeed, setStarFeed} = useFeed();
+
+    const handleToFeed = () => {
+        setFeed(feed);
+        setStarFeed(false);
+    };
 
     useEffect(() => {
         API.getUnreadItemsCount(feed.id).then(r => setNum(r));
@@ -18,7 +23,7 @@ function Feed({feed}) {
     return (
         <li className={feedStyles["feed-item"]} key={feed.id}>
             <NavLink to={`/feeds/${feed.id}`} className={feedStyles["feed"]} title={feed.title}
-                     onClick={() => setFeed(feed)}>
+                     onClick={() => handleToFeed()}>
                 {feed.loaded ?
                     <img className={feedStyles["source-icon"]} src={`/api/feeds/${feed.id}/icon`} alt=""/>
                     :

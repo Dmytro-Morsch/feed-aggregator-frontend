@@ -7,9 +7,10 @@ const API = {
         return await response.json();
     },
 
-    getAllUserItems: async (descOrder) => {
+    getAllUserItems: async (descOrder, starOnly) => {
         const response = await fetch('/api/items?' + new URLSearchParams({
-            descOrder
+            descOrder,
+            starOnly
         }));
         return await response.json();
     },
@@ -54,7 +55,7 @@ const API = {
     },
 
     markItemRead: async (read, itemId) => {
-        await fetch(`/api/items/${itemId}`, {
+        await fetch(`/api/items/${itemId}/read`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -70,6 +71,16 @@ const API = {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(itemIds)
+        });
+    },
+
+    markItemStar: async (star, itemsId) => {
+        await fetch(`/api/items/${itemsId}/star`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(star)
         });
     },
 

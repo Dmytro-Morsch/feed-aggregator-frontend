@@ -22,7 +22,7 @@ function Items() {
     const [descOrder, setDescOrder] = useState(false);
     const [unreadOnly, setUnreadOnly] = useState(false);
 
-    const {feed} = useFeed();
+    const {feed, starFeed} = useFeed();
     const ref = useRef(null);
 
     const scrollContainer = (index) => {
@@ -64,6 +64,15 @@ function Items() {
         });
     }, []);
 
+    const handleMarkAsStar = useCallback((itemId, marker) => {
+        API.markItemStar(marker, itemId).then(() => {
+            setItems((prevState) => prevState.map(value => {
+                if (value.id === itemId) return {...value, starred: marker}
+                return value;
+            }));
+        })
+    }, []);
+
     const handleShowPost = () => {
         if (feed) {
             API.getFeedUnreadItems(feed.id, descOrder, unreadOnly).then(r => {
@@ -82,10 +91,10 @@ function Items() {
         if (feed) {
             API.getFeedItems(feed.id, descOrder).then(r => setItems(r));
         } else {
-            API.getAllUserItems(descOrder).then(r => setItems(r));
+            API.getAllUserItems(descOrder, starFeed).then(r => setItems(r));
         }
         setUnreadOnly(true);
-    }, [feed, descOrder]);
+    }, [feed, descOrder, starFeed]);
 
     return (
         <>
@@ -126,7 +135,7 @@ function Items() {
                     {items.map((item, index) => {
                         return (
                             <li key={`item-${item.id}`} data-id={index} className={styles["item-list__item"]}>
-                                <Item item={item} onMarkRead={handleMarkAsRead}/>
+                                <Item item={item} onMarkRead={handleMarkAsRead} onMarkStar={handleMarkAsStar}/>
                             </li>
                         )
                     })}
