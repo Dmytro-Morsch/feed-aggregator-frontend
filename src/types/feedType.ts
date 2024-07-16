@@ -5,6 +5,7 @@ type FeedType = {
   feedLink: string;
   siteLink: string;
   loaded: boolean;
+  countUnreadItems: number;
 };
 
 export default FeedType;

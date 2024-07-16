@@ -1,9 +1,9 @@
-import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
+import {createContext, ReactNode, useContext, useMemo, useState} from 'react';
 import FeedType from '../types/feedType.ts';
 
 interface FeedContextProps {
   feed: FeedType | null;
-  setFeed: (feed: FeedType | null) => void;
+  setFeed: (value: ((prevState: FeedType | null) => FeedType | null) | FeedType | null) => void;
   userFeeds: FeedType[];
   setUserFeeds: (value: ((prevState: FeedType[]) => FeedType[]) | FeedType[]) => void;
   starFeed: boolean;

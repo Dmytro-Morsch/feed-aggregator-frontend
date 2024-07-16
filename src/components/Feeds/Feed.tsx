@@ -1,32 +1,22 @@
-import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
-import { useFeed } from '../../context/Feed.context.tsx';
-import API from '../../API.ts';
+import {useFeed} from '../../context/Feed.context.tsx';
+import FeedType from '../../types/feedType.ts';
 
 import feedStyles from './Feeds.module.scss';
 import loaderStyles from './Loader.module.scss';
-import FeedType from '../../types/feedType.ts';
 
 interface FeedProps {
   feed: FeedType;
 }
 
 function Feed({ feed }: FeedProps) {
-  const [num, setNum] = useState(0);
   const { setFeed, setStarFeed } = useFeed();
 
   const handleToFeed = () => {
     setFeed(feed);
     setStarFeed(false);
   };
-
-  useEffect(() => {
-    API.getUnreadItemsCount(feed.id).then(
-      (r) => setNum(r),
-      () => {}
-    );
-  }, [feed.id]);
 
   return (
     <li className={feedStyles['feed-item']} key={feed.id}>
@@ -42,7 +32,9 @@ function Feed({ feed }: FeedProps) {
         )}
         <span className={feedStyles['title']}>{feed.title}</span>
 
-        <div className={feedStyles['count-unread-posts']}>{num}</div>
+        {feed.countUnreadItems > 0 && (
+          <div className={feedStyles['count-unread-posts']}>{feed.countUnreadItems}</div>
+        )}
       </NavLink>
     </li>
   );
