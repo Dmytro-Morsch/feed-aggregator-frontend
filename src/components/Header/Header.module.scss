@@ -1,76 +1,76 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #F7F7F7;
-    height: 6vh;
-    margin-bottom: 1vh;
-    padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #F7F7F7;
+  height: 6vh;
+  margin-bottom: 1vh;
+  padding: 0 2rem;
 
-    .navbar-brand {
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-size: 1.6rem;
-            font-weight: 500;
-            line-height: 1;
-        }
-
-        .logo img {
-            width: 64px;
-        }
-
-        .logo:hover {
-            opacity: 1;
-        }
+  .navbar-brand {
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.6rem;
+      font-weight: 500;
+      line-height: 1;
     }
 
-    .dropdown {
-        position: relative;
-
-        .btn-user {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 1.5rem;
-            font-weight: 500;
-            color: var(--primary);
-            padding: 2rem;
-            border: none;
-        }
-
-        .btn-user:hover {
-            background-color: #dddddd;
-        }
-
-        .menu-settings {
-            position: absolute;
-            box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
-            padding: 0.5rem 0;
-            width: 165px;
-            right: 0;
-            background-color: white;
-            border-radius: 3px;
-
-            .hr {
-                border: 1px solid var(--fourth);
-                margin: 0.5rem 0;
-            }
-
-            .link a {
-                display: block;
-                padding: 3px 2rem;
-                line-height: 1.5;
-                font-size: 1.3rem;
-                color: var(--primary);
-                white-space: nowrap;
-            }
-
-            .link a:hover {
-                color: white;
-                background-color: var(--secondary);
-            }
-        }
+    .logo img {
+      width: 64px;
     }
+
+    .logo:hover {
+      opacity: 1;
+    }
+  }
+
+  .dropdown {
+    position: relative;
+
+    .btn-user {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--primary);
+      padding: 2rem;
+      border: none;
+    }
+
+    .btn-user:hover {
+      background-color: #dddddd;
+    }
+
+    .menu-settings {
+      position: absolute;
+      box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+      padding: 0.5rem 0;
+      width: 165px;
+      right: 0;
+      background-color: white;
+      border-radius: 3px;
+
+      .hr {
+        border: 1px solid var(--fourth);
+        margin: 0.5rem 0;
+      }
+
+      .link a {
+        display: block;
+        padding: 3px 2rem;
+        line-height: 1.5;
+        font-size: 1.3rem;
+        color: var(--primary);
+        white-space: nowrap;
+      }
+
+      .link a:hover {
+        color: white;
+        background-color: var(--secondary);
+      }
+    }
+  }
 }

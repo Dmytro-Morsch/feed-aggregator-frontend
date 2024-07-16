@@ -1,45 +1,45 @@
 .feed-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin: 1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 0.5rem;
 
-    .feed-item {
-        .feed {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.4rem;
-            font-weight: 500;
-            color: black;
+  .feed-item {
+    .feed {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: black;
 
-            .title {
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                max-width: 230px;
-            }
+      .title {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 230px;
+      }
 
-            .icon {
-                font-size: 1.6rem;
-            }
+      .icon {
+        font-size: 1.6rem;
+      }
 
-            .icon.i-rss {
-                color: var(--secondary);
-            }
+      .icon.i-rss {
+        color: var(--secondary);
+      }
 
-            .source-icon {
-                width: 16px;
-            }
+      .source-icon {
+        width: 16px;
+      }
 
-            .count-unread-posts {
-                border-radius: 50%;
-                padding: 2px 4px;
-                font-size: 0.9rem;
-                color: white;
-                line-height: 14px;
-                background-color: var(--secondary);
-            }
-        }
+      .count-unread-posts {
+        border-radius: 50%;
+        padding: 2px 4px;
+        font-size: 0.9rem;
+        color: white;
+        line-height: 14px;
+        background-color: var(--secondary);
+      }
     }
+  }
 }
