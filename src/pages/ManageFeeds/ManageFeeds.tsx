@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useFeed } from '../../context/Feed.context.tsx';
 import FeedType from '../../types/feedType.ts';
 
-import API from '../../API.ts';
+import apiAxios from '../../api/index.ts';
 import useComponentVisible from '../../hooks/useCompontentVisible.tsx';
 import RenamePopup from '../../components/RenamePopup/RenamePopup.tsx';
 import Button from '../../components/Button/Button.tsx';
@@ -23,33 +23,29 @@ function ManageFeeds() {
   } = useComponentVisible(false);
 
   const handleUnsubscribe = (feedId: FeedType['id']) => {
-    API.unsubscribeFromFeed(feedId).then(
-      () => {
-        setUserFeeds((prevState) => prevState.filter((value) => value.id !== feedId));
-      },
-      () => {}
-    );
+    (async () => {
+      await apiAxios.feeds.unsubscribeFromFeed(feedId);
+      setUserFeeds((prevState) => prevState.filter((value) => value.id !== feedId));
+    })();
   };
 
   const handleRename = (feedId: FeedType['id'], title: FeedType['title']) => {
-    API.renameFeed(feedId, title).then(
-      () => {
-        setUserFeeds((prevState) =>
-          prevState.map((value) => {
-            if (value.id === feedId) return { ...value, title };
-            return value;
-          })
-        );
-      },
-      () => {}
-    );
+    (async () => {
+      await apiAxios.feeds.renameFeed(feedId, title);
+      setUserFeeds((prevState) =>
+        prevState.map((value) => {
+          if (value.id === feedId) return { ...value, title };
+          return value;
+        })
+      );
+    })();
   };
 
   useEffect(() => {
-    API.getFeeds().then(
-      (r) => setUserFeeds(r),
-      () => {}
-    );
+    (async () => {
+      const response = await apiAxios.feeds.getFeeds();
+      setUserFeeds(response.data);
+    })();
   }, []);
 
   return (

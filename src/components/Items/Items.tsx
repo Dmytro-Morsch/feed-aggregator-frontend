@@ -10,8 +10,8 @@ import {
 
 import { useFeed } from '../../context/Feed.context.tsx';
 import ItemType from '../../types/itemType.ts';
+import apiAxios from '../../api/index.ts';
 
-import API from '../../API.ts';
 import Item from '../Item/Item.tsx';
 import Button from '../Button/Button.tsx';
 
@@ -45,81 +45,71 @@ function Items() {
   };
 
   const handleRefresh = () => {
-    API.updateFeed(feed?.id ?? 0, descOrder).then(
-      (r) => setItems(r),
-      () => {}
-    );
+    (async () => {
+      const response = await apiAxios.feeds.updateFeed(feed?.id ?? 0, descOrder);
+      setItems(response.data);
+    })();
   };
 
   const handleAllRead = () => {
     const itemIds = items.filter((item) => !item.read).map((item) => item.id);
-    API.markAllRead(itemIds).then(
-      () => {
-        setItems((prevState) => prevState.map((value) => ({ ...value, read: true })));
-      },
-      () => {}
-    );
+    (async () => {
+      await apiAxios.items.markAllRead(itemIds);
+      setItems((prevState) => prevState.map((value) => ({ ...value, read: true })));
+    })();
   };
 
   const handleMarkAsRead = useCallback((itemId: ItemType['id'], marker: ItemType['read']) => {
-    API.markItemRead(marker, itemId).then(
-      () => {
-        setItems((prevState) =>
-          prevState.map((value) => {
-            if (value.id === itemId) return { ...value, read: marker };
-            return value;
-          })
-        );
-      },
-      () => {}
-    );
+    (async () => {
+      await apiAxios.items.markItemRead(marker, itemId);
+      setItems((prevState) =>
+        prevState.map((value) => {
+          if (value.id === itemId) return { ...value, read: marker };
+          return value;
+        })
+      );
+    })();
   }, []);
 
   const handleMarkAsStar = useCallback((itemId: ItemType['id'], marker: ItemType['starred']) => {
-    API.markItemStar(marker, itemId).then(
-      () => {
-        setItems((prevState) =>
-          prevState.map((value) => {
-            if (value.id === itemId) return { ...value, starred: marker };
-            return value;
-          })
-        );
-      },
-      () => {}
-    );
+    (async () => {
+      await apiAxios.items.markItemStar(marker, itemId);
+      setItems((prevState) =>
+        prevState.map((value) => {
+          if (value.id === itemId) return { ...value, starred: marker };
+          return value;
+        })
+      );
+    })();
   }, []);
 
   const handleShowPost = () => {
     if (feed) {
-      API.getFeedUnreadItems(feed.id, descOrder, unreadOnly).then(
-        (r) => {
-          setUnreadOnly(!unreadOnly);
-          setItems(r);
-        },
-        () => {}
-      );
+      (async () => {
+        const response = await apiAxios.items.getFeedUnreadItems(feed.id, descOrder, unreadOnly);
+        setItems(response.data);
+        setUnreadOnly(!unreadOnly);
+      })();
     } else {
-      API.getAllUnreadItems(descOrder, unreadOnly).then(
-        (r) => {
-          setUnreadOnly(!unreadOnly);
-          setItems(r);
-        },
-        () => {}
-      );
+      (async () => {
+        const response = await apiAxios.items.getAllUnreadItems(descOrder, unreadOnly);
+        setItems(response.data);
+        setUnreadOnly(!unreadOnly);
+      })();
     }
   };
 
   useEffect(() => {
     if (feed) {
-      API.getFeedItems(feed.id, descOrder).then(
-        (r) => setItems(r),
-        () => {}
-      );
+      (async () => {
+        const response = await apiAxios.items.getFeedItems(feed.id, descOrder);
+        setItems(response.data);
+      })();
     } else {
-      API.getAllUserItems(descOrder, starFeed).then(
-        (r) => setItems(r),
-        () => {}
-      );
+      (async () => {
+        const response = await apiAxios.items.getAllUserItems(descOrder, starFeed);
+        setItems(response.data);
+      })();
     }
     setUnreadOnly(true);
   }, [feed, descOrder, starFeed]);

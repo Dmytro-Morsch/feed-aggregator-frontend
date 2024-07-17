@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useCallback, useContext, useMemo, useState } from 'react';
-import API from '../API.ts';
 import UserType from '../types/userType.ts';
+import apiAxios from '../api/index.ts';
 
 interface UserContextProps {
   user: UserType | null;
@@ -22,10 +22,10 @@ export function UserProvider({ children }: UserProviderProps) {
   const [user, setUser] = useState<UserType | null>(null);
 
   const getUser = useCallback(() => {
-    API.getUser().then(
-      (r) => setUser(r),
-      () => {}
-    );
+    (async () => {
+      const response = await apiAxios.users.getUser();
+      setUser(response.data);
+    })();
   }, []);
 
   const value = useMemo(

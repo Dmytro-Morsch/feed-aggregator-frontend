@@ -12,8 +12,8 @@ import { useFeed } from '../../context/Feed.context.tsx';
 
 import Feeds from '../Feeds/Feeds.tsx';
 import Button from '../Button/Button.tsx';
-import API from '../../API.ts';
 import FeedType from '../../types/feedType.ts';
+import apiAxios from '../../api/index.ts';
 
 import styles from './AsideBar.module.scss';
 
@@ -27,30 +27,26 @@ function AsideBar() {
     if (link === '' || link === null) {
       console.log('Invalid link');
     } else {
-      API.subscribeToFeed(link).then(
-        (r) => {
-          setUserFeeds((prevState) => [...prevState, r]);
-          setLink('');
-          updateFeed(r.id);
-        },
-        () => {}
-      );
+      (async () => {
+        const response = await apiAxios.feeds.subscribeToFeed(link);
+        setUserFeeds((prevState) => [...prevState, response.data]);
+        setLink('');
+        updateFeed(response.data.id);
+      })();
     }
   };
 
   const updateFeed = (feedId: FeedType['id']) => {
     const intervalId = setInterval(() => {
-      API.getFeed(feedId).then(
-        (updatedFeed) => {
-          setUserFeeds((prevFeeds: FeedType[]) =>
-            prevFeeds.map((feed) => (feed.id === feedId ? updatedFeed : feed))
-          );
-          if (updatedFeed.loaded) {
-            clearInterval(intervalId);
-          }
-        },
-        () => {}
-      );
+      (async () => {
+        const response = await apiAxios.feeds.getFeed(feedId);
+        setUserFeeds((prevFeeds: FeedType[]) =>
+          prevFeeds.map((feed) => (feed.id === feedId ? response.data : feed))
+        );
+        if (response.data.loaded) {
+          clearInterval(intervalId);
+        }
+      })();
     }, 5000);
   };
 
@@ -65,10 +61,10 @@ function AsideBar() {
   };
 
   useEffect(() => {
-    API.getFeeds().then(
-      (r) => setUserFeeds(r),
-      () => {}
-    );
+    (async () => {
+      const response = await apiAxios.feeds.getFeeds();
+      setUserFeeds(response.data);
+    })();
   }, []);
 
   return (
