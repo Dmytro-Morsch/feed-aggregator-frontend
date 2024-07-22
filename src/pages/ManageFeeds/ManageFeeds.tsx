@@ -48,7 +48,7 @@ function ManageFeeds() {
 
   return (
     <div className={styles['manage-feeds']}>
-      <div>
+      <div className={styles['head']}>
         <h1 className={styles['h1']}>Manage Subscriptions</h1>
         <div className={styles['subtitle']}>
           Below is a list of your current feeds. From this page, you can unsubscribe from existing
@@ -67,43 +67,55 @@ function ManageFeeds() {
         />
       )}
 
-      <ul className={styles['user-feed-list']}>
-        <li className={`${styles['header']} ${styles['feed-name']}`}>Feed name</li>
-        <li className={`${styles['header']} ${styles['feed-unsub']}`}></li>
-        <li className={`${styles['header']} ${styles['feed-rename']}`}></li>
-        {userFeeds.map((feed) => {
-          return (
-            <div key={feed.id}>
-              <li className={`${styles['body']} ${styles['feed-list__link']}`}>
-                <div>
-                  <NavLink
-                    to={`/feeds/${feed.id}`}
-                    className={styles['site-link']}
-                    onClick={() => dispatch(setFeed(feed))}>
-                    {feed.title}
-                  </NavLink>
-                </div>
-              </li>
-              <li className={`${styles['body']} ${styles['feed-list__unsub']}`}>
-                <Button className={styles['btn-unsub']} onClick={() => handleUnsubscribe(feed.id)}>
-                  Unsubscribe
-                </Button>
-              </li>
-              <li className={`${styles['body']} ${styles['feed-list__rename']}`}>
-                <Button
-                  myref={refRenamePopup}
-                  className={styles['btn-rename']}
-                  onClick={() => {
-                    setCurrentFeed(feed);
-                    setRenamePopup(!isRenamePopup);
-                  }}>
-                  Rename
-                </Button>
-              </li>
-            </div>
-          );
-        })}
-      </ul>
+      <table className={styles['user-feed-list']}>
+        <thead>
+          <tr>
+            <th className={styles['header']}>Feed title</th>
+            <th className={styles['header']}>Last update</th>
+            <th className={styles['header']}></th>
+            <th className={styles['header']}></th>
+          </tr>
+        </thead>
+        <tbody>
+          {userFeeds.map((feed) => {
+            return (
+              <tr key={feed.id}>
+                <td className={styles['body']}>
+                  <div>
+                    <NavLink
+                      to={`/feeds/${feed.id}`}
+                      className={styles['site-link']}
+                      onClick={() => dispatch(setFeed(feed))}>
+                      {feed.title}
+                    </NavLink>
+                  </div>
+                </td>
+                <td className={styles['body']}>
+                  <div className={styles['update-time']}>Recently</div>
+                </td>
+                <td className={styles['body']}>
+                  <Button
+                    className={styles['btn-unsub']}
+                    onClick={() => handleUnsubscribe(feed.id)}>
+                    Unsubscribe
+                  </Button>
+                </td>
+                <td className={styles['body']}>
+                  <Button
+                    myref={refRenamePopup}
+                    className={styles['btn-rename']}
+                    onClick={() => {
+                      setCurrentFeed(feed);
+                      setRenamePopup(!isRenamePopup);
+                    }}>
+                    Rename
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }
