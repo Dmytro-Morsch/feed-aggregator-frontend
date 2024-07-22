@@ -4,8 +4,8 @@ import { RootState } from '../../redux/store.ts';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import {
   setItems,
-  updateAllReadMarkers,
-  updateReadMarker,
+  updateAllRead,
+  updateRead,
   updateStarredMarker
 } from '../../redux/itemsSlice.ts';
 import {
@@ -24,6 +24,7 @@ import Item from './Item.tsx';
 import Button from '../Button/Button.tsx';
 
 import styles from './Items.module.scss';
+import {updateAllFeedCountUnreadItems, updateFeedCountUnreadItems} from '../../redux/userFeedsSlice.ts';
 
 function Items() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -61,27 +62,35 @@ function Items() {
     })();
   };
 
-  const handleAllRead = () => {
+  const handleAllAsRead = (feedId?: ItemType['feedId']) => {
     const itemIds = items.filter((item) => !item.read).map((item) => item.id);
     (async () => {
       await apiAxios.items.markAllRead(itemIds);
-      dispatch(updateAllReadMarkers());
+      dispatch(updateAllRead());
+      dispatch(updateAllFeedCountUnreadItems(feedId));
     })();
   };
 
-  const handleMarkAsRead = useCallback((itemId: ItemType['id'], read: ItemType['read']) => {
-    (async () => {
-      await apiAxios.items.markItemRead(read, itemId);
-      dispatch(updateReadMarker({ itemId, read }));
-    })();
-  }, []);
+  const handleMarkAsRead = useCallback(
+    (itemId: ItemType['id'], feedId: ItemType['feedId'], read: ItemType['read']) => {
+      (async () => {
+        await apiAxios.items.markItemRead(read, itemId);
+        dispatch(updateRead({ itemId, read }));
+        dispatch(updateFeedCountUnreadItems({ feedId, read }));
+      })();
+    },
+    []
+  );
 
-  const handleMarkAsStar = useCallback((itemId: ItemType['id'], starred: ItemType['starred']) => {
-    (async () => {
-      await apiAxios.items.markItemStar(starred, itemId);
-      dispatch(updateStarredMarker({ itemId, starred }));
-    })();
-  }, []);
+  const handleMarkAsStar = useCallback(
+    (itemId: ItemType['id'], feedId: ItemType['feedId'], starred: ItemType['starred']) => {
+      (async () => {
+        await apiAxios.items.markItemStar(starred, itemId);
+        dispatch(updateStarredMarker({ itemId, starred }));
+      })();
+    },
+    []
+  );
 
   const handleShowPost = () => {
     if (feed) {
@@ -132,7 +141,7 @@ function Items() {
               Refresh
             </Button>
           )}
-          <Button className={styles['btn-check']} onClick={handleAllRead}>
+          <Button className={styles['btn-check']} onClick={() => handleAllAsRead(feed?.id)}>
             <MdCheck />
             Mark all as read
           </Button>

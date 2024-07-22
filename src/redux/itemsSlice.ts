@@ -17,10 +17,12 @@ export const itemsSlice = createSlice({
     setStar: (state, action: PayloadAction<boolean>) => {
       state.starred = action.payload;
     },
-    updateAllReadMarkers: (state) => {
-      state.items.forEach((item) => item.map((value) => ({ ...value, read: true })));
+    updateAllRead: (state) => {
+      state.items.forEach((item) => {
+        item.read = true;
+      });
     },
-    updateReadMarker: (
+    updateRead: (
       state,
       action: PayloadAction<{ itemId: ItemType['id']; read: ItemType['read'] }>
     ) => {
@@ -37,12 +39,6 @@ export const itemsSlice = createSlice({
   }
 });
 
-export const {
-  resetItemsData,
-  setItems,
-  setStar,
-  updateAllReadMarkers,
-  updateReadMarker,
-  updateStarredMarker
-} = itemsSlice.actions;
+export const { resetItemsData, setItems, setStar, updateAllRead, updateRead, updateStarredMarker } =
+  itemsSlice.actions;
 export default itemsSlice.reducer;

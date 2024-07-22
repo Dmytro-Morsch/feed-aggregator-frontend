@@ -1,5 +1,6 @@
 type ItemType = {
   id: number;
+  feedId: number;
   title: string;
   description: string;
   link: string;

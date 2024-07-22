@@ -9,8 +9,12 @@ import styles from './Item.module.scss';
 
 interface ItemProps {
   item: ItemType;
-  onMarkRead: (itemId: ItemType['id'], marker: ItemType['read']) => void;
-  onMarkStar: (itemId: ItemType['id'], marker: ItemType['starred']) => void;
+  onMarkRead: (itemId: ItemType['id'], feedId: ItemType['feedId'], read: ItemType['read']) => void;
+  onMarkStar: (
+    itemId: ItemType['id'],
+    feedId: ItemType['feedId'],
+    starred: ItemType['starred']
+  ) => void;
 }
 
 function Item({ item, onMarkRead, onMarkStar }: ItemProps) {
@@ -30,11 +34,15 @@ function Item({ item, onMarkRead, onMarkStar }: ItemProps) {
       )}
 
       <div className={styles['control-panel']}>
-        <Button className={styles['btn-star']} onClick={() => onMarkStar(item.id, !item.starred)}>
+        <Button
+          className={styles['btn-star']}
+          onClick={() => onMarkStar(item.id, item.feedId, !item.starred)}>
           <MdStar className={`${styles['icon']} ${item.starred ? styles['stared'] : ''}`} />{' '}
           {item.starred ? 'Unstar' : 'Star'}
         </Button>
-        <Button className={styles['btn-check']} onClick={() => onMarkRead(item.id, !item.read)}>
+        <Button
+          className={styles['btn-check']}
+          onClick={() => onMarkRead(item.id, item.feedId, !item.read)}>
           <MdCheck className={styles['icon']} /> {item.read ? 'Mark as unread' : 'Mark as read'}
         </Button>
       </div>
