@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { RootState } from '../../redux/store.ts';
 
-import { useUser } from '../../context/User.context.tsx';
+import { getUser } from '../../redux/userSlice.ts';
 
 import Header from '../../components/Header/Header.tsx';
 import AsideBar from '../../components/AsideBar/AsideBar.tsx';
@@ -9,11 +12,11 @@ import AsideBar from '../../components/AsideBar/AsideBar.tsx';
 import styles from './MainLayout.module.scss';
 
 function MainLayout() {
-  const { getUser } = useUser();
+  const dispatch: ThunkDispatch<RootState, undefined, never> = useDispatch();
 
   useEffect(() => {
-    getUser();
-  }, [getUser]);
+    dispatch(getUser());
+  }, []);
 
   return (
     <>

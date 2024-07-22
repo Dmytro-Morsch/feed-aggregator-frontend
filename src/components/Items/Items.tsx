@@ -1,4 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store.ts';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import {
+  setItems,
+  updateAllReadMarkers,
+  updateReadMarker,
+  updateStarredMarker
+} from '../../redux/itemsSlice.ts';
 import {
   MdArrowDownward,
   MdArrowUpward,
@@ -8,7 +17,6 @@ import {
   MdOutlineRefresh
 } from 'react-icons/md';
 
-import { useFeed } from '../../context/Feed.context.tsx';
 import ItemType from '../../types/itemType.ts';
 import apiAxios from '../../api/index.ts';
 
@@ -19,11 +27,13 @@ import styles from './Items.module.scss';
 
 function Items() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [items, setItems] = useState<ItemType[]>([]);
   const [descOrder, setDescOrder] = useState(false);
   const [unreadOnly, setUnreadOnly] = useState(false);
 
-  const { feed, starFeed } = useFeed();
+  const feed = useSelector((state: RootState) => state.feedSlice.feed);
+  const items = useSelector((state: RootState) => state.itemsSlice.items);
+  const starred = useSelector((state: RootState) => state.itemsSlice.starred);
+  const dispatch: ThunkDispatch<RootState, undefined, never> = useDispatch();
   const ref = useRef<HTMLUListElement>(null);
 
   const scrollContainer = (index: number) => {
@@ -47,7 +57,7 @@ function Items() {
   const handleRefresh = () => {
     (async () => {
       const response = await apiAxios.feeds.updateFeed(feed?.id ?? 0, descOrder);
-      setItems(response.data);
+      dispatch(setItems(response.data));
     })();
   };
 
@@ -55,31 +65,21 @@ function Items() {
     const itemIds = items.filter((item) => !item.read).map((item) => item.id);
     (async () => {
       await apiAxios.items.markAllRead(itemIds);
-      setItems((prevState) => prevState.map((value) => ({ ...value, read: true })));
+      dispatch(updateAllReadMarkers());
     })();
   };
 
   const handleMarkAsRead = useCallback((itemId: ItemType['id'], marker: ItemType['read']) => {
     (async () => {
       await apiAxios.items.markItemRead(marker, itemId);
-      setItems((prevState) =>
-        prevState.map((value) => {
-          if (value.id === itemId) return { ...value, read: marker };
-          return value;
-        })
-      );
+      dispatch(updateReadMarker({ itemId, marker }));
     })();
   }, []);
 
   const handleMarkAsStar = useCallback((itemId: ItemType['id'], marker: ItemType['starred']) => {
     (async () => {
       await apiAxios.items.markItemStar(marker, itemId);
-      setItems((prevState) =>
-        prevState.map((value) => {
-          if (value.id === itemId) return { ...value, starred: marker };
-          return value;
-        })
-      );
+      dispatch(updateStarredMarker({ itemId, marker }));
     })();
   }, []);
 
@@ -87,32 +87,40 @@ function Items() {
     if (feed) {
       (async () => {
         const response = await apiAxios.items.getFeedUnreadItems(feed.id, descOrder, unreadOnly);
-        setItems(response.data);
+        dispatch(setItems(response.data));
         setUnreadOnly(!unreadOnly);
       })();
     } else {
       (async () => {
         const response = await apiAxios.items.getAllUnreadItems(descOrder, unreadOnly);
-        setItems(response.data);
+        dispatch(setItems(response.data));
         setUnreadOnly(!unreadOnly);
       })();
     }
   };
 
   useEffect(() => {
-    if (feed) {
+    if (starred) {
       (async () => {
+        console.log('Show starred items');
+        const response = await apiAxios.items.getAllUserItems(false, true);
+        dispatch(setItems(response.data));
+      })();
+    } else if (feed) {
+      (async () => {
+        console.log('Show feed items');
         const response = await apiAxios.items.getFeedItems(feed.id, descOrder);
-        setItems(response.data);
+        dispatch(setItems(response.data));
       })();
     } else {
       (async () => {
-        const response = await apiAxios.items.getAllUserItems(descOrder, starFeed);
-        setItems(response.data);
+        console.log('Show all items');
+        const response = await apiAxios.items.getAllUserItems(descOrder, false);
+        dispatch(setItems(response.data));
       })();
     }
     setUnreadOnly(true);
-  }, [feed, descOrder, starFeed]);
+  }, [feed, descOrder, starred]);
 
   return (
     <>

@@ -1,20 +1,26 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { RootState } from '../../redux/store.ts';
+import { ThunkDispatch } from '@reduxjs/toolkit';
 
-import { useFeed } from '../../context/Feed.context.tsx';
 import FeedType from '../../types/feedType.ts';
-
 import apiAxios from '../../api/index.ts';
 import useComponentVisible from '../../hooks/useCompontentVisible.tsx';
+
 import RenamePopup from '../../components/RenamePopup/RenamePopup.tsx';
 import Button from '../../components/Button/Button.tsx';
+
+import { getUserFeeds, deleteFeed, renameFeedTitle } from '../../redux/userFeedsSlice.ts';
+import { setFeed } from '../../redux/feedSlice.ts';
 
 import styles from './ManageFeeds.module.scss';
 
 function ManageFeeds() {
   const [currentFeed, setCurrentFeed] = useState<FeedType>({} as FeedType);
 
-  const { userFeeds, setUserFeeds, setFeed } = useFeed();
+  const userFeeds = useSelector((state: RootState) => state.userFeedsSlice.userFeeds);
+  const dispatch: ThunkDispatch<RootState, undefined, never> = useDispatch();
 
   const {
     ref: refRenamePopup,
@@ -25,27 +31,19 @@ function ManageFeeds() {
   const handleUnsubscribe = (feedId: FeedType['id']) => {
     (async () => {
       await apiAxios.feeds.unsubscribeFromFeed(feedId);
-      setUserFeeds((prevState) => prevState.filter((value) => value.id !== feedId));
+      dispatch(deleteFeed(feedId));
     })();
   };
 
   const handleRename = (feedId: FeedType['id'], title: FeedType['title']) => {
     (async () => {
       await apiAxios.feeds.renameFeed(feedId, title);
-      setUserFeeds((prevState) =>
-        prevState.map((value) => {
-          if (value.id === feedId) return { ...value, title };
-          return value;
-        })
-      );
+      dispatch(renameFeedTitle({ feedId, title }));
     })();
   };
 
   useEffect(() => {
-    (async () => {
-      const response = await apiAxios.feeds.getFeeds();
-      setUserFeeds(response.data);
-    })();
+    dispatch(getUserFeeds());
   }, []);
 
   return (
@@ -81,7 +79,7 @@ function ManageFeeds() {
                   <NavLink
                     to={`/feeds/${feed.id}`}
                     className={styles['site-link']}
-                    onClick={() => setFeed(feed)}>
+                    onClick={() => dispatch(setFeed(feed))}>
                     {feed.title}
                   </NavLink>
                 </div>

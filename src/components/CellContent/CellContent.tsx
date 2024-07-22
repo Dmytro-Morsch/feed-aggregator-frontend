@@ -1,17 +1,19 @@
-import { useFeed } from '../../context/Feed.context.tsx';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store.ts';
 
 import Items from '../Items/Items.tsx';
 
 import styles from './CellContent.module.scss';
 
 function CellContent() {
-  const { feed, starFeed } = useFeed();
+  const feed = useSelector((state: RootState) => state.feedSlice.feed);
+  const starred = useSelector((state: RootState) => state.itemsSlice.starred);
 
   return (
     <div className={styles['content']}>
       <div className={styles['toolbar']}>
         <h1 className={styles['item-title']}>
-          {feed ? feed.title : starFeed ? 'Starred' : 'All items'}
+          {feed ? feed.title : starred ? 'Starred' : 'All items'}
         </h1>
         {feed && (
           <div className={styles['sources']}>

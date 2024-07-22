@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { RootState } from '../../redux/store.ts';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFeed, updateFeed, getUserFeeds } from '../../redux/userFeedsSlice.ts';
+import { setStar } from '../../redux/itemsSlice.ts';
+import { resetFeedData } from '../../redux/feedSlice.ts';
 import {
   MdFormatListBulleted,
   MdHome,
@@ -8,12 +14,11 @@ import {
   MdStar
 } from 'react-icons/md';
 
-import { useFeed } from '../../context/Feed.context.tsx';
+import FeedType from '../../types/feedType.ts';
+import apiAxios from '../../api/index.ts';
 
 import Feeds from '../Feeds/Feeds.tsx';
 import Button from '../Button/Button.tsx';
-import FeedType from '../../types/feedType.ts';
-import apiAxios from '../../api/index.ts';
 
 import styles from './AsideBar.module.scss';
 
@@ -21,7 +26,8 @@ function AsideBar() {
   const [link, setLink] = useState('');
   const [isOpenSub, setIsOpenSub] = useState(true);
 
-  const { setFeed, userFeeds, setUserFeeds, setStarFeed } = useFeed();
+  const userFeeds = useSelector((state: RootState) => state.userFeedsSlice.userFeeds);
+  const dispatch: ThunkDispatch<RootState, undefined, never> = useDispatch();
 
   const onSubmit = () => {
     if (link === '' || link === null) {
@@ -29,20 +35,18 @@ function AsideBar() {
     } else {
       (async () => {
         const response = await apiAxios.feeds.subscribeToFeed(link);
-        setUserFeeds((prevState) => [...prevState, response.data]);
+        dispatch(addFeed(response.data));
         setLink('');
-        updateFeed(response.data.id);
+        refreshFeed(response.data.id);
       })();
     }
   };
 
-  const updateFeed = (feedId: FeedType['id']) => {
+  const refreshFeed = (feedId: FeedType['id']) => {
     const intervalId = setInterval(() => {
       (async () => {
         const response = await apiAxios.feeds.getFeed(feedId);
-        setUserFeeds((prevFeeds: FeedType[]) =>
-          prevFeeds.map((feed) => (feed.id === feedId ? response.data : feed))
-        );
+        dispatch(updateFeed(response.data));
         if (response.data.loaded) {
           clearInterval(intervalId);
         }
@@ -50,21 +54,8 @@ function AsideBar() {
     }, 5000);
   };
 
-  const handleToAllFeeds = () => {
-    setFeed(null);
-    setStarFeed(false);
-  };
-
-  const handleToStarred = () => {
-    setFeed(null);
-    setStarFeed(true);
-  };
-
   useEffect(() => {
-    (async () => {
-      const response = await apiAxios.feeds.getFeeds();
-      setUserFeeds(response.data);
-    })();
+    dispatch(getUserFeeds());
   }, []);
 
   return (
@@ -83,7 +74,13 @@ function AsideBar() {
 
       <ul className={styles['sidebar-nav']}>
         <li className={styles['nav']}>
-          <NavLink to="/" className={styles['nav-link']} onClick={() => setStarFeed(false)}>
+          <NavLink
+            to="/"
+            className={styles['nav-link']}
+            onClick={() => {
+              dispatch(resetFeedData());
+              dispatch(setStar(false));
+            }}>
             <MdHome className={styles['icon']} /> Home
           </NavLink>
         </li>
@@ -91,12 +88,21 @@ function AsideBar() {
           <NavLink
             to="/posts/all"
             className={styles['nav-link']}
-            onClick={() => handleToAllFeeds()}>
+            onClick={() => {
+              dispatch(resetFeedData());
+              dispatch(setStar(false));
+            }}>
             <MdFormatListBulleted className={styles['icon']} /> All items
           </NavLink>
         </li>
         <li className={styles['nav']}>
-          <NavLink to="/starred" className={styles['nav-link']} onClick={() => handleToStarred()}>
+          <NavLink
+            to="/starred"
+            className={styles['nav-link']}
+            onClick={() => {
+              dispatch(resetFeedData());
+              dispatch(setStar(true));
+            }}>
             <MdStar className={styles['icon']} /> Starred
           </NavLink>
         </li>

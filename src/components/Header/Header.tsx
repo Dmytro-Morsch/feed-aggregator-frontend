@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
+import { RootState } from '../../redux/store.ts';
+import { useSelector } from 'react-redux';
 import { MdArrowDropDown } from 'react-icons/md';
 
 import useComponentVisible from '../../hooks/useCompontentVisible.tsx';
-import { useUser } from '../../context/User.context.tsx';
 import Button from '../Button/Button.tsx';
 
 import logo from '../../assets/logo.svg';
@@ -10,7 +11,7 @@ import logo from '../../assets/logo.svg';
 import styles from './Header.module.scss';
 
 function Header() {
-  const { user } = useUser();
+  const user = useSelector((state: RootState) => state.userSlice.user);
 
   const {
     ref: refPopup,

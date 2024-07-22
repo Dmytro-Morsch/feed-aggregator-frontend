@@ -1,7 +1,12 @@
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { RootState } from '../../redux/store.ts';
 
-import {useFeed} from '../../context/Feed.context.tsx';
 import FeedType from '../../types/feedType.ts';
+
+import { setFeed } from '../../redux/feedSlice.ts';
+import { setStar } from '../../redux/itemsSlice.ts';
 
 import feedStyles from './Feeds.module.scss';
 import loaderStyles from './Loader.module.scss';
@@ -11,11 +16,11 @@ interface FeedProps {
 }
 
 function Feed({ feed }: FeedProps) {
-  const { setFeed, setStarFeed } = useFeed();
+  const dispatch: ThunkDispatch<RootState, undefined, never> = useDispatch();
 
-  const handleToFeed = () => {
-    setFeed(feed);
-    setStarFeed(false);
+  const handleMoveToFeed = () => {
+    dispatch(setFeed(feed));
+    dispatch(setStar(false));
   };
 
   return (
@@ -24,7 +29,7 @@ function Feed({ feed }: FeedProps) {
         to={`/feeds/${feed.id}`}
         className={feedStyles['feed']}
         title={feed.title}
-        onClick={() => handleToFeed()}>
+        onClick={() => handleMoveToFeed()}>
         {feed.loaded ? (
           <img className={feedStyles['source-icon']} src={`/api/feeds/${feed.id}/icon`} alt="" />
         ) : (

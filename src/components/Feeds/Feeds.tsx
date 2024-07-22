@@ -1,10 +1,12 @@
-import { useFeed } from '../../context/Feed.context.tsx';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store.ts';
+
 import Feed from './Feed.tsx';
 
 import feedStyles from './Feeds.module.scss';
 
 function Feeds() {
-  const { userFeeds } = useFeed();
+  const userFeeds = useSelector((state: RootState) => state.userFeedsSlice.userFeeds);
 
   return (
     <ul className={feedStyles['feed-list']}>
