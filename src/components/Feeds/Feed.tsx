@@ -8,6 +8,8 @@ import FeedType from '../../types/feedType.ts';
 import { setFeed } from '../../redux/feedSlice.ts';
 import { setStar } from '../../redux/itemsSlice.ts';
 
+import NumberUnreadItems from '../NumberUnreadItems/NumberUnreadItems.tsx';
+
 import feedStyles from './Feeds.module.scss';
 import loaderStyles from './Loader.module.scss';
 
@@ -38,7 +40,7 @@ function Feed({ feed }: FeedProps) {
         <span className={feedStyles['title']}>{feed.title}</span>
 
         {feed.countUnreadItems > 0 && (
-          <div className={feedStyles['count-unread-posts']}>{feed.countUnreadItems}</div>
+          <NumberUnreadItems count={feed.countUnreadItems} className={'feed-count'} />
         )}
       </NavLink>
     </li>

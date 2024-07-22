@@ -38,6 +38,10 @@
     margin: 1rem;
 
     .nav {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+
       .nav-link {
         display: flex;
         align-items: center;
@@ -56,17 +60,23 @@
   .drop-down {
     margin: 1rem;
 
-    .title {
+    .content {
       display: flex;
-      align-items: center;
+      flex-direction: row;
       gap: 0.5rem;
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: gray;
-      cursor: pointer;
 
-      .icon {
-        font-size: 1.6rem;
+      .title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: gray;
+        cursor: pointer;
+
+        .icon {
+          font-size: 1.6rem;
+        }
       }
     }
   }

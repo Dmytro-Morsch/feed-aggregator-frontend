@@ -1,0 +1,16 @@
+.default {
+  border-radius: 10px;
+  font-weight: bold;
+  padding: 2px 4px;
+  font-size: 9px;
+  line-height: 14px;
+  color: white;
+
+  &.file-count {
+    background-color: #808080;
+  }
+
+  &.feed-count {
+    background-color: var(--secondary);
+  }
+}
