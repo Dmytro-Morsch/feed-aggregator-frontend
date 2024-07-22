@@ -69,17 +69,17 @@ function Items() {
     })();
   };
 
-  const handleMarkAsRead = useCallback((itemId: ItemType['id'], marker: ItemType['read']) => {
+  const handleMarkAsRead = useCallback((itemId: ItemType['id'], read: ItemType['read']) => {
     (async () => {
-      await apiAxios.items.markItemRead(marker, itemId);
-      dispatch(updateReadMarker({ itemId, marker }));
+      await apiAxios.items.markItemRead(read, itemId);
+      dispatch(updateReadMarker({ itemId, read }));
     })();
   }, []);
 
-  const handleMarkAsStar = useCallback((itemId: ItemType['id'], marker: ItemType['starred']) => {
+  const handleMarkAsStar = useCallback((itemId: ItemType['id'], starred: ItemType['starred']) => {
     (async () => {
-      await apiAxios.items.markItemStar(marker, itemId);
-      dispatch(updateStarredMarker({ itemId, marker }));
+      await apiAxios.items.markItemStar(starred, itemId);
+      dispatch(updateStarredMarker({ itemId, starred }));
     })();
   }, []);
 
