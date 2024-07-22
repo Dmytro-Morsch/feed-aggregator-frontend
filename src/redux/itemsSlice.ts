@@ -37,6 +37,12 @@ export const itemsSlice = createSlice({
   }
 });
 
-export const { resetItemsData, setItems, setStar, updateAllReadMarkers, updateReadMarker, updateStarredMarker } =
-  itemsSlice.actions;
+export const {
+  resetItemsData,
+  setItems,
+  setStar,
+  updateAllReadMarkers,
+  updateReadMarker,
+  updateStarredMarker
+} = itemsSlice.actions;
 export default itemsSlice.reducer;

@@ -20,7 +20,7 @@ import {
 import ItemType from '../../types/itemType.ts';
 import apiAxios from '../../api/index.ts';
 
-import Item from '../Item/Item.tsx';
+import Item from './Item.tsx';
 import Button from '../Button/Button.tsx';
 
 import styles from './Items.module.scss';
