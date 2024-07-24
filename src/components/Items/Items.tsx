@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store.ts';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import {
   setItems,
+  toggleDescOrder,
   updateAllRead,
   updateRead,
   updateStarredMarker
@@ -31,14 +32,18 @@ import styles from './Items.module.scss';
 
 function Items() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [descOrder, setDescOrder] = useState(false);
   const [unreadOnly, setUnreadOnly] = useState(true);
 
   const feed = useSelector((state: RootState) => state.feedSlice.feed);
   const items = useSelector((state: RootState) => state.itemsSlice.items);
-  const starred = useSelector((state: RootState) => state.itemsSlice.starred);
+  const descOrder = useSelector((state: RootState) => state.itemsSlice.descOrder);
   const dispatch: ThunkDispatch<RootState, undefined, never> = useDispatch();
   const ref = useRef<HTMLUListElement>(null);
+
+  const itemsDisplay = useMemo(
+    () => (descOrder ? [...items].reverse() : items),
+    [items, descOrder]
+  );
 
   const scrollContainer = (index: number) => {
     if (ref.current) {
@@ -112,26 +117,8 @@ function Items() {
   };
 
   useEffect(() => {
-    if (starred) {
-      (async () => {
-        console.log('Show starred items');
-        const response = await apiAxios.items.getAllUserItems(false, true);
-        dispatch(setItems(response.data));
-      })();
-    } else if (feed) {
-      (async () => {
-        console.log('Show feed items');
-        const response = await apiAxios.items.getFeedItems(feed.id, descOrder);
-        dispatch(setItems(response.data));
-      })();
-    } else {
-      (async () => {
-        console.log('Show all items');
-        const response = await apiAxios.items.getAllUserItems(descOrder, false);
-        dispatch(setItems(response.data));
-      })();
-    }
-  }, [feed, descOrder, starred]);
+    if (ref.current) ref.current.scrollTop = 0;
+  }, [itemsDisplay]);
 
   return (
     <>
@@ -156,7 +143,7 @@ function Items() {
           <Button className={styles['btn-next_post']} onClick={handleNextItem}>
             <MdKeyboardArrowDown className={`${styles['icon']} ${styles['i-next_arrow']}`} />
           </Button>
-          <Button className={styles['btn-sort']} onClick={() => setDescOrder(!descOrder)}>
+          <Button className={styles['btn-sort']} onClick={() => dispatch(toggleDescOrder())}>
             {descOrder ? (
               <MdArrowDownward className={`${styles['icon']} ${styles['i-arrow_down']}`} />
             ) : (
@@ -171,7 +158,7 @@ function Items() {
 
       {items.length > 0 ? (
         <ul ref={ref} className={styles['item-list']}>
-          {items.map((item, index) => {
+          {itemsDisplay.map((item, index) => {
             return (
               <li key={item.id} data-id={index} className={styles['item-list__item']}>
                 <Item item={item} onMarkRead={handleMarkAsRead} onMarkStar={handleMarkAsStar} />

@@ -4,7 +4,6 @@ import { ThunkDispatch } from '@reduxjs/toolkit';
 import { RootState } from '../../redux/store.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFeed, updateFeed, getUserFeeds } from '../../redux/userFeedsSlice.ts';
-import { setStar } from '../../redux/itemsSlice.ts';
 import { resetFeedData } from '../../redux/feedSlice.ts';
 import {
   MdFormatListBulleted,
@@ -82,13 +81,7 @@ function AsideBar() {
 
       <ul className={styles['sidebar-nav']}>
         <li className={styles['nav']}>
-          <NavLink
-            to="/"
-            className={styles['nav-link']}
-            onClick={() => {
-              dispatch(resetFeedData());
-              dispatch(setStar(false));
-            }}>
+          <NavLink to="/" className={styles['nav-link']} onClick={() => dispatch(resetFeedData())}>
             <MdHome className={styles['icon']} /> Home
           </NavLink>
         </li>
@@ -96,10 +89,7 @@ function AsideBar() {
           <NavLink
             to="/posts/all"
             className={styles['nav-link']}
-            onClick={() => {
-              dispatch(resetFeedData());
-              dispatch(setStar(false));
-            }}>
+            onClick={() => dispatch(resetFeedData())}>
             <MdFormatListBulleted className={styles['icon']} /> All items
           </NavLink>
           {countUnreadItems > 0 && (
@@ -110,10 +100,7 @@ function AsideBar() {
           <NavLink
             to="/starred"
             className={styles['nav-link']}
-            onClick={() => {
-              dispatch(resetFeedData());
-              dispatch(setStar(true));
-            }}>
+            onClick={() => dispatch(resetFeedData())}>
             <MdStar className={styles['icon']} /> Starred
           </NavLink>
         </li>

@@ -1,12 +1,6 @@
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { ThunkDispatch } from '@reduxjs/toolkit';
-import { RootState } from '../../redux/store.ts';
 
 import FeedType from '../../types/feedType.ts';
-
-import { setFeed } from '../../redux/feedSlice.ts';
-import { setStar } from '../../redux/itemsSlice.ts';
 
 import NumberUnreadItems from '../NumberUnreadItems/NumberUnreadItems.tsx';
 
@@ -18,20 +12,9 @@ interface FeedProps {
 }
 
 function Feed({ feed }: FeedProps) {
-  const dispatch: ThunkDispatch<RootState, undefined, never> = useDispatch();
-
-  const handleMoveToFeed = () => {
-    dispatch(setFeed(feed));
-    dispatch(setStar(false));
-  };
-
   return (
     <li className={feedStyles['feed-item']} key={feed.id}>
-      <NavLink
-        to={`/feeds/${feed.id}`}
-        className={feedStyles['feed']}
-        title={feed.title}
-        onClick={() => handleMoveToFeed()}>
+      <NavLink to={`/feeds/${feed.id}`} className={feedStyles['feed']} title={feed.title}>
         {feed.loaded ? (
           <img className={feedStyles['source-icon']} src={`/api/feeds/${feed.id}/icon`} alt="" />
         ) : (

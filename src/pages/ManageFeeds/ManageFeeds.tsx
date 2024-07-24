@@ -7,12 +7,10 @@ import { ThunkDispatch } from '@reduxjs/toolkit';
 import FeedType from '../../types/feedType.ts';
 import apiAxios from '../../api/index.ts';
 import useComponentVisible from '../../hooks/useCompontentVisible.tsx';
+import { getUserFeeds, deleteFeed, renameFeedTitle } from '../../redux/userFeedsSlice.ts';
 
 import RenamePopup from '../../components/RenamePopup/RenamePopup.tsx';
 import Button from '../../components/Button/Button.tsx';
-
-import { getUserFeeds, deleteFeed, renameFeedTitle } from '../../redux/userFeedsSlice.ts';
-import { setFeed } from '../../redux/feedSlice.ts';
 
 import styles from './ManageFeeds.module.scss';
 
@@ -82,10 +80,7 @@ function ManageFeeds() {
               <tr key={feed.id}>
                 <td className={styles['body']}>
                   <div>
-                    <NavLink
-                      to={`/feeds/${feed.id}`}
-                      className={styles['site-link']}
-                      onClick={() => dispatch(setFeed(feed))}>
+                    <NavLink to={`/feeds/${feed.id}`} className={styles['site-link']}>
                       {feed.title}
                     </NavLink>
                   </div>
