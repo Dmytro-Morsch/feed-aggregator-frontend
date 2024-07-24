@@ -9,6 +9,10 @@ import {
   updateStarredMarker
 } from '../../redux/itemsSlice.ts';
 import {
+  updateAllFeedCountUnreadItems,
+  updateFeedCountUnreadItems
+} from '../../redux/userFeedsSlice.ts';
+import {
   MdArrowDownward,
   MdArrowUpward,
   MdCheck,
@@ -24,12 +28,11 @@ import Item from './Item.tsx';
 import Button from '../Button/Button.tsx';
 
 import styles from './Items.module.scss';
-import {updateAllFeedCountUnreadItems, updateFeedCountUnreadItems} from '../../redux/userFeedsSlice.ts';
 
 function Items() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [descOrder, setDescOrder] = useState(false);
-  const [unreadOnly, setUnreadOnly] = useState(false);
+  const [unreadOnly, setUnreadOnly] = useState(true);
 
   const feed = useSelector((state: RootState) => state.feedSlice.feed);
   const items = useSelector((state: RootState) => state.itemsSlice.items);
@@ -128,7 +131,6 @@ function Items() {
         dispatch(setItems(response.data));
       })();
     }
-    setUnreadOnly(true);
   }, [feed, descOrder, starred]);
 
   return (
@@ -162,7 +164,7 @@ function Items() {
             )}
           </Button>
           <Button className={styles['btn-show_post']} onClick={handleShowPost}>
-            {!unreadOnly ? 'Show all posts' : 'Show unread only'}
+            {unreadOnly ? 'Show unread only' : 'Show all posts'}
           </Button>
         </div>
       </div>

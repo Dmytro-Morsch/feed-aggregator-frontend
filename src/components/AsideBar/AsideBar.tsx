@@ -103,7 +103,7 @@ function AsideBar() {
             <MdFormatListBulleted className={styles['icon']} /> All items
           </NavLink>
           {countUnreadItems > 0 && (
-            <NumberUnreadItems count={countUnreadItems} className={'file-count'} />
+            <NumberUnreadItems count={countUnreadItems} className={'feed-count'} />
           )}
         </li>
         <li className={styles['nav']}>
