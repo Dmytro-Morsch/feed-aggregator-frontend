@@ -29,7 +29,7 @@ function Header() {
       </div>
 
       <div className={styles['navbar-end']}>
-        {!user && (
+        {!user ? (
           <div className={styles['auth']}>
             <Link to="/signup" className={styles['signup']}>
               Sign up
@@ -38,9 +38,7 @@ function Header() {
               Sign in
             </Link>
           </div>
-        )}
-
-        {user && (
+        ) : (
           <div className={styles['dropdown']}>
             <Button
               myref={refPopup}
@@ -53,7 +51,7 @@ function Header() {
             {isPopup && (
               <ul id="dropdown-user" className={styles['menu-settings']}>
                 <li className={styles['link']}>
-                  <a href="#">Manage Account</a>
+                  <Link to="/users/edit">Manage Settings</Link>
                 </li>
                 <li className={styles['link']}>
                   <Link to="/manage/subscriptions">Manage Subscriptions</Link>
