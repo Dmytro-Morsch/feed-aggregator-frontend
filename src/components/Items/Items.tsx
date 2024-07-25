@@ -160,14 +160,16 @@ function Items() {
         <ul ref={ref} className={styles['item-list']}>
           {itemsDisplay.map((item, index) => {
             return (
-              <li key={item.id} data-id={index} className={styles['item-list__item']}>
+              <li key={item.id} data-id={index} className={styles['item']}>
                 <Item item={item} onMarkRead={handleMarkAsRead} onMarkStar={handleMarkAsStar} />
               </li>
             );
           })}
         </ul>
       ) : (
-        <div className={styles['notif-not_found']}>There are no posts to view at this time</div>
+        <div className={styles['load-container']}>
+          <div className={styles['loader']}></div>
+        </div>
       )}
     </>
   );
