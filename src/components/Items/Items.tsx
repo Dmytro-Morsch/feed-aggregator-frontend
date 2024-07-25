@@ -179,9 +179,7 @@ function Items({ title, children }: ItemsProps) {
           })}
         </ul>
       ) : (
-        <div className={styles['load-container']}>
-          <div className={styles['loader']}></div>
-        </div>
+        <div className={styles['not-exist']}>There are no posts to view at this time</div>
       )}
     </>
   );
