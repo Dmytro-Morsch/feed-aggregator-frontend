@@ -4,7 +4,7 @@ import { ThunkDispatch } from '@reduxjs/toolkit';
 import { RootState } from '../../redux/store.ts';
 import { useDispatch } from 'react-redux';
 
-import CellContent from './CellContent.tsx';
+import Items from '../Items/Items.tsx';
 
 function CellContentStarred() {
   const dispatch: ThunkDispatch<RootState, undefined, never> = useDispatch();
@@ -14,7 +14,7 @@ function CellContentStarred() {
     dispatch(getStarredItems());
   }, []);
 
-  return <CellContent title="Starred" />;
+  return <Items title="Starred" />;
 }
 
 export default CellContentStarred;

@@ -1,3 +1,21 @@
+.content {
+  margin: 0 auto;
+
+  .toolbar {
+    .item-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .hr {
+      border: 2px solid var(--fourth);
+      border-radius: 5px;
+      margin: 1rem 0;
+    }
+  }
+}
+
 .floating {
   display: flex;
   justify-content: space-between;
@@ -13,19 +31,14 @@
     align-items: center;
     line-height: 1.5;
     border-radius: 3px;
+
+    &:hover {
+      background-color: #E6E6E6;
+    }
   }
 
   .icon {
     font-size: 15px;
-  }
-
-  .btn-check:hover,
-  .btn-refresh:hover,
-  .btn-next_post:hover,
-  .btn-prev_post:hover,
-  .btn-sort:hover,
-  .btn-show_post:hover {
-    background-color: #E6E6E6;
   }
 
   .pull-left {

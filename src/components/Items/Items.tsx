@@ -30,7 +30,12 @@ import Button from '../Button/Button.tsx';
 
 import styles from './Items.module.scss';
 
-function Items() {
+interface ItemsProps {
+  title: string;
+  children?: React.ReactNode;
+}
+
+function Items({ title, children }: ItemsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [unreadOnly, setUnreadOnly] = useState(true);
 
@@ -122,6 +127,13 @@ function Items() {
 
   return (
     <>
+      <div className={styles['content']}>
+        <div className={styles['toolbar']}>
+          <h1 className={styles['item-title']}>{title}</h1>
+          {children}
+          <hr className={styles['hr']} />
+        </div>
+      </div>
       <div className={styles['floating']}>
         <div className={styles['pull-left']}>
           {feed && (

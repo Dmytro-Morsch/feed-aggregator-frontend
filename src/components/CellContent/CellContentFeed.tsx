@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { getFeedItems } from '../../redux/itemsSlice.ts';
 import { setFeed } from '../../redux/feedSlice.ts';
 
-import CellContent from './CellContent.tsx';
+import Items from '../Items/Items.tsx';
 
 import styles from './CellContent.module.scss';
 
@@ -30,7 +30,7 @@ function CellContentFeed() {
   return (
     <>
       {feed ? (
-        <CellContent title={feed.title}>
+        <Items title={feed.title}>
           <div className={styles['sources']}>
             <span className={`${styles['source']} ${styles['site']}`}>
               Site: <a href={feed.siteLink}>{feed.siteLink}</a>
@@ -39,7 +39,7 @@ function CellContentFeed() {
               Feed: <a href={feed.feedLink}>{feed.feedLink}</a>
             </span>
           </div>
-        </CellContent>
+        </Items>
       ) : (
         <div className={styles['not-exist']}>Sorry, but this feed does not exist(</div>
       )}

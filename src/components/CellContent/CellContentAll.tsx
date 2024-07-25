@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getAllItems } from '../../redux/itemsSlice.ts';
 
-import CellContent from './CellContent.tsx';
+import Items from '../Items/Items.tsx';
 
 function CellContentAll() {
   const dispatch: ThunkDispatch<RootState, undefined, never> = useDispatch();
@@ -14,7 +14,7 @@ function CellContentAll() {
     dispatch(getAllItems());
   }, []);
 
-  return <CellContent title="All items" />;
+  return <Items title="All items" />;
 }
 
 export default CellContentAll;
