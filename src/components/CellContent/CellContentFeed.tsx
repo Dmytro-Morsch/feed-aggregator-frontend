@@ -29,7 +29,7 @@ function CellContentFeed() {
 
   return (
     <>
-      {feed && (
+      {feed ? (
         <CellContent title={feed.title}>
           <div className={styles['sources']}>
             <span className={`${styles['source']} ${styles['site']}`}>
@@ -40,6 +40,8 @@ function CellContentFeed() {
             </span>
           </div>
         </CellContent>
+      ) : (
+        <div className={styles['not-exist']}>Sorry, but this feed does not exist(</div>
       )}
     </>
   );
