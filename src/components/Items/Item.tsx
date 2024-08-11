@@ -10,11 +10,7 @@ import styles from './Item.module.scss';
 interface ItemProps {
   item: ItemType;
   onMarkRead: (itemId: ItemType['id'], feedId: ItemType['feedId'], read: ItemType['read']) => void;
-  onMarkStar: (
-    itemId: ItemType['id'],
-    feedId: ItemType['feedId'],
-    starred: ItemType['starred']
-  ) => void;
+  onMarkStar: (itemId: ItemType['id'], starred: ItemType['starred']) => void;
 }
 
 function Item({ item, onMarkRead, onMarkStar }: ItemProps) {
@@ -34,9 +30,7 @@ function Item({ item, onMarkRead, onMarkStar }: ItemProps) {
       )}
 
       <div className={styles['control-panel']}>
-        <Button
-          className={styles['btn-star']}
-          onClick={() => onMarkStar(item.id, item.feedId, !item.starred)}>
+        <Button className={styles['btn-star']} onClick={() => onMarkStar(item.id, !item.starred)}>
           <MdStar className={`${styles['icon']} ${item.starred ? styles['stared'] : ''}`} />{' '}
           {item.starred ? 'Unstar' : 'Star'}
         </Button>

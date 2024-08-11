@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { RootState } from '../../redux/store.ts';
-import { ThunkDispatch } from '@reduxjs/toolkit';
+import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 
 import FeedType from '../../types/feedType.ts';
 import apiAxios from '../../api/index.ts';
@@ -18,7 +18,7 @@ function ManageFeeds() {
   const [currentFeed, setCurrentFeed] = useState<FeedType>({} as FeedType);
 
   const userFeeds = useSelector((state: RootState) => state.userFeedsSlice.userFeeds);
-  const dispatch: ThunkDispatch<RootState, undefined, never> = useDispatch();
+  const dispatch: ThunkDispatch<RootState, undefined, Action> = useDispatch();
 
   const {
     ref: refRenamePopup,

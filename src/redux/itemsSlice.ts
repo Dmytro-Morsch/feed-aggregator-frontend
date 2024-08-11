@@ -3,6 +3,16 @@ import ItemType from '../types/itemType.ts';
 import FeedType from '../types/feedType.ts';
 import apiAxios from '../api';
 
+export interface IItemState {
+  items: ItemType[];
+  descOrder: boolean;
+}
+
+const initialState: IItemState = {
+  items: [],
+  descOrder: false
+};
+
 export const getFeedItems = createAsyncThunk('getFeedItems', async (feedId: FeedType['id']) => {
   const response = await apiAxios.items.getFeedItems(feedId, false);
   return response.data;
@@ -20,10 +30,7 @@ export const getStarredItems = createAsyncThunk('getStarredItems', async () => {
 
 export const itemsSlice = createSlice({
   name: 'items',
-  initialState: {
-    items: [],
-    descOrder: false
-  },
+  initialState,
   reducers: {
     resetItemsData: (state) => {
       state.items = [];

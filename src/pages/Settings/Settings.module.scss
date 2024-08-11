@@ -13,11 +13,15 @@
 }
 
 .form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 2rem;
+
   .container {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    width: 500px;
 
     .element {
       display: flex;
@@ -35,6 +39,7 @@
 
       .input-container {
         .input {
+          width: 500px;
           font-size: 1.3rem;
           padding: 0.6rem 1.2rem;
           border-radius: 4px;
@@ -42,6 +47,11 @@
         }
       }
     }
+  }
+
+  .btn-container {
+    padding-left: 12rem;
+    padding-top: 2rem;
   }
 
   .btn-change-password,

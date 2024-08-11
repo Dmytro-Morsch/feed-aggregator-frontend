@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store.ts';
-import { ThunkDispatch } from '@reduxjs/toolkit';
+import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import {
   setItems,
   toggleDescOrder,
@@ -37,12 +37,12 @@ interface ItemsProps {
 
 function Items({ title, children }: ItemsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [unreadOnly, setUnreadOnly] = useState(true);
+  const [displayUnreadOnly, setDisplayUnreadOnly] = useState(true);
 
   const feed = useSelector((state: RootState) => state.feedSlice.feed);
   const items = useSelector((state: RootState) => state.itemsSlice.items);
   const descOrder = useSelector((state: RootState) => state.itemsSlice.descOrder);
-  const dispatch: ThunkDispatch<RootState, undefined, never> = useDispatch();
+  const dispatch: ThunkDispatch<RootState, undefined, Action> = useDispatch();
   const ref = useRef<HTMLUListElement>(null);
 
   const itemsDisplay = useMemo(
@@ -95,28 +95,25 @@ function Items({ title, children }: ItemsProps) {
     []
   );
 
-  const handleMarkAsStar = useCallback(
-    (itemId: ItemType['id'], feedId: ItemType['feedId'], starred: ItemType['starred']) => {
-      (async () => {
-        await apiAxios.items.markItemStar(starred, itemId);
-        dispatch(updateStarredMarker({ itemId, starred }));
-      })();
-    },
-    []
-  );
+  const handleMarkAsStar = useCallback((itemId: ItemType['id'], starred: ItemType['starred']) => {
+    (async () => {
+      await apiAxios.items.markItemStar(starred, itemId);
+      dispatch(updateStarredMarker({ itemId, starred }));
+    })();
+  }, []);
 
   const handleShowPost = () => {
     if (feed) {
       (async () => {
-        const response = await apiAxios.items.getFeedUnreadItems(feed.id, descOrder, unreadOnly);
+        const response = await apiAxios.items.getFeedUnreadItems(feed.id, descOrder, displayUnreadOnly);
         dispatch(setItems(response.data));
-        setUnreadOnly(!unreadOnly);
+        setDisplayUnreadOnly(!displayUnreadOnly);
       })();
     } else {
       (async () => {
-        const response = await apiAxios.items.getAllUnreadItems(descOrder, unreadOnly);
+        const response = await apiAxios.items.getAllUnreadItems(descOrder, displayUnreadOnly);
         dispatch(setItems(response.data));
-        setUnreadOnly(!unreadOnly);
+        setDisplayUnreadOnly(!displayUnreadOnly);
       })();
     }
   };
@@ -163,7 +160,7 @@ function Items({ title, children }: ItemsProps) {
             )}
           </Button>
           <Button className={styles['btn-show_post']} onClick={handleShowPost}>
-            {unreadOnly ? 'Show unread only' : 'Show all posts'}
+            {displayUnreadOnly ? 'Show unread only' : 'Show all posts'}
           </Button>
         </div>
       </div>

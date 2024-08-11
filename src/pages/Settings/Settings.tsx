@@ -10,8 +10,8 @@ function Settings() {
   const user = useSelector((state: RootState) => state.userSlice.user);
 
   const [changePassword, setChangePassword] = useState(false);
-  const [username, setUsername] = useState(user.username);
-  const [email, setEmail] = useState(user.email);
+  const [username, setUsername] = useState(user?.username);
+  const [email, setEmail] = useState(user?.email);
   const [password, setPassword] = useState('');
 
   return (
@@ -66,9 +66,11 @@ function Settings() {
             )}
           </div>
         </div>
-        <Button className={styles['btn-save']} type="submit">
-          Save changes
-        </Button>
+        <div className={styles['btn-container']}>
+          <Button className={styles['btn-save']} type="submit">
+            Save changes
+          </Button>
+        </div>
       </form>
     </>
   );

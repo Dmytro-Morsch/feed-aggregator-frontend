@@ -2,6 +2,16 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import UserType from '../types/userType.ts';
 import apiAxios from '../api';
 
+export interface IUserState {
+  user: UserType | undefined;
+  isLoadingUser: boolean;
+}
+
+const initialState: IUserState = {
+  user: undefined,
+  isLoadingUser: false
+};
+
 export const getUser = createAsyncThunk('getUser', async () => {
   const response = await apiAxios.users.getUser();
   return response.data;
@@ -9,10 +19,7 @@ export const getUser = createAsyncThunk('getUser', async () => {
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    user: undefined,
-    isLoadingUser: false
-  },
+  initialState,
   reducers: {
     resetUserData: (state) => {
       state.user = undefined;

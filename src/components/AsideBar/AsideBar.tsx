@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ThunkDispatch } from '@reduxjs/toolkit';
+import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { RootState } from '../../redux/store.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFeed, updateFeed, getUserFeeds } from '../../redux/userFeedsSlice.ts';
@@ -28,7 +28,7 @@ function AsideBar() {
   const [countUnreadItems, setCountUnreadItems] = useState(0);
 
   const userFeeds = useSelector((state: RootState) => state.userFeedsSlice.userFeeds);
-  const dispatch: ThunkDispatch<RootState, undefined, never> = useDispatch();
+  const dispatch: ThunkDispatch<RootState, undefined, Action> = useDispatch();
 
   const onSubmit = () => {
     if (link === '' || link === null) {

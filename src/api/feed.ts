@@ -1,10 +1,10 @@
-import { AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosInstance } from 'axios';
 import FeedType from '../types/feedType.ts';
 import ItemType from '../types/itemType.ts';
 
 export default function (instance: AxiosInstance) {
   return {
-    async subscribeToFeed(feedLink: FeedType['feedLink']): AxiosResponse<FeedType> {
+    async subscribeToFeed(feedLink: FeedType['feedLink']) {
       return instance.post<FeedType>('/feeds/subscribe', feedLink, {
         headers: {
           'Content-Type': 'text/plain'
@@ -29,7 +29,7 @@ export default function (instance: AxiosInstance) {
       instance.patch(`/feeds/${feedId}/rename`, title);
     },
 
-    async getFeed(feedId: FeedType['id']): AxiosResponse<FeedType> {
+    async getFeed(feedId: FeedType['id']) {
       return instance.get<FeedType>(`/feeds/${feedId}`);
     },
 
