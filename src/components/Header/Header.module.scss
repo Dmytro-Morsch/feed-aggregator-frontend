@@ -58,18 +58,23 @@
         margin: 0.5rem 0;
       }
 
-      .link a {
+      .link {
         display: block;
         padding: 3px 2rem;
         line-height: 1.5;
         font-size: 1.3rem;
         color: var(--primary);
         white-space: nowrap;
-      }
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+        width: 100%;
+        text-align: start;
 
-      .link a:hover {
-        color: white;
-        background-color: var(--secondary);
+        &:hover {
+          color: white;
+          background-color: var(--secondary);
+        }
       }
     }
   }

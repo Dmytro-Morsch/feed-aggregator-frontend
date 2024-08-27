@@ -26,12 +26,18 @@ export const userSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(getUser.pending, (state) => {
-      state.isLoadingUser = true;
-    });
     builder.addCase(getUser.fulfilled, (state, action: PayloadAction<UserType>) => {
+      console.log('fulfilled');
       state.isLoadingUser = false;
       state.user = action.payload;
+    });
+    builder.addCase(getUser.pending, (state) => {
+      console.log('pending');
+      state.isLoadingUser = true;
+    });
+    builder.addCase(getUser.rejected, (state) => {
+      console.log('rejected');
+      state.isLoadingUser = false;
     });
   }
 });

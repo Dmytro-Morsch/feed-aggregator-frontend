@@ -3,12 +3,14 @@ import userSlice from './userSlice.ts';
 import userFeedsSlice from './userFeedsSlice.ts';
 import feedSlice from './feedSlice.ts';
 import itemsSlice from './itemsSlice.ts';
+import signInUpSlice from './signInUpSlice.ts';
 
 const rootReducer = combineReducers({
   userSlice,
   userFeedsSlice,
   feedSlice,
-  itemsSlice
+  itemsSlice,
+  signInUpSlice
 });
 
 export const setupStore = () => {
