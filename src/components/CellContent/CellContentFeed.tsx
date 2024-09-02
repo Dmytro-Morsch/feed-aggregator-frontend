@@ -25,7 +25,6 @@ function CellContentFeed() {
   }, [id, userFeeds]);
 
   useEffect(() => {
-    console.log('Show feed items');
     if (feed) dispatch(getFeedItems(feed.id));
   }, [feed]);
 

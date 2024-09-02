@@ -1,42 +1,37 @@
 import { useEffect } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { RootState } from '../../redux/store.ts';
-import { Outlet } from 'react-router-dom';
 
-import Header from '../../components/Header/Header.tsx';
-import AsideBar from '../../components/AsideBar/AsideBar.tsx';
-import Loader from '../../components/Loader/Loader.tsx';
-import { getUser } from '../../redux/userSlice.ts';
-
-import styles from './MainLayout.module.scss';
+import isTokenExpired from '../../utils/isTokenExpired.ts';
+import { setReceivedToken } from '../../redux/signInUpSlice.ts';
 
 function MainLayout() {
-  const dispatch: ThunkDispatch<RootState, undefined, Action> = useDispatch();
-  const user = useSelector((state: RootState) => state.userSlice.user);
   const isToken = useSelector((state: RootState) => state.signInUpSlice.isTokenReceived);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    if (isToken) dispatch(getUser());
+    const path = location.pathname;
+    if (localStorage.getItem('token')) {
+      const token = localStorage.getItem('token');
+      if (isTokenExpired(token)) {
+        localStorage.removeItem('token');
+        path == '/signup' ? navigate('/signup') : navigate('/login');
+        dispatch(setReceivedToken(false));
+      } else {
+        dispatch(setReceivedToken(true));
+        navigate('/');
+      }
+    } else {
+      path == '/signup' ? navigate('/signup') : navigate('/login');
+      dispatch(setReceivedToken(false));
+    }
   }, [isToken]);
 
-  return (
-    <>
-      {user ? (
-        <>
-          <Header />
-          <div className={styles['container']}>
-            <AsideBar />
-            <div className={styles['outlet']}>
-              <Outlet />
-            </div>
-          </div>
-        </>
-      ) : (
-        <Loader />
-      )}
-    </>
-  );
+  return <Outlet />;
 }
 
 export default MainLayout;

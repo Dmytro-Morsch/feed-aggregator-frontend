@@ -10,7 +10,6 @@ function CellContentAll() {
   const dispatch: ThunkDispatch<RootState, undefined, never> = useDispatch();
 
   useEffect(() => {
-    console.log('Show all items');
     dispatch(getAllItems());
   }, []);
 

@@ -10,7 +10,6 @@ function CellContentStarred() {
   const dispatch: ThunkDispatch<RootState, undefined, never> = useDispatch();
 
   useEffect(() => {
-    console.log('Show starred items');
     dispatch(getStarredItems());
   }, []);
 
