@@ -3,12 +3,11 @@ import UserType from '../types/userType.ts';
 import apiAxios from '../api';
 
 export interface IUserState {
-  user: UserType | undefined;
+  user?: UserType;
   isLoadingUser: boolean;
 }
 
 const initialState: IUserState = {
-  user: undefined,
   isLoadingUser: false
 };
 
@@ -16,6 +15,14 @@ export const getUser = createAsyncThunk('getUser', async () => {
   const response = await apiAxios.users.getUser();
   return response.data;
 });
+
+export const patchUser = createAsyncThunk(
+  'patchUser',
+  async (payload: Pick<UserType, 'email' | 'username'> & Partial<Pick<UserType, 'password'>>) => {
+    const response = await apiAxios.users.patchUser(payload);
+    return response.data;
+  }
+);
 
 export const userSlice = createSlice({
   name: 'user',
@@ -27,17 +34,18 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getUser.fulfilled, (state, action: PayloadAction<UserType>) => {
-      console.log('fulfilled');
       state.isLoadingUser = false;
       state.user = action.payload;
     });
     builder.addCase(getUser.pending, (state) => {
-      console.log('pending');
       state.isLoadingUser = true;
     });
     builder.addCase(getUser.rejected, (state) => {
-      console.log('rejected');
       state.isLoadingUser = false;
+    });
+
+    builder.addCase(patchUser.fulfilled, (state, action: PayloadAction<UserType>) => {
+      state.user = action.payload;
     });
   }
 });

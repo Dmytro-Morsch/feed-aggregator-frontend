@@ -7,6 +7,10 @@ export default function (instance: AxiosInstance) {
       return instance.get<UserType>('/user');
     },
 
+    patchUser(payload: Pick<UserType, 'email' | 'username'> & Partial<Pick<UserType, 'password'>>) {
+      return instance.patch<UserType>('/user/update', payload);
+    },
+
     async postSignIn(payload: { email: UserType['email']; password: UserType['password'] }) {
       return await instance.post<string>('/token', payload);
     },
