@@ -46,14 +46,13 @@ function ManageFeeds() {
 
   return (
     <div className={styles['manage-feeds']}>
-      <div className={styles['head']}>
-        <h1 className={styles['h1']}>Manage Subscriptions</h1>
-        <div className={styles['subtitle']}>
-          Below is a list of your current feeds. From this page, you can unsubscribe from existing
-          feeds as well as organize feeds into folders. You can manage the sort order and visibility
-          settings of your feeds and folders in settings. You can also view your subscription
-          backups here.
-        </div>
+      <div className={styles['toolbar']}>
+        <h1 className={styles['title']}>Manage Subscriptions</h1>
+        <hr className={styles['hr']} />
+      </div>
+      <div className={styles['subtitle']}>
+        Below is a list of your current feeds. From this page, you can unsubscribe from existing
+        feeds as well as rename feed names.
       </div>
 
       {isRenamePopup && (
@@ -74,42 +73,52 @@ function ManageFeeds() {
             <th className={styles['header']}></th>
           </tr>
         </thead>
-        <tbody>
-          {userFeeds.map((feed) => {
-            return (
-              <tr key={feed.id}>
-                <td className={styles['body']}>
-                  <div>
-                    <NavLink to={`/feeds/${feed.id}`} className={styles['site-link']}>
-                      {feed.title}
-                    </NavLink>
-                  </div>
-                </td>
-                <td className={styles['body']}>
-                  <div className={styles['update-time']}>Recently</div>
-                </td>
-                <td className={styles['body']}>
-                  <Button
-                    className={styles['btn-unsub']}
-                    onClick={() => handleUnsubscribe(feed.id)}>
-                    Unsubscribe
-                  </Button>
-                </td>
-                <td className={styles['body']}>
-                  <Button
-                    myref={refRenamePopup}
-                    className={styles['btn-rename']}
-                    onClick={() => {
-                      setCurrentFeed(feed);
-                      setRenamePopup(!isRenamePopup);
-                    }}>
-                    Rename
-                  </Button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
+        {userFeeds.length ? (
+          <tbody>
+            {userFeeds.map((feed) => {
+              return (
+                <tr key={feed.id}>
+                  <td className={styles['body']}>
+                    <div>
+                      <NavLink to={`/feeds/${feed.id}`} className={styles['site-link']}>
+                        {feed.title}
+                      </NavLink>
+                    </div>
+                  </td>
+                  <td className={styles['body']}>
+                    <div className={styles['update-time']}>Recently</div>
+                  </td>
+                  <td className={styles['body']}>
+                    <Button
+                      className={styles['btn-unsub']}
+                      onClick={() => handleUnsubscribe(feed.id)}>
+                      Unsubscribe
+                    </Button>
+                  </td>
+                  <td className={styles['body']}>
+                    <Button
+                      myref={refRenamePopup}
+                      className={styles['btn-rename']}
+                      onClick={() => {
+                        setCurrentFeed(feed);
+                        setRenamePopup(!isRenamePopup);
+                      }}>
+                      Rename
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        ) : (
+          <tbody>
+            <tr>
+              <td colSpan="4" className={`${styles['body']} ${styles['empty']}`}>
+                You do not have any feeds yet
+              </td>
+            </tr>
+          </tbody>
+        )}
       </table>
     </div>
   );

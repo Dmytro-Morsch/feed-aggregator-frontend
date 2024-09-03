@@ -3,44 +3,55 @@
   flex-direction: column;
   gap: 1.5rem;
 
-  .head {
-    .h1 {
-      font-size: 3rem;
+  .toolbar {
+    .title {
+      font-size: 3.5rem;
       font-weight: 700;
+      color: var(--primary);
     }
 
-    .subtitle {
-      margin-top: 1.5rem;
-      font-size: 1.4rem;
+    .hr {
+      border: 2px solid var(--fourth);
+      border-radius: 5px;
+      margin: 1rem 0;
     }
   }
 
-  .user-feed-list {
-    border: 1px solid gray;
+  .subtitle {
+    font-size: 1.4rem;
+  }
+}
 
-    .header {
-      text-align: start;
+.user-feed-list {
+  border: 1px solid gray;
+
+  .header {
+    text-align: start;
+    font-size: 1.6rem;
+    font-weight: 700;
+    padding: 1rem;
+    border: 1px solid gray;
+  }
+
+  .body {
+    padding: 1rem;
+    border: 1px solid gray;
+    font-size: 1.4rem;
+
+    &.empty {
+      text-align: center;
       font-size: 1.6rem;
-      font-weight: 700;
-      padding: 1rem;
-      border: 1px solid gray;
     }
 
-    .body {
-      padding: 1rem;
-      border: 1px solid gray;
-      font-size: 1.4rem;
+    .btn-unsub,
+    .btn-rename {
+      padding: 1rem 2rem;
+      border-radius: 4px;
+    }
 
-      .btn-unsub,
-      .btn-rename {
-        padding: 1rem 2rem;
-        border-radius: 4px;
-      }
-
-      .btn-unsub:hover,
-      .btn-rename:hover {
-        background-color: #E6E6E6;
-      }
+    .btn-unsub:hover,
+    .btn-rename:hover {
+      background-color: #E6E6E6;
     }
   }
 }
