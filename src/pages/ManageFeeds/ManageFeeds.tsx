@@ -44,6 +44,10 @@ function ManageFeeds() {
     dispatch(getUserFeeds());
   }, []);
 
+  useEffect(() => {
+    document.title = 'CoN - Manage feeds';
+  }, []);
+
   return (
     <div className={styles['manage-feeds']}>
       <div className={styles['toolbar']}>

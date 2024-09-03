@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store.ts';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
@@ -29,6 +29,10 @@ function Settings() {
 
     dispatch(patchUser(payload));
   };
+
+  useEffect(() => {
+    document.title = 'CoN - Settings';
+  }, []);
 
   return (
     <>

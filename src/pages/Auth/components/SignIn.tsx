@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
@@ -30,6 +30,10 @@ function SignIn({ styles }: SignInProps) {
       }
     }
   };
+
+  useEffect(() => {
+    document.title = 'Login';
+  }, []);
 
   return (
     <div className={styles?.['container']}>

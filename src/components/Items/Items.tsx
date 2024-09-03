@@ -122,6 +122,10 @@ function Items({ title, children }: ItemsProps) {
     if (ref.current) ref.current.scrollTop = 0;
   }, [itemsDisplay]);
 
+  useEffect(() => {
+    document.title = 'CoN - Items';
+  }, []);
+
   return (
     <>
       <div className={styles['content']}>

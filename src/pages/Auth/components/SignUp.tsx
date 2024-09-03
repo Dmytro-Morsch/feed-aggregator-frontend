@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { RootState } from '../../../redux/store.ts';
 import { useDispatch, useSelector } from 'react-redux';
@@ -50,6 +50,10 @@ function SignUp({ styles }: SignUpProps) {
       }
     }
   };
+
+  useEffect(() => {
+    document.title = 'Sign up';
+  }, []);
 
   return (
     <div className={styles?.['container']}>

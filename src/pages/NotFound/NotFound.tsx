@@ -1,8 +1,13 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './NotFound.module.scss';
 
 function NotFound() {
+  useEffect(() => {
+    document.title = 'Not found';
+  }, []);
+
   return (
     <div className={styles['body']}>
       <div className={styles['container']}>
@@ -17,16 +22,6 @@ function NotFound() {
               <Link className={styles['link']} to="/">
                 Go to Homepage
               </Link>
-            </li>
-            <li className={styles['element']}>
-              <a className={styles['link']} href="#">
-                Visit our Blog
-              </a>
-            </li>
-            <li className={styles['element']}>
-              <a className={styles['link']} href="#">
-                Contact support
-              </a>
             </li>
           </ul>
         </div>

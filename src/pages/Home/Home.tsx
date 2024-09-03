@@ -15,6 +15,10 @@ function Home() {
     setCountUnreadItems(count);
   }, [userFeeds]);
 
+  useEffect(() => {
+    document.title = 'CoN - Home';
+  }, []);
+
   return (
     <div className={styles['main']}>
       <div className={styles['toolbar']}>
