@@ -11,6 +11,7 @@ import CellContentAll from '../components/CellContent/CellContentAll.tsx';
 import CellContentFeed from '../components/CellContent/CellContentFeed.tsx';
 import MainLayout from '../layouts/MainLayout/MainLayout.tsx';
 import Auth from '../pages/Auth/Auth.tsx';
+import NotFound from '../pages/NotFound/NotFound.tsx';
 
 function Routing() {
   const isToken = useSelector((state: RootState) => state.signInUpSlice.isTokenReceived);
@@ -33,6 +34,7 @@ function Routing() {
             <Route path="signup" element={<Auth view="sign-up" />} />
           </>
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
