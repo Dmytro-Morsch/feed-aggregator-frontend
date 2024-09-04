@@ -72,7 +72,6 @@ function ManageFeeds() {
         <thead>
           <tr>
             <th className={styles['header']}>Feed title</th>
-            <th className={styles['header']}>Last update</th>
             <th className={styles['header']}></th>
             <th className={styles['header']}></th>
           </tr>
@@ -88,9 +87,6 @@ function ManageFeeds() {
                         {feed.title}
                       </NavLink>
                     </div>
-                  </td>
-                  <td className={styles['body']}>
-                    <div className={styles['update-time']}>Recently</div>
                   </td>
                   <td className={styles['body']}>
                     <Button
@@ -117,7 +113,7 @@ function ManageFeeds() {
         ) : (
           <tbody>
             <tr>
-              <td colSpan="4" className={`${styles['body']} ${styles['empty']}`}>
+              <td colSpan="3" className={`${styles['body']} ${styles['empty']}`}>
                 You do not have any feeds yet
               </td>
             </tr>
