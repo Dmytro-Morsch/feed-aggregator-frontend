@@ -1,0 +1,42 @@
+.popup-body {
+  padding: 2rem;
+
+  .message {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+  }
+
+  .btn-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin: 2rem 0 1rem;
+
+    .cancel,
+    .delete {
+      padding: 1rem 2rem;
+      border-radius: 5px;
+    }
+
+    .cancel {
+      color: #424242FF;
+      border: 2px solid #D0D5DDFF;
+
+      &:hover {
+        background-color: #D0D5DDFF;
+      }
+    }
+
+    .delete {
+      color: white;
+      background-color: #D62D30FF;
+      border: 2px solid #D62D30FF;
+
+      &:hover {
+        background-color: #FF5454FF;
+        border-color: #FF5454FF;
+      }
+    }
+  }
+}

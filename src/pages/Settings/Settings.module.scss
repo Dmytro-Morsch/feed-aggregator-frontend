@@ -77,18 +77,41 @@ $pass-label: 8rem;
   }
 
   .btn-container {
+    display: flex;
+    gap: 2rem;
     padding-left: 12rem;
     padding-top: 2rem;
   }
 
   .change-password,
-  .save {
+  .save,
+  .delete {
     padding: 0.6rem 1.2rem;
     font-size: 1.3rem;
     border-radius: 4px;
+  }
+
+  .save {
+    background-color: var(--secondary);
+    color: white;
+    border: none;
 
     &:hover {
-      background-color: #E6E6E6;
+      background-color: #00878c;
     }
+  }
+
+  .delete {
+    background-color: #D62D30FF;
+    color: white;
+    border: none;
+
+    &:hover {
+      background-color: #FF5454FF;
+    }
+  }
+
+  .change-password:hover {
+    background-color: #E6E6E6;
   }
 }

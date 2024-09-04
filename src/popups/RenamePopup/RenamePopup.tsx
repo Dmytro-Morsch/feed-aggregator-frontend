@@ -1,8 +1,9 @@
 import { RefObject, useState } from 'react';
-import { MdClose } from 'react-icons/md';
 
-import Button from '../../components/Button/Button.tsx';
 import FeedType from '../../types/feedType.ts';
+import Button from '../../components/Button/Button.tsx';
+import Popup from '../Popup/Popup.tsx';
+import Input from '../../components/Input/Input.tsx';
 
 import styles from './RenamePopup.module.scss';
 
@@ -17,29 +18,23 @@ function RenamePopup({ myref, feed, onRenameTitle, onClosePopup }: RenamePopupPr
   const [title, setTitle] = useState(feed.title);
 
   return (
-    <div ref={myref} className={styles['rename-popup']}>
-      <div className={styles['popup-header']}>
-        <span className={styles['popup-title']}>Rename subscription</span>
-        <MdClose className={`${styles['icon']} ${styles['i-close']}`} onClick={onClosePopup} />
-      </div>
-      <hr className={styles['hr']} />
+    <Popup myref={myref} onClosePopup={onClosePopup} title="Rename subscription">
       <div className={styles['popup-body']}>
         <label className={styles['label']}>Subscription name</label>
-        <input
+        <Input
           placeholder="Feed title"
           value={title}
           className={styles['input-title']}
           onChange={(e) => setTitle(e.target.value)}
-          required
         />
       </div>
       <hr className={styles['hr']} />
       <div className={styles['popup-footer']}>
-        <Button className={styles['btn-cancel']} onClick={onClosePopup}>
+        <Button className={styles['cancel']} onClick={onClosePopup}>
           Cancel
         </Button>
         <Button
-          className={styles['btn-rename']}
+          className={styles['rename']}
           onClick={() => {
             onRenameTitle(feed.id, title);
             onClosePopup();
@@ -47,7 +42,7 @@ function RenamePopup({ myref, feed, onRenameTitle, onClosePopup }: RenamePopupPr
           Rename
         </Button>
       </div>
-    </div>
+    </Popup>
   );
 }
 

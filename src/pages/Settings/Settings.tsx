@@ -1,10 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store.ts';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
-import { patchUser, setMessage } from '../../redux/userSlice.ts';
+import { patchUser } from '../../redux/userSlice.ts';
 
+import api from '../../api';
+import { setReceivedToken } from '../../redux/signInUpSlice.ts';
 import UserType from '../../types/userType.ts';
+import DeletePopup from '../../popups/DeletePopup/DeletePopup.tsx';
 import useComponentVisible from '../../hooks/useCompontentVisible.tsx';
 import Button from '../../components/Button/Button.tsx';
 import Input from '../../components/Input/Input.tsx';
@@ -16,6 +20,8 @@ import styles from './Settings.module.scss';
 function Settings() {
   const user: UserType = useSelector((state: RootState) => state.userSlice.user);
   const dispatch: ThunkDispatch<RootState, undefined, Action> = useDispatch();
+
+  const navigate = useNavigate();
 
   const [changePassword, setChangePassword] = useState(false);
   const [username, setUsername] = useState(user.username);
@@ -36,6 +42,12 @@ function Settings() {
     ref: refNotificationPopup,
     isComponentVisible: isNotificationPopup,
     setIsComponentVisible: setNotificationPopup
+  } = useComponentVisible(false);
+
+  const {
+    ref: refDeletePopup,
+    isComponentVisible: isDeletePopup,
+    setIsComponentVisible: setDeletePopup
   } = useComponentVisible(false);
 
   const isValid = () => {
@@ -91,6 +103,15 @@ function Settings() {
     }
   };
 
+  const handleDeleteAccount = () => {
+    (async () => {
+      await api.users.deleteAccount();
+      localStorage.removeItem('token');
+      dispatch(setReceivedToken(false));
+      navigate('/login');
+    })();
+  };
+
   useEffect(() => {
     document.title = 'CoN - Settings';
   }, []);
@@ -99,11 +120,20 @@ function Settings() {
     <>
       {isNotificationPopup && (
         <NotificationPopup
-          type={messageType}
           myref={refNotificationPopup}
+          type={messageType}
           onClosePopup={() => setNotificationPopup(false)}
         />
       )}
+
+      {isDeletePopup && (
+        <DeletePopup
+          myref={refDeletePopup}
+          onDeleteAccount={handleDeleteAccount}
+          onClosePopup={() => setDeletePopup(false)}
+        />
+      )}
+
       <div className={styles['toolbar']}>
         <h1 className={styles['title']}>Settings</h1>
         <hr className={styles['hr']} />
@@ -181,6 +211,9 @@ function Settings() {
         <div className={styles['btn-container']}>
           <Button className={styles['save']} onClick={handleUpdateUser}>
             Save changes
+          </Button>
+          <Button className={styles['delete']} onClick={() => setDeletePopup(true)}>
+            Delete account
           </Button>
         </div>
       </div>

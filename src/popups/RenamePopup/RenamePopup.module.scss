@@ -1,74 +1,64 @@
-.rename-popup {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  width: 500px;
-  border-radius: 6px;
-  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  background-color: white;
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
 
-  .popup-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 1.5rem;
+  .popup-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
 
-    .popup-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-    }
+  .icon {
+    font-size: 1.6rem;
+    opacity: 0.5;
+    cursor: pointer;
 
-    .icon {
-      font-size: 1.6rem;
-      opacity: 0.5;
-      cursor: pointer;
-    }
-
-    .icon:hover {
+    &:hover {
       opacity: 1;
     }
   }
+}
 
-  .popup-body {
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem;
-    gap: 0.5rem;
+.popup-body {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 0.5rem;
 
-    .label {
-      font-size: 1.3rem;
-      font-weight: 500;
-    }
-
-    .input-title {
-      padding: 0.6rem 1.2rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+  .label {
+    font-size: 1.3rem;
+    font-weight: 500;
   }
 
-  .popup-footer {
-    text-align: right;
-    padding: 1rem 1.5rem;
+  .input-title {
+    font-size: 1.5rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+}
 
-    .btn-cancel,
-    .btn-rename {
-      border-radius: 4px;
-      padding: 0.6rem 1.2rem;
-      font-size: 1.3rem;
-    }
+.popup-footer {
+  text-align: right;
+  padding: 1rem 1.5rem;
 
-    .btn-cancel:hover {
-      background-color: #E6E6E6;
-    }
+  .cancel,
+  .rename {
+    border-radius: 4px;
+    padding: 0.6rem 1.2rem;
+    font-size: 1.3rem;
+  }
 
-    .btn-rename {
-      background-color: var(--secondary);
-      color: white;
-      margin-left: 0.6rem;
-    }
+  .cancel:hover {
+    background-color: #E6E6E6;
+  }
 
-    .btn-rename:hover {
+  .rename {
+    background-color: var(--secondary);
+    color: white;
+    margin-left: 0.6rem;
+
+    &:hover {
       background-color: #00878c;
     }
   }

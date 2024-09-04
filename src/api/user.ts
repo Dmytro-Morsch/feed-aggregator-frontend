@@ -11,6 +11,10 @@ export default function (instance: AxiosInstance) {
       return instance.patch<UserType>('/user/update', payload);
     },
 
+    deleteAccount() {
+      return instance.delete('/user/delete');
+    },
+
     async postSignIn(payload: { email: UserType['email']; password: UserType['password'] }) {
       return await instance.post<string>('/token', payload);
     },
