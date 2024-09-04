@@ -79,6 +79,8 @@ export const signInUpSlice = createSlice({
       state.isLoading = false;
       if (`${action.error.message}`.includes('409')) {
         state.message = 'This email is already in use';
+      } else if (`${action.error.message}`.includes('400')) {
+        state.message = 'Invalid password!';
       } else {
         state.message = 'Failed!';
       }

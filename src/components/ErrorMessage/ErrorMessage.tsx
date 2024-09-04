@@ -10,7 +10,9 @@ interface ErrorMessageProps {
 function ErrorMessage({ method, errorText }: ErrorMessageProps) {
   return (
     <div className={styles['error-message']}>
-      <MdWarningAmber className={`${styles['icon']} ${styles['i-error']}`} />
+      <div className={styles['icon-container']}>
+        <MdWarningAmber className={styles['icon']} />
+      </div>
       <div className={styles['error-text']}>{method[errorText]}</div>
     </div>
   );

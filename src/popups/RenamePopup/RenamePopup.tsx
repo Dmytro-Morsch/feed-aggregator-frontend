@@ -1,7 +1,7 @@
 import { RefObject, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 
-import Button from '../Button/Button.tsx';
+import Button from '../../components/Button/Button.tsx';
 import FeedType from '../../types/feedType.ts';
 
 import styles from './RenamePopup.module.scss';

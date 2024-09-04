@@ -9,7 +9,7 @@ import apiAxios from '../../api/index.ts';
 import useComponentVisible from '../../hooks/useCompontentVisible.tsx';
 import { getUserFeeds, deleteFeed, renameFeedTitle } from '../../redux/userFeedsSlice.ts';
 
-import RenamePopup from '../../components/RenamePopup/RenamePopup.tsx';
+import RenamePopup from '../../popups/RenamePopup/RenamePopup.tsx';
 import Button from '../../components/Button/Button.tsx';
 
 import styles from './ManageFeeds.module.scss';

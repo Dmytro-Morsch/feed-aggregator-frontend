@@ -5,10 +5,12 @@ import apiAxios from '../api';
 export interface IUserState {
   user?: UserType;
   isLoadingUser: boolean;
+  message: string | null;
 }
 
 const initialState: IUserState = {
-  isLoadingUser: false
+  isLoadingUser: false,
+  message: null
 };
 
 export const getUser = createAsyncThunk('getUser', async () => {
@@ -46,6 +48,12 @@ export const userSlice = createSlice({
 
     builder.addCase(patchUser.fulfilled, (state, action: PayloadAction<UserType>) => {
       state.user = action.payload;
+      state.message = 'Changes were successfully save!';
+    });
+    builder.addCase(patchUser.rejected, (state) => {
+      if (`${action.error.message}`.includes('401')) {
+        state.message = 'You send wrong data, please check your input';
+      }
     });
   }
 });

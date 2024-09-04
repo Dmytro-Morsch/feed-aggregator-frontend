@@ -1,0 +1,53 @@
+.container {
+  width: 400px;
+  border-radius: 10px;
+  position: absolute;
+  padding: 2.5rem 2rem 1.5rem;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  .close {
+    display: flex;
+    justify-content: center;
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    .icon {
+      color: white;
+      font-size: 2rem;
+    }
+
+    &:hover {
+      border-radius: 20px;
+      background-color: #959393;
+    }
+  }
+
+  &.failed {
+    background-color: #47000E;
+    color: #FF6685;
+  }
+
+  &.success {
+    background-color: #48C78E;
+    color: #113726;
+  }
+
+  .message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: row;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2rem;
+
+    .icon {
+      font-size: 1.6rem;
+    }
+  }
+}

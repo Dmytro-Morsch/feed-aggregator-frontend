@@ -1,20 +1,25 @@
 .error-message {
-    display: flex;
-    justify-content: center;
-    align-items: end;
-    text-align: start;
-    margin-top: 0.2rem;
-    gap: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: start;
+  margin-top: 0.2rem;
+  gap: 5px;
+  width: 100%;
 
-    .error-text {
-      color: #FA3131FF;
-        font-size: 1.2rem;
-        font-family: Inter, sans-serif;
-        font-weight: normal;
-    }
+  .error-text {
+    color: #FA3131FF;
+    font-size: 1.2rem;
+    font-family: Inter, sans-serif;
+    font-weight: normal;
+  }
 
-    .icon.i-error {
+  .icon-container {
+    width: 15px;
+
+    .icon {
       color: #FA3131FF;
-        font-size: 1.5rem;
+      font-size: 1.5rem;
     }
+  }
 }

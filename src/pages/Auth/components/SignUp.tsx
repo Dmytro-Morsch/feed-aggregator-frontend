@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { RootState } from '../../../redux/store.ts';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,24 +20,37 @@ function SignUp({ styles }: SignUpProps) {
   const [repeatPassword, setRepeatPassword] = useState('');
 
   const [repeatPasswordErr, setRepeatPasswordErr] = useState({});
+  const [passwordErr, setPasswordErr] = useState({});
 
   const navigate = useNavigate();
   const dispatch: ThunkDispatch<RootState, undefined, Action> = useDispatch();
   const message = useSelector((state: RootState) => state.signInUpSlice.message);
 
   const errorRepeatPassword = useMemo(() => Object.keys(repeatPasswordErr)[0], [repeatPasswordErr]);
+  const errorPassword = useMemo(() => Object.keys(passwordErr)[0], [passwordErr]);
 
   const isValid = () => {
+    const passwordErr: {
+      invalidPassword: string | null;
+    } = {};
     const repeatPasswordErr: {
       passwordIsNotEqual: string | null;
     } = {};
+    const regExp = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
     let isValid = true;
+
+    if (!regExp.test(password)) {
+      passwordErr.invalidPassword =
+        'Password must contain at least 8 characters, one letter, one digit and one special character [!@#$%^&*]';
+      isValid = false;
+    }
 
     if (repeatPassword !== password) {
       repeatPasswordErr.passwordIsNotEqual = 'Password is not equal';
       isValid = false;
     }
 
+    setPasswordErr(passwordErr);
     setRepeatPasswordErr(repeatPasswordErr);
     return isValid;
   };
@@ -95,10 +108,12 @@ function SignUp({ styles }: SignUpProps) {
             className={styles?.['input-sign']}
             type="password"
             value={password}
+            isError={errorPassword}
             placeholder="Create a password"
             onChange={(event) => setPassword(event.target.value)}
             required
           />
+          {errorPassword && <ErrorMessage method={passwordErr} errorText={errorPassword} />}
         </div>
         <div className={styles?.['field-container']}>
           <label className={styles?.['label']}>Repeat password*</label>

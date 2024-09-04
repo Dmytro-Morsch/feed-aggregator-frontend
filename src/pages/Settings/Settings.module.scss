@@ -1,3 +1,5 @@
+$pass-label: 8rem;
+
 .toolbar {
   .title {
     font-size: 3.5rem;
@@ -37,6 +39,14 @@
         font-weight: 600;
 
         &.password {
+          padding-bottom: 8rem;
+
+          &.def {
+            padding-bottom: calc(8rem + 2rem);
+          }
+        }
+
+        &.def {
           padding-bottom: 2rem;
         }
       }
@@ -47,13 +57,20 @@
           font-size: 1.3rem;
           padding: 0.6rem 1.2rem;
           border-radius: 4px;
-          border: 1px solid;
         }
 
-        .notification {
-          color: #737373;
-          font-size: 1.2rem;
+        .tips {
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
           margin: 0.5rem 0;
+          padding-left: 1.5rem;
+          list-style-type: initial;
+        }
+
+        .tip {
+          font-size: 1.2rem;
+          color: #737373;
         }
       }
     }
@@ -64,8 +81,8 @@
     padding-top: 2rem;
   }
 
-  .btn-change-password,
-  .btn-save {
+  .change-password,
+  .save {
     padding: 0.6rem 1.2rem;
     font-size: 1.3rem;
     border-radius: 4px;
