@@ -18,14 +18,14 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.tsx';
 import styles from './Settings.module.scss';
 
 function Settings() {
-  const user: UserType = useSelector((state: RootState) => state.userSlice.user);
+  const user = useSelector((state: RootState) => state.userSlice.user);
   const dispatch: ThunkDispatch<RootState, undefined, Action> = useDispatch();
 
   const navigate = useNavigate();
 
   const [changePassword, setChangePassword] = useState(false);
-  const [username, setUsername] = useState(user.username);
-  const [email, setEmail] = useState(user.email);
+  const [username, setUsername] = useState(user ? user.username : '');
+  const [email, setEmail] = useState(user ? user.email : '');
   const [password, setPassword] = useState('');
 
   const [messageType, setMessageType] = useState('');
@@ -52,25 +52,25 @@ function Settings() {
 
   const isValid = () => {
     const emailErr: {
-      emailRequired: string | null;
+      emailRequired?: string | null;
     } = {};
     const usernameErr: {
-      usernameRequired: string | null;
+      usernameRequired?: string | null;
     } = {};
     const passwordErr: {
-      invalidPassword: string | null;
+      invalidPassword?: string | null;
     } = {};
     let isValid = true;
 
-    if (email.length <= 0) {
+    if (email.trim().length <= 0) {
       emailErr.emailRequired = 'Email is required';
       isValid = false;
     }
-    if (username.length <= 0) {
+    if (username.trim().length <= 0) {
       usernameErr.usernameRequired = 'Username is required';
       isValid = false;
     }
-    if (password.length) {
+    if (password.trim().length) {
       const regExp = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
       if (!regExp.test(password)) {
         passwordErr.invalidPassword = 'Invalid password, please follow the tips';

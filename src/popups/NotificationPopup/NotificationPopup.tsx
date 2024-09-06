@@ -7,23 +7,22 @@ import { RefObject } from 'react';
 import Button from '../../components/Button/Button.tsx';
 
 import styles from './NotificationPopup.module.scss';
-import UserType from '../../types/userType.ts';
 
 interface NotificationProps {
   onClosePopup?: () => void;
   myref?: RefObject<HTMLDivElement>;
-  type: 'failed' | 'success';
+  type?: string;
 }
 
 function NotificationPopup({ onClosePopup, type, myref }: NotificationProps) {
-  const message: UserType = useSelector((state: RootState) => state.userSlice.message);
+  const message = useSelector((state: RootState) => state.userSlice.message);
 
   return (
-    <div className={`${styles['container']} ${styles[type]}`} ref={myref}>
+    <div className={`${styles['container']} ${type ? styles[type] : ''}`} ref={myref}>
       <Button className={styles['close']} onClick={onClosePopup}>
         <MdClose className={styles['icon']} />
       </Button>
-      <div className={`${styles['message']} ${styles[type]}`}>
+      <div className={`${styles['message']} ${type ? styles[type] : ''}`}>
         {type === 'failed' ? (
           <>
             <IoCloseCircleOutline className={styles['icon']} />

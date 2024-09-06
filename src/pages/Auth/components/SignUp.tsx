@@ -31,10 +31,10 @@ function SignUp({ styles }: SignUpProps) {
 
   const isValid = () => {
     const passwordErr: {
-      invalidPassword: string | null;
+      invalidPassword?: string | null;
     } = {};
     const repeatPasswordErr: {
-      passwordIsNotEqual: string | null;
+      passwordIsNotEqual?: string | null;
     } = {};
     const regExp = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
     let isValid = true;

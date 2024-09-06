@@ -113,7 +113,7 @@ function ManageFeeds() {
         ) : (
           <tbody>
             <tr>
-              <td colSpan="3" className={`${styles['body']} ${styles['empty']}`}>
+              <td colSpan={3} className={`${styles['body']} ${styles['empty']}`}>
                 You do not have any feeds yet
               </td>
             </tr>

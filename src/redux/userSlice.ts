@@ -50,7 +50,7 @@ export const userSlice = createSlice({
       state.user = action.payload;
       state.message = 'Changes were successfully save!';
     });
-    builder.addCase(patchUser.rejected, (state) => {
+    builder.addCase(patchUser.rejected, (state, action) => {
       if (`${action.error.message}`.includes('401')) {
         state.message = 'You send wrong data, please check your input';
       }
