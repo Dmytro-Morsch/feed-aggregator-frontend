@@ -11,6 +11,7 @@ import logo from '../../assets/logo.svg';
 import styles from './Header.module.scss';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { setReceivedToken } from '../../redux/signInUpSlice.ts';
+import { FaGithub } from 'react-icons/fa';
 
 function Header() {
   const user = useSelector((state: RootState) => state.userSlice.user);
@@ -40,6 +41,14 @@ function Header() {
       </div>
 
       <div className={styles['navbar-end']} ref={refPopup}>
+        <div className={styles['useful-links']}>
+          <Link
+            className={styles['link']}
+            to="https://github.com/Dmytro-Morsch/feed-aggregator-backend">
+            <FaGithub className={styles['icon']} />
+          </Link>
+        </div>
+
         {user && (
           <div className={styles['dropdown']}>
             <Button className={styles['btn-user']} onClick={() => setPopup(!isPopup)}>

@@ -26,54 +26,75 @@
     }
   }
 
-  .dropdown {
-    position: relative;
+  .navbar-end {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 
-    .btn-user {
+    .useful-links {
       display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: var(--primary);
-      padding: 2rem;
-      border: none;
-    }
-
-    .btn-user:hover {
-      background-color: #dddddd;
-    }
-
-    .menu-settings {
-      position: absolute;
-      box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
-      padding: 0.5rem 0;
-      width: 165px;
-      right: 0;
-      background-color: white;
-      border-radius: 3px;
-
-      .hr {
-        border: 1px solid var(--fourth);
-        margin: 0.5rem 0;
-      }
+      gap: 1rem;
 
       .link {
-        display: block;
-        padding: 3px 2rem;
-        line-height: 1.5;
-        font-size: 1.3rem;
-        color: var(--primary);
-        white-space: nowrap;
+        all: initial;
         cursor: pointer;
-        border: none;
-        background-color: transparent;
-        width: 100%;
-        text-align: start;
+      }
 
-        &:hover {
-          color: white;
-          background-color: var(--secondary);
+      .icon {
+        font-size: 2.8rem;
+      }
+    }
+
+    .dropdown {
+      position: relative;
+
+      .btn-user {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: var(--primary);
+        padding: 2rem;
+        border: none;
+      }
+
+      .btn-user:hover {
+        background-color: #dddddd;
+      }
+
+      .menu-settings {
+        position: absolute;
+        box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+        padding: 0.5rem 0;
+        width: 165px;
+        right: 0;
+        background-color: white;
+        border-radius: 3px;
+
+        .hr {
+          border: 1px solid var(--fourth);
+          margin: 0.5rem 0;
+        }
+
+        .link {
+          display: block;
+          padding: 3px 2rem;
+          line-height: 1.5;
+          font-size: 1.3rem;
+          color: var(--primary);
+          white-space: nowrap;
+          cursor: pointer;
+          border: none;
+          background-color: transparent;
+          width: 100%;
+          text-align: start;
+
+          &:hover {
+            color: white;
+            background-color: var(--secondary);
+          }
         }
       }
     }
