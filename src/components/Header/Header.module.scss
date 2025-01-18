@@ -39,10 +39,12 @@
       .link {
         all: initial;
         cursor: pointer;
-      }
+        display: flex;
+        align-items: center;
 
-      .icon {
-        font-size: 2.8rem;
+        .icon {
+          font-size: 2.8rem;
+        }
       }
     }
 
