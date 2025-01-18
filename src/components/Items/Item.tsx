@@ -1,6 +1,8 @@
-import { MdCheck, MdStar } from 'react-icons/md';
+import { useEffect, useRef } from 'react';
 
+import { MdCheck, MdStar } from 'react-icons/md';
 import dateTimeConvert from '../../utils/dateTimeConvert.ts';
+
 import ItemType from '../../types/itemType.ts';
 
 import Button from '../Button/Button.tsx';
@@ -14,6 +16,24 @@ interface ItemProps {
 }
 
 function Item({ item, onMarkRead, onMarkStar }: ItemProps) {
+  const descriptionRef = useRef(null);
+
+  useEffect(() => {
+    if (descriptionRef.current) {
+      const links = descriptionRef.current.querySelectorAll('a');
+      links.forEach((link) =>
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          const href = link.getAttribute('href');
+          const isConfirm = confirm(`Are you sure you want to navigate to: '${href}'?`);
+          if (isConfirm) {
+            window.open(href, '_blank');
+          }
+        })
+      );
+    }
+  }, []);
+
   return (
     <>
       <div className={styles['item-header']}>
@@ -25,6 +45,7 @@ function Item({ item, onMarkRead, onMarkStar }: ItemProps) {
       {item.description && (
         <div
           className={styles['description']}
+          ref={descriptionRef}
           dangerouslySetInnerHTML={{ __html: item.description }}
         />
       )}
