@@ -23,7 +23,3 @@ a {
     text-decoration: none;
     color: var(--secondary);
 }
-
-a:hover {
-    opacity: 0.5;
-}
