@@ -1,0 +1,56 @@
+.popup-body {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  width: 500px;
+  border-radius: 6px;
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  background-color: white;
+
+  .message {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+
+  .link-text {
+    padding-top: 1rem;
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .btn-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin: 2rem 0 1rem;
+
+    .cancel,
+    .link {
+      padding: 1rem 2rem;
+      border-radius: 5px;
+    }
+
+    .cancel {
+      color: #424242FF;
+      border: 2px solid #D0D5DDFF;
+
+      &:hover {
+        background-color: #D0D5DDFF;
+      }
+    }
+
+    .link {
+      color: white;
+      background-color: var(--secondary);
+      border: 2px solid var(--secondary);
+
+      &:hover {
+        background-color: #00878c;
+        border-color: #00878c;
+      }
+    }
+  }
+}

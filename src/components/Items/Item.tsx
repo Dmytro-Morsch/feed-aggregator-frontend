@@ -1,11 +1,13 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { MdCheck, MdStar } from 'react-icons/md';
 import dateTimeConvert from '../../utils/dateTimeConvert.ts';
+import useComponentVisible from '../../hooks/useCompontentVisible.tsx';
 
 import ItemType from '../../types/itemType.ts';
 
 import Button from '../Button/Button.tsx';
+import ConfirmPopup from '../../popups/ConfirmPopup/ConfirmPopup.tsx';
 
 import styles from './Item.module.scss';
 
@@ -16,7 +18,15 @@ interface ItemProps {
 }
 
 function Item({ item, onMarkRead, onMarkStar }: ItemProps) {
+  const [linkHref, setLinkHref] = useState('');
+
   const descriptionRef = useRef(null);
+
+  const {
+    ref: refConfirmPopup,
+    isComponentVisible: isConfirmPopup,
+    setIsComponentVisible: setConfirmPopup
+  } = useComponentVisible(false);
 
   useEffect(() => {
     if (descriptionRef.current) {
@@ -24,11 +34,8 @@ function Item({ item, onMarkRead, onMarkStar }: ItemProps) {
       links.forEach((link) =>
         link.addEventListener('click', (event) => {
           event.preventDefault();
-          const href = link.getAttribute('href');
-          const isConfirm = confirm(`Are you sure you want to navigate to: '${href}'?`);
-          if (isConfirm) {
-            window.open(href, '_blank');
-          }
+          setLinkHref(link.getAttribute('href'));
+          setConfirmPopup(true);
         })
       );
     }
@@ -61,6 +68,14 @@ function Item({ item, onMarkRead, onMarkStar }: ItemProps) {
           <MdCheck className={styles['icon']} /> {item.read ? 'Mark as unread' : 'Mark as read'}
         </Button>
       </div>
+
+      {isConfirmPopup && (
+        <ConfirmPopup
+          myref={refConfirmPopup}
+          link={linkHref}
+          onClosePopup={() => setConfirmPopup(false)}
+        />
+      )}
     </>
   );
 }
