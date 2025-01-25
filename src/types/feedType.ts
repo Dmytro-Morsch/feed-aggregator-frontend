@@ -4,7 +4,7 @@ type FeedType = {
   description: string;
   feedLink: string;
   siteLink: string;
-  loaded: boolean;
+  status: string;
   countUnreadItems: number;
 };
 
