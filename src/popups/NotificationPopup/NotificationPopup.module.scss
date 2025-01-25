@@ -1,3 +1,5 @@
+@import "../../theme/variables.scss";
+
 .container {
   width: 400px;
   border-radius: 10px;
@@ -16,24 +18,24 @@
     right: 10px;
 
     .icon {
-      color: white;
+      color: $colorWhite;
       font-size: 2rem;
     }
 
     &:hover {
       border-radius: 20px;
-      background-color: #959393;
+      background-color: $colorLightHover;
     }
   }
 
   &.failed {
-    background-color: #47000E;
-    color: #FF6685;
+    background-color: $colorDanger;
+    color: $colorWhite;
   }
 
   &.success {
-    background-color: #48C78E;
-    color: #113726;
+    background-color: $colorSuccess;
+    color: $colorWhite;
   }
 
   .message {

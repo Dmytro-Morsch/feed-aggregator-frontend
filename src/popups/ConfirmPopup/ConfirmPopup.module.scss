@@ -1,3 +1,5 @@
+@import "../../theme/variables.scss";
+
 .popup-body {
   position: fixed;
   left: 50%;
@@ -7,7 +9,7 @@
   width: 500px;
   border-radius: 6px;
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  background-color: white;
+  background-color: $colorWhite;
 
   .message {
     text-align: center;
@@ -34,22 +36,22 @@
     }
 
     .cancel {
-      color: #424242FF;
-      border: 2px solid #D0D5DDFF;
+      color: $colorCancel;
+      border: 2px solid $colorCancelBorder;
 
       &:hover {
-        background-color: #D0D5DDFF;
+        background-color: $colorCancelBorder;
       }
     }
 
     .link {
       color: white;
-      background-color: var(--secondary);
-      border: 2px solid var(--secondary);
+      background-color: $colorSecondary;
+      border: 2px solid $colorSecondary;
 
       &:hover {
-        background-color: #00878c;
-        border-color: #00878c;
+        background-color: $colorSecondaryHover;
+        border-color: $colorSecondaryHover;
       }
     }
   }

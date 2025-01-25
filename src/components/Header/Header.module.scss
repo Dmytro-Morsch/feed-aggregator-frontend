@@ -1,8 +1,10 @@
+@import "../../theme/variables.scss";
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #F7F7F7;
+  background-color: $colorWhiteHover;
   height: 6vh;
   margin-bottom: 1vh;
   padding: 0 2rem;
@@ -57,13 +59,13 @@
         gap: 5px;
         font-size: 1.5rem;
         font-weight: 500;
-        color: var(--primary);
+        color: $colorPrimary;
         padding: 2rem;
         border: none;
       }
 
       .btn-user:hover {
-        background-color: #dddddd;
+        background-color: $colorGrayHover;
       }
 
       .menu-settings {
@@ -72,11 +74,11 @@
         padding: 0.5rem 0;
         width: 165px;
         right: 0;
-        background-color: white;
+        background-color: $colorWhite;
         border-radius: 3px;
 
         .hr {
-          border: 1px solid var(--fourth);
+          border: 1px solid $colorFourth;
           margin: 0.5rem 0;
         }
 
@@ -85,7 +87,7 @@
           padding: 3px 2rem;
           line-height: 1.5;
           font-size: 1.3rem;
-          color: var(--primary);
+          color: $colorPrimary;
           white-space: nowrap;
           cursor: pointer;
           border: none;
@@ -94,8 +96,8 @@
           text-align: start;
 
           &:hover {
-            color: white;
-            background-color: var(--secondary);
+            color: $colorWhite;
+            background-color: $colorSecondary;
           }
         }
       }

@@ -1,10 +1,12 @@
+@import "../../theme/variables.scss";
+
 .item-header {
   display: flex;
   justify-content: space-between;
 
   .title {
     max-width: 650px;
-    color: var(--primary);
+    color: $colorPrimary;
     font-size: 2rem;
     font-weight: 500;
   }
@@ -52,7 +54,7 @@
     font-size: 1.6rem;
 
     &.stared {
-      color: gold;
+      color: $colorGold;
     }
   }
 }

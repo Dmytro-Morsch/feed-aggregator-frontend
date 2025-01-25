@@ -1,3 +1,5 @@
+@import "../../theme/variables.scss";
+
 .popup-header {
   display: flex;
   justify-content: space-between;
@@ -33,7 +35,7 @@
   .input-title {
     font-size: 1.5rem;
     padding: 0.6rem 1.2rem;
-    border: 1px solid #ccc;
+    border: 1px solid $colorFourth;
     border-radius: 4px;
   }
 }
@@ -50,16 +52,16 @@
   }
 
   .cancel:hover {
-    background-color: #E6E6E6;
+    background-color: $colorGrayHover;
   }
 
   .rename {
-    background-color: var(--secondary);
-    color: white;
+    background-color: $colorSecondary;
+    color: $colorWhite;
     margin-left: 0.6rem;
 
     &:hover {
-      background-color: #00878c;
+      background-color: $colorSecondaryHover;
     }
   }
 }

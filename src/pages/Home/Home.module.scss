@@ -1,13 +1,15 @@
+@import "../../theme/variables.scss";
+
 .main {
   .toolbar {
     .title {
       font-size: 3.5rem;
       font-weight: 700;
-      color: var(--primary);
+      color: $colorPrimary;
     }
 
     .hr {
-      border: 2px solid var(--fourth);
+      border: 2px solid $colorFourth;
       border-radius: 5px;
       margin: 1rem 0;
     }

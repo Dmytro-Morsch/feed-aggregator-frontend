@@ -1,3 +1,5 @@
+@import "../../theme/variables.scss";
+
 .error-message {
   display: flex;
   justify-content: center;
@@ -8,7 +10,7 @@
   width: 100%;
 
   .error-text {
-    color: #FA3131FF;
+    color: $colorDanger;
     font-size: 1.2rem;
     font-family: Inter, sans-serif;
     font-weight: normal;
@@ -18,7 +20,7 @@
     width: 15px;
 
     .icon {
-      color: #FA3131FF;
+      color: $colorDanger;
       font-size: 1.5rem;
     }
   }

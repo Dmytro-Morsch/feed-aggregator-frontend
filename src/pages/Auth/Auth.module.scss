@@ -1,3 +1,5 @@
+@import "../../theme/variables.scss";
+
 .wrapper {
   content: "";
   position: absolute;
@@ -17,7 +19,7 @@
   padding: 2rem;
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
-  background-color: white;
+  background-color: $colorWhite;
 
   .title {
     width: 100%;
@@ -33,9 +35,9 @@
     padding: 1rem;
     margin-bottom: 1rem;
     font-size: 1.6rem;
-    color: white;
     border-radius: 10px;
-    background-color: #FA3131FF;
+    color: $colorWhite;
+    background-color: $colorDanger;
   }
 
   .form {
@@ -51,12 +53,12 @@
       .label {
         font-size: 1.8rem;
         font-weight: 400;
-        color: #000000;
+        color: $colorBlack;
         padding-bottom: 1rem;
       }
 
       .input-sign {
-        color: #666666;
+        color: $colorGray;
         padding: 1.5rem;
       }
     }
@@ -67,11 +69,11 @@
       font-weight: 600;
       padding: 1.5rem;
       border-radius: 10px;
-      color: #ffffff;
-      background-color: #000000;
+      color: $colorWhite;
+      background-color: $colorBlack;
 
       &:hover {
-        background-color: #373737;
+        background-color: $colorDarkGrayHover;
         transition: 0.3s ease-in;
       }
     }

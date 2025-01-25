@@ -1,7 +1,9 @@
+@import "../../theme/variables.scss";
+
 .navigator {
   width: 350px;
   padding: 1rem;
-  background-color: #F7F7F7;
+  background-color: $colorWhiteHover;
   height: 93vh;
 
   .form-feed {
@@ -18,14 +20,14 @@
     .btn-feed {
       border: none;
       font-size: 1.5rem;
-      color: var(--light);
-      background-color: var(--primary);
+      color: $colorLight;
+      background-color: $colorBlack;
       border-radius: 5px;
       padding: 1rem 2rem;
     }
 
     .btn-feed:hover {
-      background-color: var(--dark);
+      background-color: $colorDark;
     }
   }
 
@@ -46,7 +48,7 @@
         gap: 0.5rem;
         font-size: 1.4rem;
         font-weight: 500;
-        color: black;
+        color: $colorBlack;
       }
 
       .icon {
@@ -69,7 +71,7 @@
         gap: 0.5rem;
         font-size: 1.4rem;
         font-weight: bold;
-        color: gray;
+        color: $colorGray;
         cursor: pointer;
 
         .icon {

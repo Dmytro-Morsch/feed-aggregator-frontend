@@ -1,14 +1,14 @@
-$pass-label: 8rem;
+@import "../../theme/variables.scss";
 
 .toolbar {
   .title {
     font-size: 3.5rem;
     font-weight: 700;
-    color: var(--primary);
+    color: $colorPrimary;
   }
 
   .hr {
-    border: 2px solid var(--fourth);
+    border: 2px solid $colorFourth;
     border-radius: 5px;
     margin: 1rem 0;
   }
@@ -70,7 +70,7 @@ $pass-label: 8rem;
 
         .tip {
           font-size: 1.2rem;
-          color: #737373;
+          color: $colorLightHover;
         }
       }
     }
@@ -92,26 +92,26 @@ $pass-label: 8rem;
   }
 
   .save {
-    background-color: var(--secondary);
-    color: white;
+    background-color: $colorSecondary;
+    color: $colorWhite;
     border: none;
 
     &:hover {
-      background-color: #00878c;
+      background-color: $colorSecondaryHover;
     }
   }
 
   .delete {
-    background-color: #D62D30FF;
-    color: white;
+    background-color: $colorDanger;
+    color: $colorWhite;
     border: none;
 
     &:hover {
-      background-color: #FF5454FF;
+      background-color: $colorDangerHover;
     }
   }
 
   .change-password:hover {
-    background-color: #E6E6E6;
+    background-color: $colorGrayHover;
   }
 }

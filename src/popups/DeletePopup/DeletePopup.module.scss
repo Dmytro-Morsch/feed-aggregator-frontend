@@ -1,3 +1,5 @@
+@import "../../theme/variables.scss";
+
 .popup-body {
   padding: 2rem;
 
@@ -20,22 +22,22 @@
     }
 
     .cancel {
-      color: #424242FF;
-      border: 2px solid #D0D5DDFF;
+      color: $colorCancel;
+      border: 2px solid $colorCancelBorder;
 
       &:hover {
-        background-color: #D0D5DDFF;
+        background-color: $colorCancelBorder;
       }
     }
 
     .delete {
       color: white;
-      background-color: #D62D30FF;
-      border: 2px solid #D62D30FF;
+      background-color: $colorDanger;
+      border: 2px solid $colorDanger;
 
       &:hover {
-        background-color: #FF5454FF;
-        border-color: #FF5454FF;
+        background-color: $colorDangerHover;
+        border-color: $colorDangerHover;
       }
     }
   }

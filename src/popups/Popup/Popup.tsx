@@ -1,7 +1,8 @@
 import { ReactNode, RefObject } from 'react';
 
-import styles from './Popup.module.scss';
 import { MdClose } from 'react-icons/md';
+
+import styles from './Popup.module.scss';
 
 interface PopupProps {
   children: ReactNode;

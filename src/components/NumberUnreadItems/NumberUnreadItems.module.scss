@@ -1,16 +1,18 @@
+@import "../../theme/variables.scss";
+
 .default {
   border-radius: 10px;
   font-weight: bold;
   padding: 2px 6px;
   font-size: 9px;
   line-height: 14px;
-  color: white;
+  color: $colorWhite;
 
   &.file-count {
-    background-color: #808080;
+    background-color: $colorGray;
   }
 
   &.feed-count {
-    background-color: var(--secondary);
+    background-color: $colorSecondary;
   }
 }
