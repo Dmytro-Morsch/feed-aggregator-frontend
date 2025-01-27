@@ -6,8 +6,8 @@
   gap: 1rem;
   margin: 1rem 0.5rem;
 
-  .feed-item {
-    .feed {
+  .feed {
+    .feed-link {
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -22,12 +22,9 @@
         max-width: 230px;
       }
 
-      .icon {
+      .fail-icon {
         font-size: 1.6rem;
-      }
-
-      .icon.i-rss {
-        color: $colorSecondary;
+        color: $colorWarning
       }
 
       .source-icon {

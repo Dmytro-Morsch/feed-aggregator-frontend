@@ -37,6 +37,11 @@
     &:hover {
       background-color: $colorGrayHover;
     }
+
+    &:disabled {
+      background-color: transparent;
+      cursor: default;
+    }
   }
 
   .icon {
@@ -113,4 +118,21 @@
   font-size: 1.6rem;
   text-align: center;
   margin-top: 3rem;
+}
+
+.failed-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  height: 90%;
+
+  .sad-smile {
+    width: 64px;
+  }
+
+  .text-message {
+    font-size: 1.8rem;
+  }
 }

@@ -13,13 +13,15 @@ interface FeedProps {
 
 function Feed({ feed }: FeedProps) {
   return (
-    <li className={feedStyles['feed-item']} key={feed.id}>
-      <NavLink to={`/feeds/${feed.id}`} className={feedStyles['feed']} title={feed.title}>
+    <li className={feedStyles['feed']} key={feed.id}>
+      <NavLink to={`/feeds/${feed.id}`} className={feedStyles['feed-link']} title={feed.title}>
         {feed.status === 'CREATED' && <div className={loaderStyles['loader']}></div>}
         {feed.status === 'DOWNLOADED' && (
           <img className={feedStyles['source-icon']} src={`/api/feeds/${feed.id}/icon`} alt="" />
         )}
-        {feed.status === 'DOWNLOAD_FAILED' && <MdWarningAmber className={feedStyles['icon']} />}
+        {feed.status === 'DOWNLOAD_FAILED' && (
+          <MdWarningAmber className={feedStyles['fail-icon']} />
+        )}
 
         <span className={feedStyles['title']}>{feed.title}</span>
 

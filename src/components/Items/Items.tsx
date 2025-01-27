@@ -28,6 +28,8 @@ import apiAxios from '../../api/index.ts';
 import Item from './Item.tsx';
 import Button from '../Button/Button.tsx';
 
+import sadIcon from '../../assets/sad-smile.svg';
+
 import styles from './Items.module.scss';
 
 interface ItemsProps {
@@ -105,7 +107,11 @@ function Items({ title, children }: ItemsProps) {
   const handleShowPost = () => {
     if (feed) {
       (async () => {
-        const response = await apiAxios.items.getFeedUnreadItems(feed.id, descOrder, displayUnreadOnly);
+        const response = await apiAxios.items.getFeedUnreadItems(
+          feed.id,
+          descOrder,
+          displayUnreadOnly
+        );
         dispatch(setItems(response.data));
         setDisplayUnreadOnly(!displayUnreadOnly);
       })();
@@ -143,33 +149,48 @@ function Items({ title, children }: ItemsProps) {
               Refresh
             </Button>
           )}
-          <Button className={styles['btn-check']} onClick={() => handleAllAsRead(feed?.id)}>
+          <Button
+            className={styles['btn-check']}
+            onClick={() => handleAllAsRead(feed?.id)}
+            disabled={items.length <= 0 && feed?.status !== 'DOWNLOADED'}>
             <MdCheck />
             Mark all as read
           </Button>
         </div>
 
         <div className={styles['pull-right']}>
-          <Button className={styles['btn-prev_post']} onClick={handlePrevItem}>
+          <Button
+            className={styles['btn-prev_post']}
+            onClick={handlePrevItem}
+            disabled={items.length <= 0 && feed?.status !== 'DOWNLOADED'}>
             <MdKeyboardArrowUp className={`${styles['icon']} ${styles['i-prev_arrow']}`} />
           </Button>
-          <Button className={styles['btn-next_post']} onClick={handleNextItem}>
+          <Button
+            className={styles['btn-next_post']}
+            onClick={handleNextItem}
+            disabled={items.length <= 0 && feed?.status !== 'DOWNLOADED'}>
             <MdKeyboardArrowDown className={`${styles['icon']} ${styles['i-next_arrow']}`} />
           </Button>
-          <Button className={styles['btn-sort']} onClick={() => dispatch(toggleDescOrder())}>
+          <Button
+            className={styles['btn-sort']}
+            onClick={() => dispatch(toggleDescOrder())}
+            disabled={items.length <= 0 && feed?.status !== 'DOWNLOADED'}>
             {descOrder ? (
               <MdArrowDownward className={`${styles['icon']} ${styles['i-arrow_down']}`} />
             ) : (
               <MdArrowUpward className={`${styles['icon']} ${styles['i-arrow_up']}`} />
             )}
           </Button>
-          <Button className={styles['btn-show_post']} onClick={handleShowPost}>
+          <Button
+            className={styles['btn-show_post']}
+            onClick={handleShowPost}
+            disabled={items.length <= 0 && feed?.status !== 'DOWNLOADED'}>
             {displayUnreadOnly ? 'Show unread only' : 'Show all posts'}
           </Button>
         </div>
       </div>
 
-      {items.length > 0 ? (
+      {items.length > 0 && feed?.status === 'DOWNLOADED' && (
         <ul ref={ref} className={styles['item-list']}>
           {itemsDisplay.map((item, index) => {
             return (
@@ -179,8 +200,17 @@ function Items({ title, children }: ItemsProps) {
             );
           })}
         </ul>
-      ) : (
+      )}
+      {items.length <= 0 && feed?.status === 'DOWNLOADED' && (
         <div className={styles['not-exist']}>There are no posts to view at this time</div>
+      )}
+
+      {feed?.status === 'DOWNLOAD_FAILED' && (
+        <div className={styles['failed-container']}>
+          <img className={styles['sad-smile']} src={sadIcon} alt="sad smile" />
+          <p className={styles['text-message']}>We are sorry, but we could not download feed.</p>
+          <p className={styles['text-message']}>Try again later!</p>
+        </div>
       )}
     </>
   );
