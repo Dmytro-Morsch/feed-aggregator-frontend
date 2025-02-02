@@ -10,7 +10,7 @@ export interface IItemState {
 
 const initialState: IItemState = {
   items: [],
-  descOrder: false
+  descOrder: true
 };
 
 export const getFeedItems = createAsyncThunk('getFeedItems', async (feedId: FeedType['id']) => {

@@ -176,9 +176,9 @@ function Items({ title, children }: ItemsProps) {
             onClick={() => dispatch(toggleDescOrder())}
             disabled={items.length <= 0 && feed?.status !== 'DOWNLOADED'}>
             {descOrder ? (
-              <MdArrowDownward className={`${styles['icon']} ${styles['i-arrow_down']}`} />
-            ) : (
               <MdArrowUpward className={`${styles['icon']} ${styles['i-arrow_up']}`} />
+            ) : (
+              <MdArrowDownward className={`${styles['icon']} ${styles['i-arrow_down']}`} />
             )}
           </Button>
           <Button
