@@ -26,18 +26,14 @@ function ManageFeeds() {
     setIsComponentVisible: setRenamePopup
   } = useComponentVisible(false);
 
-  const handleUnsubscribe = (feedId: FeedType['id']) => {
-    (async () => {
-      await apiAxios.feeds.unsubscribeFromFeed(feedId);
-      dispatch(deleteFeed(feedId));
-    })();
+  const handleUnsubscribe = async (feedId: FeedType['id']) => {
+    await apiAxios.feeds.unsubscribeFromFeed(feedId);
+    dispatch(deleteFeed(feedId));
   };
 
-  const handleRename = (feedId: FeedType['id'], title: FeedType['title']) => {
-    (async () => {
-      await apiAxios.feeds.renameFeed(feedId, title);
-      dispatch(renameFeedTitle({ feedId, title }));
-    })();
+  const handleRename = async (feedId: FeedType['id'], title: FeedType['title']) => {
+    await apiAxios.feeds.renameFeed(feedId, title);
+    dispatch(renameFeedTitle({ feedId, title }));
   };
 
   useEffect(() => {

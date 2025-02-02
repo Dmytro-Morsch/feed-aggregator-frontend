@@ -103,13 +103,11 @@ function Settings() {
     }
   };
 
-  const handleDeleteAccount = () => {
-    (async () => {
-      await api.users.deleteAccount();
-      localStorage.removeItem('token');
-      dispatch(setReceivedToken(false));
-      navigate('/login');
-    })();
+  const handleDeleteAccount = async () => {
+    await api.users.deleteAccount();
+    localStorage.removeItem('token');
+    dispatch(setReceivedToken(false));
+    navigate('/login');
   };
 
   useEffect(() => {
