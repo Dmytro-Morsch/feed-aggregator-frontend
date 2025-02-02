@@ -129,6 +129,10 @@ function Items({ title, children }: ItemsProps) {
   }, [itemsDisplay]);
 
   useEffect(() => {
+    console.log();
+  }, []);
+
+  useEffect(() => {
     document.title = 'CoN - Items';
   }, []);
 
@@ -196,7 +200,7 @@ function Items({ title, children }: ItemsProps) {
         </div>
       </div>
 
-      {items.length > 0 && feed?.status === 'DOWNLOADED' && (
+      {items.length > 0 && (
         <ul ref={ref} className={styles['item-list']}>
           {itemsDisplay.map((item, index) => {
             return (
