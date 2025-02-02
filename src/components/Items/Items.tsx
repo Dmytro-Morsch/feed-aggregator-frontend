@@ -176,9 +176,15 @@ function Items({ title, children }: ItemsProps) {
             onClick={() => dispatch(toggleDescOrder())}
             disabled={items.length <= 0 && feed?.status !== 'DOWNLOADED'}>
             {descOrder ? (
-              <MdArrowUpward className={`${styles['icon']} ${styles['i-arrow_up']}`} />
+              <>
+                <MdArrowUpward className={`${styles['icon']} ${styles['i-arrow_up']}`} />
+                <span className={styles['tooltiptext']}>Reverse (old post first)</span>
+              </>
             ) : (
-              <MdArrowDownward className={`${styles['icon']} ${styles['i-arrow_down']}`} />
+              <>
+                <MdArrowDownward className={`${styles['icon']} ${styles['i-arrow_down']}`} />
+                <span className={styles['tooltiptext']}>Normal (new post first)</span>
+              </>
             )}
           </Button>
           <Button
