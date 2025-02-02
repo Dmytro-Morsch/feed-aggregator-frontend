@@ -70,67 +70,57 @@ function Items({ title, children }: ItemsProps) {
     scrollContainer(newIndex);
   };
 
-  const handleRefresh = () => {
-    (async () => {
-      const response = await apiAxios.feeds.updateFeed(feed?.id ?? 0, descOrder);
-      dispatch(setItems(response.data));
-    })();
+  const handleRefresh = async () => {
+    const response = await apiAxios.feeds.updateFeed(feed?.id ?? 0, descOrder);
+    dispatch(setItems(response.data));
+    if (ref.current) ref.current.scrollTop = 0;
   };
 
-  const handleAllAsRead = (feedId?: ItemType['feedId']) => {
+  const handleAllAsRead = async (feedId?: ItemType['feedId']) => {
     const itemIds = items.filter((item) => !item.read).map((item) => item.id);
-    (async () => {
-      await apiAxios.items.markAllRead(itemIds);
-      dispatch(updateAllRead());
-      dispatch(updateAllFeedCountUnreadItems(feedId));
-    })();
+    await apiAxios.items.markAllRead(itemIds);
+    dispatch(updateAllRead());
+    dispatch(updateAllFeedCountUnreadItems(feedId));
   };
 
   const handleMarkAsRead = useCallback(
-    (itemId: ItemType['id'], feedId: ItemType['feedId'], read: ItemType['read']) => {
-      (async () => {
-        await apiAxios.items.markItemRead(read, itemId);
-        dispatch(updateRead({ itemId, read }));
-        dispatch(updateFeedCountUnreadItems({ feedId, read }));
-      })();
+    async (itemId: ItemType['id'], feedId: ItemType['feedId'], read: ItemType['read']) => {
+      await apiAxios.items.markItemRead(read, itemId);
+      dispatch(updateRead({ itemId, read }));
+      dispatch(updateFeedCountUnreadItems({ feedId, read }));
     },
     []
   );
 
-  const handleMarkAsStar = useCallback((itemId: ItemType['id'], starred: ItemType['starred']) => {
-    (async () => {
+  const handleMarkAsStar = useCallback(
+    async (itemId: ItemType['id'], starred: ItemType['starred']) => {
       await apiAxios.items.markItemStar(starred, itemId);
       dispatch(updateStarredMarker({ itemId, starred }));
-    })();
-  }, []);
+    },
+    []
+  );
 
-  const handleShowPost = () => {
+  const handleShowPost = async () => {
     if (feed) {
-      (async () => {
-        const response = await apiAxios.items.getFeedUnreadItems(
-          feed.id,
-          descOrder,
-          displayUnreadOnly
-        );
-        dispatch(setItems(response.data));
-        setDisplayUnreadOnly(!displayUnreadOnly);
-      })();
+      const response = await apiAxios.items.getFeedUnreadItems(
+        feed.id,
+        descOrder,
+        displayUnreadOnly
+      );
+      dispatch(setItems(response.data));
+      setDisplayUnreadOnly(!displayUnreadOnly);
     } else {
-      (async () => {
-        const response = await apiAxios.items.getAllUnreadItems(descOrder, displayUnreadOnly);
-        dispatch(setItems(response.data));
-        setDisplayUnreadOnly(!displayUnreadOnly);
-      })();
+      const response = await apiAxios.items.getAllUnreadItems(descOrder, displayUnreadOnly);
+      dispatch(setItems(response.data));
+      setDisplayUnreadOnly(!displayUnreadOnly);
     }
+    if (ref.current) ref.current.scrollTop = 0;
   };
 
-  useEffect(() => {
+  const handleSort = async () => {
+    dispatch(toggleDescOrder());
     if (ref.current) ref.current.scrollTop = 0;
-  }, [itemsDisplay]);
-
-  useEffect(() => {
-    console.log();
-  }, []);
+  };
 
   useEffect(() => {
     document.title = 'CoN - Items';
@@ -177,7 +167,7 @@ function Items({ title, children }: ItemsProps) {
           </Button>
           <Button
             className={styles['btn-sort']}
-            onClick={() => dispatch(toggleDescOrder())}
+            onClick={handleSort}
             disabled={items.length <= 0 && feed?.status !== 'DOWNLOADED'}>
             {descOrder ? (
               <>
